@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" href="favicon.png">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { width: 100%; height: 100%; overflow: hidden; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #00406f; }
     iframe {
       width: 100%;
       height: 100vh;   /* 旧ブラウザ向けフォールバック */
@@ -16,12 +16,56 @@
       border: none;
       display: block;
     }
+    /* 2026-11: 図書館が表示されないとき（ブラウザのGoogleログイン状態によって
+       埋め込み表示が開けないことがある）に、別タブで直接開くためのボタン */
+    .open-direct {
+      position: fixed; left: 12px; bottom: 12px; z-index: 10;
+      display: flex; align-items: center; gap: 6px;
+      max-width: calc(100% - 24px);
+      background: rgba(255, 255, 255, 0.96); color: #00406f;
+      border: 2px solid #f39800; border-radius: 999px;
+      padding: 6px 8px 6px 12px;
+      font: 700 12px/1.3 "Hiragino Kaku Gothic ProN", "Meiryo", "Segoe UI", sans-serif;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+    }
+    .open-direct a { color: inherit; text-decoration: none; display: block; }
+    .open-direct a small { display: block; font-weight: 400; font-size: 10px; color: #5a6f82; }
+    .open-direct button {
+      flex: 0 0 auto; width: 24px; height: 24px; border: none; border-radius: 50%;
+      background: #e8eef4; color: #00406f; font-size: 13px; line-height: 24px; cursor: pointer;
+    }
+    .open-direct.hidden { display: none; }
+    /* スマホでは右下の「つかってみた かんそう」ボタンと重ならないよう上にずらす */
+    @media (max-width: 700px) { .open-direct { bottom: 92px; } }
   </style>
 </head>
 <body>
   <iframe
+    id="lib"
     src="https://script.google.com/macros/s/AKfycbwSrqY5f7XnzFZ-dWJ0qrvGW_DCkLaKP-bqa4nTAVCYFBqqv6rTP5kQKnpGohOH05k3/exec"
+    title="EFA OURDAISY マルチメディアデイジー図書館"
     allowfullscreen>
   </iframe>
+
+  <div class="open-direct" id="open-direct">
+    <a href="https://script.google.com/macros/s/AKfycbwSrqY5f7XnzFZ-dWJ0qrvGW_DCkLaKP-bqa4nTAVCYFBqqv6rTP5kQKnpGohOH05k3/exec"
+       target="_blank" rel="noopener">
+      📖 ひらけないときは こちら ↗
+      <small>Can't see the library? Tap here</small>
+    </a>
+    <button type="button" aria-label="閉じる / Close" onclick="hideBtn()">✕</button>
+  </div>
+
+  <script>
+    function hideBtn() {
+      document.getElementById('open-direct').classList.add('hidden');
+      try { sessionStorage.setItem('od_hide_open_direct', '1'); } catch (e) {}
+    }
+    try {
+      if (sessionStorage.getItem('od_hide_open_direct') === '1') {
+        document.getElementById('open-direct').classList.add('hidden');
+      }
+    } catch (e) {}
+  </script>
 </body>
 </html>
