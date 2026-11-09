@@ -1155,6 +1155,10 @@ p, li, h1, h2, h3, h4, .rule-text p, .feature-card p,
   overflow: hidden;
 }
 .book-card.expanded .book-desc { -webkit-line-clamp: unset; }
+/* 2026-11-09：つくった人（作業ごと）。「つづきを読む」で開く */
+.book-credits { display: none; font-size: 11px; color: var(--text-lt); line-height: 1.6; margin: 4px 0 6px; padding: 6px 8px; background: #F3F8FC; border-radius: 8px; }
+.book-card.expanded .book-credits { display: block; }
+.book-credits b { color: var(--efa-blue); }
 .book-desc-toggle {
   display: block;
   background: none;
@@ -2852,6 +2856,7 @@ const SITE_CONFIG = {
     date_added:  23,  // X: Date_Added
     drive_url:   24,  // Y: Drive_URL
     dl_count:    25,  // Z: DL_Count
+    credits:     26,  // AA: Credits（2026-11-09：つくった人。作業管理GASが公開時に書く）
   },
 
   // ---- 言語タブ定義 ----
@@ -3291,6 +3296,7 @@ function parseTsv(tsv) {
       desc_jp:   (cells[c.desc_jp]    || '').trim(),
       download:  (cells[c.download]   || '').trim(),
       cover:     (cells[c.cover]      || '').trim(),
+      credits:   parseCredits(cells[c.credits]),
       isNew,
     };
   });
@@ -3567,7 +3573,7 @@ function renderBooks(books) {
         <div class="book-title">${esc(book.title)}</div>
         ${book.title_jp ? `<div class="book-title-jp">${esc(book.title_jp)}</div>` : ''}
         <div class="book-meta">${esc(book.author)}${odShort(OD_AGE_FILTERS, book.age_code)}${odShort(OD_LEVEL_FILTERS, book.lv_code)}</div>
-        ${(book.desc_en || book.desc_jp) ? `<div class="book-desc">${book.desc_en ? esc(book.desc_en) : ''}${(book.desc_en && book.desc_jp) ? '<br>' : ''}${book.desc_jp ? esc(book.desc_jp) : ''}</div><button class="book-desc-toggle" onclick="toggleDesc(this)">つづきを読む / Read more</button>` : ''}
+        ${(book.desc_en || book.desc_jp) ? `<div class="book-desc">${book.desc_en ? esc(book.desc_en) : ''}${(book.desc_en && book.desc_jp) ? '<br>' : ''}${book.desc_jp ? esc(book.desc_jp) : ''}</div>` : ''}${creditsHtml(book.credits)}${(book.desc_en || book.desc_jp || (book.credits && book.credits.length)) ? `<button class="book-desc-toggle" onclick="toggleDesc(this)">つづきを読む / Read more</button>` : ''}
       </div>
       <a class="btn-daisy"
          href="${esc(book.download)}"
@@ -3584,6 +3590,19 @@ function renderBooks(books) {
 function odShort(list, code) {
   const f = list.find(x => x.code === code);
   return f ? ' · ' + esc(f.short) : '';
+}
+
+// 「翻訳 / Translation：山田 花子｜日本語の確認 / Japanese editing：佐藤」→ [{role, names}]
+function parseCredits(v) {
+  return String(v || '').split('｜').map(function(item) {
+    const i = item.indexOf('：');
+    return i > 0 ? { role: item.slice(0, i).trim(), names: item.slice(i + 1).trim() } : null;
+  }).filter(function(x) { return x && x.role && x.names; });
+}
+function creditsHtml(list) {
+  if (!list || !list.length) return '';
+  return '<div class="book-credits"><b>つくった<ruby>人<rt>ひと</rt></ruby> / Made by</b><br>' +
+    list.map(function(c) { return esc(c.role) + '：' + esc(c.names); }).join('<br>') + '</div>';
 }
 
 function esc(s) {
