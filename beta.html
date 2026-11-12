@@ -4434,6 +4434,8 @@ function sessEnd() {
 }
 window.addEventListener('online', () => logFlush(false));
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') { saveSpot(); logFlush(true); } });
+// 読んでいる途中でページを閉じた・開き直したときも「閉じた」を残す（読んだページ・聞いた秒が記録されるように）
+window.addEventListener('pagehide', () => { if (sess) { saveSpot(); sessEnd(); } });
 
 // ── 読む ──
 let bk = null, rec = null, pi = 0, qi = -1, playing = false, urls = {}, wake = null, lastT = 0;
@@ -4538,6 +4540,7 @@ async function openRec(r) {
   try {
     await needZip();
     Object.values(urls).forEach(pr => pr.then(URL.revokeObjectURL).catch(() => {})); urls = {}; au.removeAttribute('src'); delete au.dataset.src;
+    if (sess) sessEnd();   // 前の本の記録を先に閉じる
     bk = await parseEpub(r.blob); rec = r;
     sess = { bookId: r.id, pages: new Set(), listened: 0, finished: false };
     logPush({ book: r.id, ev: 'open', mode: 'reader' }); logFlush(false);
