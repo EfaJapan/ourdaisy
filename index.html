@@ -3676,8 +3676,8 @@ function lrFind(id) { return _books.find(b => b.id === id); }
 function lrOpen(id) { const b = lrFind(id); if (b) LR.openBook({ id: b.id, title: b.title, fileId: b.fileId }); }
 function lrDl(id)   { const b = lrFind(id); if (b) LR.download({ id: b.id, title: b.title, fileId: b.fileId }); }
 function lrShowShelfBtn() { const sb = document.getElementById('btn-shelf'); if (sb) sb.style.display = (_loggedIn && window.LR && LR.readerOn()) ? 'inline-block' : 'none';
-  document.querySelectorAll('.lr-newsteps').forEach(el => el.style.display = (window.LR && LR.readerOn()) ? '' : 'none');
-  document.querySelectorAll('details.lr-appguide').forEach(el => { if (!(window.LR && LR.readerOn())) el.open = true; }); }
+  document.querySelectorAll('.lr-newsteps').forEach(el => el.style.display = (window.LR && LR.readerFlag()) ? '' : 'none');
+  document.querySelectorAll('details.lr-appguide').forEach(el => { if (!(window.LR && LR.readerFlag())) el.open = true; }); }
 
 function odShort(list, code) {
   const f = list.find(x => x.code === code);
@@ -4323,7 +4323,9 @@ const LR = window.LR = {
             return o && o.token && o.exp * 1000 > Date.now() + 60000 ? o.token : ''; },
   saveToken(t, exp) { safe(() => localStorage.setItem(TOKEN_KEY, JSON.stringify({ token: t, exp: exp }))); },
   clearToken() { safe(() => localStorage.removeItem(TOKEN_KEY)); },
-  readerOn() { return LR.forceReader || LR.serverReader; },
+  readerFlag() { return LR.forceReader || LR.serverReader; },
+  // 本のカードに「よむ」を出すのは、通行証があるときだけ（通行証が出ない古いGASのときは、今までのダウンロードに戻る）
+  readerOn() { return LR.readerFlag() && !!LR.token(); },
   onAuth(res) {   // ログインの返事を受けとったとき（library の checkEmailWithRetry から呼ぶ）
     if (!res || !res.ok) return;
     if (res.token) LR.saveToken(res.token, res.exp);
