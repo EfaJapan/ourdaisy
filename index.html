@@ -855,6 +855,10 @@ p, li, h1, h2, h3, h4, .rule-text p, .feature-card p,
   pointer-events: none;
 }
 
+/* 2026-11-12：アプリで読みたい人への折りたたみ */
+details.lr-appguide{margin-top:22px;border-top:1px solid rgba(255,255,255,.25);padding-top:14px}
+details.lr-appguide>summary{cursor:pointer;color:#fff;font-weight:700;font-size:16px;padding:12px 6px;list-style-position:inside}
+details.lr-appguide[open]>summary{margin-bottom:12px}
 /* Reader Guide バナー */
 .reader-banner {
   background: var(--efa-accent);
@@ -2350,6 +2354,7 @@ body.modal-open .floating-fab { display: none !important; }
     </div>
   </div>
   <div class="header-controls">
+    <button class="btn-lang lr-shelf-btn" id="btn-shelf" onclick="LR.openShelf()" style="display:none">📚 <ruby>本<rt>ほん</rt></ruby>だな</button>
     <button class="btn-lang" id="btn-lang" onclick="toggleLang()">EN</button>
     <button class="btn-logout" id="btn-logout" onclick="doLogout()"></button>
   </div>
@@ -2381,6 +2386,14 @@ body.modal-open .floating-fab { display: none !important; }
       <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#F7FBFF"/>
       </svg>
+    </div>
+  </section>
+
+  <!-- おしらせ（2026-11-12：NEWS シートから。読めないときは最初のおしらせを出す） -->
+  <section class="lr-news-section" id="lr-news" aria-label="おしらせ">
+    <div class="lr-news-in">
+      <h2 class="lr-news-h">📢 おしらせ <span>News</span></h2>
+      <ul class="lr-news-list" id="lr-news-list"></ul>
     </div>
   </section>
 
@@ -2523,6 +2536,31 @@ body.modal-open .floating-fab { display: none !important; }
         <span class="ja-title">📖 <ruby>電子<rt>でんし</rt></ruby>ブックを<ruby>読<rt>よ</rt></ruby>む<ruby>方法<rt>ほうほう</rt></ruby></span>
         <span class="en-title">How to Read Digital Books</span>
       </div>
+      <div class="reader-steps lr-newsteps">
+        <div class="reader-step">
+          <div class="step-num">1</div>
+          <span class="step-icon">🔑</span>
+          <h4>ログインする</h4>
+          <p>メールアドレスで <ruby>図書館<rt>としょかん</rt></ruby>に <ruby>入<rt>はい</rt></ruby>ります。90<ruby>日<rt>にち</rt></ruby>のあいだ、つぎからは そのまま <ruby>入<rt>はい</rt></ruby>れます。<br>
+          <span style="color:rgba(255,255,255,.6)">Log in with your email. You stay logged in for 90 days.</span></p>
+        </div>
+        <div class="reader-step">
+          <div class="step-num">2</div>
+          <span class="step-icon">▶️</span>
+          <h4>「よむ」を おす</h4>
+          <p><ruby>読<rt>よ</rt></ruby>みたい <ruby>本<rt>ほん</rt></ruby>の「▶ よむ」を おすだけ。アプリは いりません。<br>
+          <span style="color:rgba(255,255,255,.6)">Just tap “▶ Read”. No app needed.</span></p>
+        </div>
+        <div class="reader-step">
+          <div class="step-num">3</div>
+          <span class="step-icon">🎧</span>
+          <h4>きいて、みて、たのしもう！</h4>
+          <p><ruby>声<rt>こえ</rt></ruby>に あわせて <ruby>文<rt>ぶん</rt></ruby>が ひかります。<ruby>速<rt>はや</rt></ruby>さや <ruby>色<rt>いろ</rt></ruby>も かえられます。<br>
+          <span style="color:rgba(255,255,255,.6)">Text lights up as it is read. Change speed and colors.</span></p>
+        </div>
+      </div>
+      <details class="lr-appguide">
+        <summary>📲 アプリで <ruby>読<rt>よ</rt></ruby>みたい <ruby>人<rt>ひと</rt></ruby>へ（ダウンロード） <span style="opacity:.7;font-weight:400">/ Reading in an app</span></summary>
       <div class="reader-steps">
         <div class="reader-step">
           <div class="step-num">1</div>
@@ -2567,6 +2605,7 @@ body.modal-open .floating-fab { display: none !important; }
           <span class="btn-text">くわしい<ruby>使<rt>つか</rt></ruby>い<ruby>方<rt>かた</rt></ruby>を<ruby>見<rt>み</rt></ruby>る</span>
         </a>
       </div>
+    </details>
     </div>
   </section>
 
@@ -2662,6 +2701,9 @@ body.modal-open .floating-fab { display: none !important; }
          style="width:100%;max-height:320px;object-fit:cover;object-position:center 20%;display:block">
   </div>
 
+<!-- 大事なおしらせ（2026-11-12） -->
+  <div id="lr-news-cat" class="lr-news-cat" hidden></div>
+
 <!-- リーダーアプリ バナー -->
   <div class="reader-banner">
     <div class="reader-banner-text">
@@ -2745,6 +2787,31 @@ body.modal-open .floating-fab { display: none !important; }
         <span class="ja-title">📖 <ruby>電子<rt>でんし</rt></ruby>ブックを<ruby>読<rt>よ</rt></ruby>む<ruby>方法<rt>ほうほう</rt></ruby></span>
         <span class="en-title">How to Read Digital Books</span>
       </div>
+      <div class="reader-steps lr-newsteps">
+        <div class="reader-step">
+          <div class="step-num">1</div>
+          <span class="step-icon">🔑</span>
+          <h4>ログインする</h4>
+          <p>メールアドレスで <ruby>図書館<rt>としょかん</rt></ruby>に <ruby>入<rt>はい</rt></ruby>ります。90<ruby>日<rt>にち</rt></ruby>のあいだ、つぎからは そのまま <ruby>入<rt>はい</rt></ruby>れます。<br>
+          <span style="color:rgba(255,255,255,.6)">Log in with your email. You stay logged in for 90 days.</span></p>
+        </div>
+        <div class="reader-step">
+          <div class="step-num">2</div>
+          <span class="step-icon">▶️</span>
+          <h4>「よむ」を おす</h4>
+          <p><ruby>読<rt>よ</rt></ruby>みたい <ruby>本<rt>ほん</rt></ruby>の「▶ よむ」を おすだけ。アプリは いりません。<br>
+          <span style="color:rgba(255,255,255,.6)">Just tap “▶ Read”. No app needed.</span></p>
+        </div>
+        <div class="reader-step">
+          <div class="step-num">3</div>
+          <span class="step-icon">🎧</span>
+          <h4>きいて、みて、たのしもう！</h4>
+          <p><ruby>声<rt>こえ</rt></ruby>に あわせて <ruby>文<rt>ぶん</rt></ruby>が ひかります。<ruby>速<rt>はや</rt></ruby>さや <ruby>色<rt>いろ</rt></ruby>も かえられます。<br>
+          <span style="color:rgba(255,255,255,.6)">Text lights up as it is read. Change speed and colors.</span></p>
+        </div>
+      </div>
+      <details class="lr-appguide">
+        <summary>📲 アプリで <ruby>読<rt>よ</rt></ruby>みたい <ruby>人<rt>ひと</rt></ruby>へ（ダウンロード） <span style="opacity:.7;font-weight:400">/ Reading in an app</span></summary>
       <div class="reader-steps">
         <div class="reader-step">
           <div class="step-num">1</div>
@@ -2781,6 +2848,7 @@ body.modal-open .floating-fab { display: none !important; }
           <span class="btn-text">くわしい<ruby>使<rt>つか</rt></ruby>い<ruby>方<rt>かた</rt></ruby>を<ruby>見<rt>み</rt></ruby>る</span>
         </a>
       </div>
+    </details>
     </div>
   </section>
   </div>
@@ -2848,7 +2916,7 @@ const SITE_CONFIG = {
     desc_jp:     15,  // P: Description_JP
     producer:    16,  // Q: Producer
     copyright:   17,  // R: Copyright
-    // 18(S): Field_ID（自動）
+    fileid:      18,  // S: FileID（2026-11-12：本だなの本が新しい版か見分ける）
     download:    19,  // T: Download_Link（自動）
     cover:       20,  // U: Cover_Image
     notes:       21,  // V: Notes
@@ -2946,7 +3014,7 @@ let _activeLang = 'ALL';
 //  ・失敗したら最大3回まで問い合わせ直す（1回25秒で打ち切り）
 //  ・本の一覧と団体のロゴは端末に控えておき、次からはすぐに表示してから最新にする
 // ============================================================
-const LS_TSV    = 'od_lib_tsv_v1';
+const LS_TSV    = 'od_lib_tsv_v2';   // 2026-11-12：v1（リンク入り）は使わない
 const LS_CONFIG = 'od_lib_config_v1';
 const TSV_MAX_AGE    = 7 * 24 * 3600 * 1000;
 const CONFIG_MAX_AGE = 30 * 24 * 3600 * 1000;
@@ -3022,7 +3090,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   applyI18n();
 
-  const saved = sessionStorage.getItem('efa_email');
+  // 2026-11-12：通行証（90日）があればログインなしで入る。通行証が無いときは、一度ログインして受け取ってもらう
+  const hasToken = !!(window.LR && LR.token());
+  const saved = hasToken ? (sessionStorage.getItem('efa_email') || localStorage.getItem('efa_last_email') || 'member') : '';
   if (saved) {
     _email = saved;
     showCatalog();
@@ -3088,7 +3158,7 @@ function showScreen(name) {
 // 「未登録」（ok=false）の返事が来た場合はやり直さない。
 function checkEmailWithRetry(email, onDone, onFail) {
   fetchJsonWithRetry({ action: 'auth', email: email }, 3)
-    .then(function(res) { onDone(!!(res && res.ok)); })
+    .then(function(res) { if (window.LR) LR.onAuth(res); onDone(!!(res && res.ok)); })
     .catch(function(e) { onFail(e); });
 }
 
@@ -3146,6 +3216,8 @@ function setLoginUI(s) {
 
 function doLogout() {
   sessionStorage.removeItem('efa_email');
+  if (window.LR) LR.clearToken();
+  const sb = document.getElementById('btn-shelf'); if (sb) sb.style.display = 'none';
   _loggedIn = false; _email = ''; _books = [];
   document.getElementById('btn-logout').style.display = 'none';
   // ログアウト後も入力欄に前回のメールアドレスを表示しておく
@@ -3228,6 +3300,7 @@ function orgLogoSrc(url) {
 function showCatalog() {
   _loggedIn = true;
   document.getElementById('btn-logout').style.display = 'inline-block';
+  lrShowShelfBtn();
   showScreen('catalog');
   buildLangTabs();
   loadBooks();
@@ -3244,17 +3317,22 @@ function loadBooks() {
   const cached = readCache(LS_TSV, TSV_MAX_AGE);
   if (cached) { _books = parseTsv(cached); buildAgeOptions(); applyFilters(); }
 
-  fetchJsonWithRetry({ action: 'tsv' }, 3)
+  const tsvParams = (window.LR && LR.token()) ? { action: 'tsv', token: LR.token() } : { action: 'tsv' };
+  fetchJsonWithRetry(tsvParams, 3)
     .then(function(res) {
       const tsv = (res && res.tsv) || '';
       if (!_loggedIn) return;
+      const was = window.LR ? LR.readerOn() : false;
+      if (window.LR && res && typeof res.reader === 'boolean') LR.setServerReader(res.reader);
+      if (window.LR && was !== LR.readerOn()) { lrShowShelfBtn(); applyFilters(); }   // 「よむ」の出し入れが変わったとき
       if (cached === tsv) return;           // 変わっていなければ並べ直さない
       writeCache(LS_TSV, tsv);
       _books = parseTsv(tsv);
       buildAgeOptions();
       applyFilters();
     })
-    .catch(function() {
+    .catch(function(e) {
+      if (window.LR && /auth/.test(String(e && e.message))) { LR.authLost(); return; }   // 通行証の期限切れ
       if (cached) return;                   // 控えで表示できていればそのまま
       grid.innerHTML = '<div class="state-msg"><div class="big">😢</div><p>データを読み込めませんでした。<br>Failed to load.</p>' +
         '<p><button type="button" class="btn-retry" onclick="loadBooks()" style="margin-top:10px;padding:10px 18px;border-radius:999px;border:2px solid #0065A4;background:#fff;color:#0065A4;font-weight:700;cursor:pointer;">もう一度 / Try again</button></p></div>';
@@ -3295,13 +3373,14 @@ function parseTsv(tsv) {
       desc_en:   (cells[c.desc_en]    || '').trim(),
       desc_jp:   (cells[c.desc_jp]    || '').trim(),
       download:  (cells[c.download]   || '').trim(),
+      fileId:    (cells[c.fileid]     || '').trim(),
       cover:     (cells[c.cover]      || '').trim(),
       credits:   parseCredits(cells[c.credits]),
       isNew,
     };
   });
   odAnnotateLevels(rows);   // 2026-10：対象年齢・読書レベルを新区分コードに読み替え
-  return rows.filter(b => b.title && b.download);
+  return rows.filter(b => b.title && (b.download || b.id));   // 2026-11-12：通行証つきの一覧はリンクなし
 }
 
 // ============================================================
@@ -3575,17 +3654,30 @@ function renderBooks(books) {
         <div class="book-meta">${esc(book.author)}${odShort(OD_AGE_FILTERS, book.age_code)}${odShort(OD_LEVEL_FILTERS, book.lv_code)}</div>
         ${(book.desc_en || book.desc_jp) ? `<div class="book-desc">${book.desc_en ? esc(book.desc_en) : ''}${(book.desc_en && book.desc_jp) ? '<br>' : ''}${book.desc_jp ? esc(book.desc_jp) : ''}</div>` : ''}${creditsHtml(book.credits)}${(book.desc_en || book.desc_jp || (book.credits && book.credits.length)) ? `<button class="book-desc-toggle" onclick="toggleDesc(this)">つづきを読む / Read more</button>` : ''}
       </div>
-      <a class="btn-daisy"
-         href="${esc(book.download)}"
-         target="_blank"
-         rel="noopener"
-         onclick="recordDl(${JSON.stringify(book.id).replace(/"/g,'&quot;')},${JSON.stringify(book.title).replace(/"/g,'&quot;')})">
-        ${t.daisyBtn}
-      </a>
+      ${lrCardButtons(book, t)}
     `;
     grid.appendChild(card);
   });
 }
+
+// 2026-11-12：「ここで読む」のボタン。よむ（大）＋ダウンロード（小）。よむを出さないときはダウンロードだけ
+function lrCardButtons(book, t) {
+  const id = JSON.stringify(book.id).replace(/"/g, '&quot;');
+  if (window.LR && LR.readerOn()) {
+    return `<button type="button" class="btn-daisy lr-btn-read" onclick="lrOpen(${id})">▶ よむ / Read</button>` +
+           `<button type="button" class="lr-btn-dl" onclick="lrDl(${id})" title="アプリで読む人 / For reading in an app">📥 ダウンロード<span class="lr-dl-sub">（アプリで<ruby>読<rt>よ</rt></ruby>む<ruby>人<rt>ひと</rt></ruby>）</span> / Download</button>`;
+  }
+  if (book.download) {
+    return `<a class="btn-daisy" href="${esc(book.download)}" target="_blank" rel="noopener" onclick="recordDl(${id},${JSON.stringify(book.title).replace(/"/g,'&quot;')})">${t.daisyBtn}</a>`;
+  }
+  return `<button type="button" class="btn-daisy lr-btn-read" onclick="lrDl(${id})">${t.daisyBtn}</button>`;
+}
+function lrFind(id) { return _books.find(b => b.id === id); }
+function lrOpen(id) { const b = lrFind(id); if (b) LR.openBook({ id: b.id, title: b.title, fileId: b.fileId }); }
+function lrDl(id)   { const b = lrFind(id); if (b) LR.download({ id: b.id, title: b.title, fileId: b.fileId }); }
+function lrShowShelfBtn() { const sb = document.getElementById('btn-shelf'); if (sb) sb.style.display = (_loggedIn && window.LR && LR.readerOn()) ? 'inline-block' : 'none';
+  document.querySelectorAll('.lr-newsteps').forEach(el => el.style.display = (window.LR && LR.readerOn()) ? '' : 'none');
+  document.querySelectorAll('details.lr-appguide').forEach(el => { if (!(window.LR && LR.readerOn())) el.open = true; }); }
 
 function odShort(list, code) {
   const f = list.find(x => x.code === code);
@@ -3998,4 +4090,651 @@ document.addEventListener('keydown', function(e) {
     <span class="fab-text-sub">よかったこと・きづいたこと</span>
   </span>
 </a>
+<script>window.LR_FORCE_READER = false; window.LR_DEFAULT_READER = true;</script>
+<!-- ============================================================
+     ここで読む（2026-11-12 追加）：本だな・読む画面・みやすく・ダウンロードの案内・あなたについて
+     ・本は端末の中（IndexedDB）に丸ごと保存し、端末の中で読み上げる（ストリーミングではない）
+     ・本は GAS の action=book（通行証つき）から受け取る。Drive のリンクは使わない
+     ・名前は lr～／#lrv にそろえ、図書館の画面の名前と重ならないようにしている
+     ============================================================ -->
+<style>
+#lrv{--efa-blue:#0065A4;--efa-light:#E6F2FA;--efa-accent:#F39800;--ink:#1A2E45;--bg:#FFFDF7;--panel:#fff;--line:#B8D9F0;--btn:#E6F2FA;--sub:#546E7A;--hl:#FFEF7A;--hlink:#000;--fs:22px;--lh:1.9;
+  position:fixed;inset:0;z-index:100000;background:var(--bg);color:var(--ink);display:none;flex-direction:column;font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Meiryo",sans-serif}
+#lrv.open{display:flex}
+#lrv[data-theme="wb"]{--ink:#000;--bg:#fff;--panel:#fff;--line:#bbb;--btn:#eee;--sub:#444}
+#lrv[data-theme="bw"]{--ink:#fff;--bg:#000;--panel:#121212;--line:#555;--btn:#2a2a2a;--sub:#ccc}
+#lrv[data-theme="by"]{--ink:#FFE600;--bg:#000;--panel:#121212;--line:#555;--btn:#2a2a2a;--sub:#e6d000}
+#lrv[data-theme="nw"]{--ink:#fff;--bg:#0B2A6B;--panel:#08214F;--line:#3a5a9a;--btn:#1C3D80;--sub:#d5e0f7}
+#lrv[data-theme="cr"]{--ink:#3B2F1E;--bg:#F6ECD2;--panel:#EFE2C2;--line:#d2bf92;--btn:#E6D6B0;--sub:#5c4a2e}
+#lrv[data-hl="y"]{--hl:#FFEF7A}#lrv[data-hl="c"]{--hl:#8FE3FF}#lrv[data-hl="p"]{--hl:#FFB3D1}#lrv[data-hl="g"]{--hl:#A8F0A0}
+#lrv[data-hl="u"]{--hl:transparent}
+#lrv[data-hl="u"] .lr-page .mo-active{color:inherit;box-shadow:none;text-decoration:underline 5px #F39800;text-underline-offset:7px;font-weight:700}
+#lrv[data-noimg="1"] .lr-page figure{display:none}
+#lrv *{box-sizing:border-box}
+#lrv button{font:inherit;color:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#lrv button:focus-visible{outline:4px solid #F39800;outline-offset:2px}
+#lrv rt{font-size:.55em}
+#lrv .lr-en{font-size:.72em;opacity:.75;font-weight:400}
+#lrv .lr-head{display:flex;align-items:center;gap:8px;padding:8px 12px;padding-top:max(8px,env(safe-area-inset-top));background:var(--panel);border-bottom:2px solid var(--line)}
+#lrv .lr-head h2{flex:1;font-size:17px;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink)}
+#lrv .lr-hbtn{min-width:64px;min-height:52px;padding:4px 10px;border-radius:14px;background:var(--btn);font-size:14px;font-weight:700;line-height:1.2}
+#lrv .lr-hbtn .ic{font-size:22px;display:block}
+#lrv .lr-shelf{flex:1;overflow:auto}
+#lrv .lr-shelf-in{max-width:760px;margin:0 auto;padding:16px}
+#lrv .lr-book{display:flex;gap:12px;align-items:center;padding:12px;border:2px solid var(--line);border-radius:18px;background:var(--panel);margin-bottom:10px}
+#lrv .lr-book img{width:64px;height:64px;object-fit:cover;border-radius:12px;background:var(--btn)}
+#lrv .lr-book .t{flex:1;min-width:0}
+#lrv .lr-book .t b{display:block;font-size:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#lrv .lr-prog{height:8px;background:var(--btn);border-radius:4px;margin-top:8px;overflow:hidden}
+#lrv .lr-prog i{display:block;height:100%;background:#F39800}
+#lrv .lr-go{min-width:88px;min-height:60px;border-radius:16px;background:#F39800;color:#fff!important;font-size:17px;font-weight:700}
+#lrv .lr-del{min-width:52px;min-height:52px;border-radius:14px;background:var(--btn);font-size:18px}
+#lrv .lr-note{font-size:14px;color:var(--sub);line-height:1.7}
+#lrv .lr-read{flex:1;display:none;flex-direction:column;min-height:0}
+#lrv.reading .lr-read{display:flex}#lrv.reading .lr-shelf{display:none}
+#lrv .lr-page{flex:1;overflow:auto;padding:16px 18px 24px;max-width:780px;width:100%;margin:0 auto;font-size:var(--fs);line-height:var(--lh);color:var(--ink)}
+#lrv .lr-page img{max-width:100%;max-height:52dvh;display:block;margin:0 auto;border-radius:10px}
+#lrv .lr-page figure{margin:0 0 10px}
+#lrv .lr-page .alt{font-size:.72em;color:var(--sub);text-align:center}
+#lrv .lr-page h1{text-align:center;font-size:1.3em;color:var(--ink)}
+#lrv .lr-page p{color:var(--ink)}
+#lrv .lr-page [data-par]{cursor:pointer;border-radius:6px}
+#lrv .lr-page .mo-active{background:var(--hl);color:var(--hlink);box-shadow:0 0 0 3px var(--hl)}
+#lrv .lr-bookbar{height:6px;background:var(--btn)}#lrv .lr-bookbar i{display:block;height:100%;background:#F39800;transition:width .3s}
+#lrv .lr-pg{font-size:13px;color:var(--sub);text-align:center;padding-top:4px}
+#lrv .lr-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--panel);border-top:2px solid var(--line);max-width:780px;width:100%;margin:0 auto}
+#lrv .lr-bar button{min-height:68px;border-radius:18px;background:var(--btn);font-size:12px;font-weight:700;line-height:1.15}
+#lrv .lr-bar button:disabled{opacity:.35}
+#lrv .lr-bar .ic{display:block;font-size:26px;margin-bottom:2px}
+#lrv .lr-bar .lr-play{background:#F39800;color:#fff}
+#lrv .lr-bar .lr-play .ic{font-size:32px}
+.lr-sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:100100;align-items:flex-end;justify-content:center}
+.lr-sheet-bg.open{display:flex}
+.lr-sheet{background:#fff;color:#1A2E45;width:100%;max-width:780px;max-height:88dvh;overflow:auto;border-radius:24px 24px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom));font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Meiryo",sans-serif}
+.lr-sheet h3{font-size:17px;margin:16px 4px 8px}
+.lr-sheet .lr-en{font-size:.72em;opacity:.75;font-weight:400}
+.lr-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.lr-tile{min-height:76px;border-radius:16px;background:#E6F2FA;border:4px solid transparent;font:inherit;font-size:14px;font-weight:700;padding:6px 4px;line-height:1.25;color:#1A2E45;cursor:pointer}
+.lr-tile .ic{display:block;font-size:28px;line-height:1.1}
+.lr-tile[aria-pressed="true"]{border-color:#F39800}
+.lr-tile[aria-pressed="true"]::after{content:"✓";display:block;color:#E07C00;font-size:16px}
+.lr-sample{display:block;width:100%;height:40px;border-radius:10px;font-size:22px;line-height:40px;margin-bottom:4px}
+.lr-row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.lr-row2 button{min-height:60px;border-radius:16px;font:inherit;font-weight:700;font-size:16px;border:0;cursor:pointer}
+.lr-sub{background:#E6F2FA;color:#1A2E45}.lr-main{background:#F39800;color:#fff}
+.lr-app{display:block;border:2px solid #B8D9F0;border-radius:16px;padding:14px;margin:8px 0;color:#1A2E45;text-decoration:none}
+.lr-app b{font-size:17px}
+.lr-steps{margin:8px 0 0;padding-left:22px;line-height:1.9;font-size:15px}
+.lr-chk{display:flex;gap:10px;align-items:center;margin-top:14px;font-size:15px}
+.lr-chk input{width:24px;height:24px}
+.lr-toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%);background:#1A2E45;color:#fff;padding:14px 18px;border-radius:16px;font-size:16px;z-index:100300;display:none;max-width:92vw;text-align:center;line-height:1.6;font-family:"Noto Sans JP",sans-serif}
+.lr-toast button{margin-top:8px;min-height:48px;padding:0 18px;border-radius:12px;background:#F39800;color:#fff;font-weight:700;border:0;font:inherit}
+.lr-busy{position:fixed;inset:0;background:rgba(255,255,255,.9);display:none;z-index:100200;align-items:center;justify-content:center;flex-direction:column;gap:14px;font-size:18px;font-weight:700;color:#1A2E45;font-family:"Noto Sans JP",sans-serif;text-align:center;padding:0 16px}
+.lr-busy.on{display:flex}
+.lr-spin{width:56px;height:56px;border:7px solid #E6F2FA;border-top-color:#F39800;border-radius:50%;animation:lrsp 1s linear infinite}
+@keyframes lrsp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.lr-spin{animation:none}}
+/* おしらせ */
+.lr-news-section{background:#FFF8EC;padding:26px 16px;border-top:4px solid #F39800}
+.lr-news-in{max-width:860px;margin:0 auto}
+.lr-news-h{font-size:22px;color:#004070;margin:0 0 12px;font-weight:800}
+.lr-news-h span{font-size:13px;color:#546E7A;font-weight:600;margin-left:6px;font-family:'Nunito',sans-serif}
+.lr-news-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.lr-news-item{background:#fff;border:2px solid #F7D9A8;border-radius:16px;padding:14px 16px}
+.lr-news-item.imp{border-color:#F39800;box-shadow:0 4px 14px rgba(243,152,0,.18)}
+.lr-news-meta{display:flex;gap:8px;align-items:center;font-size:13px;color:#546E7A;margin-bottom:4px}
+.lr-news-new{background:#E53935;color:#fff;font-weight:800;font-size:11px;padding:2px 8px;border-radius:999px}
+.lr-news-t{font-size:17px;font-weight:800;color:#1A2E45;line-height:1.5}
+.lr-news-te{font-size:13px;color:#546E7A;margin-top:2px}
+.lr-news-b{font-size:15px;color:#1A2E45;line-height:1.8;margin-top:6px;white-space:pre-line}
+.lr-news-be{font-size:13px;color:#546E7A;line-height:1.6;margin-top:2px;white-space:pre-line}
+.lr-news-cat{margin:12px 14px 0;background:#FFF8EC;border:2px solid #F39800;border-radius:16px;padding:12px 44px 12px 14px;position:relative;font-size:15px;line-height:1.6;color:#1A2E45}
+.lr-news-cat b{display:block;font-size:16px}
+.lr-news-cat small{color:#546E7A}
+.lr-news-cat button{position:absolute;top:6px;right:6px;width:36px;height:36px;border-radius:18px;border:0;background:#F7D9A8;font-size:16px;cursor:pointer}
+/* 本のカードのボタン */
+.btn-daisy.lr-btn-read{border:0;width:auto;cursor:pointer;font:inherit;font-weight:800}
+.lr-btn-dl{display:block;width:calc(100% - 24px);margin:2px 12px 12px;padding:8px 4px;min-height:44px;background:none;border:0;color:#0065A4;font:inherit;font-size:13px;line-height:1.4;text-decoration:underline;cursor:pointer}
+@media (max-width:560px){.lr-btn-dl .lr-dl-sub{display:none}}
+.lr-shelf-btn{margin-right:6px}
+.lr-beta{position:fixed;left:8px;bottom:8px;z-index:1500;background:#F39800;color:#fff;font-weight:800;font-size:12px;padding:4px 10px;border-radius:999px;font-family:sans-serif}
+</style>
+
+<div id="lrv" aria-hidden="true">
+  <div class="lr-head">
+    <button class="lr-hbtn" id="lr-close" aria-label="とじる"><span class="ic">✕</span>とじる</button>
+    <h2 id="lr-hd">📚 <ruby>本<rt>ほん</rt></ruby>だな <span class="lr-en">My bookshelf</span></h2>
+    <button class="lr-hbtn" id="lr-setbtn" aria-label="みやすく"><span class="ic">🎨</span>みやすく</button>
+  </div>
+  <div class="lr-shelf"><div class="lr-shelf-in">
+    <div id="lr-list"></div>
+    <p class="lr-note">📱 <ruby>本<rt>ほん</rt></ruby>はこの<ruby>端末<rt>たんまつ</rt></ruby>の<ruby>中<rt>なか</rt></ruby>にしまわれます。いちど ひらいた<ruby>本<rt>ほん</rt></ruby>は、インターネットにつながっていなくても よめます。<br>
+      <span class="lr-en">Books are saved on this device. Once opened, you can read them offline.</span></p>
+  </div></div>
+  <div class="lr-read">
+    <div class="lr-bookbar"><i id="lr-bookbar"></i></div>
+    <div class="lr-page" id="lr-page"></div>
+    <div class="lr-pg" id="lr-pg"></div>
+    <div class="lr-bar">
+      <button id="lr-prev" aria-label="まえのページ"><span class="ic">⏮</span>まえの<br>ページ</button>
+      <button id="lr-sprev" aria-label="まえの文"><span class="ic">◀</span>まえの<ruby>文<rt>ぶん</rt></ruby></button>
+      <button id="lr-play" class="lr-play" aria-label="よむ"><span class="ic" id="lr-playic">▶</span><span id="lr-playtx">よむ</span></button>
+      <button id="lr-snext" aria-label="つぎの文"><span class="ic">▶</span>つぎの<ruby>文<rt>ぶん</rt></ruby></button>
+      <button id="lr-next" aria-label="つぎのページ"><span class="ic">⏭</span>つぎの<br>ページ</button>
+    </div>
+  </div>
+</div>
+
+<!-- みやすく -->
+<div class="lr-sheet-bg" id="lr-set" role="dialog" aria-label="みやすく"><div class="lr-sheet">
+  <h3>🔊 よむ<ruby>速<rt>はや</rt></ruby>さ <span class="lr-en">Speed</span></h3>
+  <div class="lr-tiles" data-k="spd">
+    <button class="lr-tile" data-v="0.6"><span class="ic">🐌</span>とても ゆっくり</button>
+    <button class="lr-tile" data-v="0.8"><span class="ic">🐢</span>ゆっくり</button>
+    <button class="lr-tile" data-v="1"><span class="ic">🚶</span>ふつう</button>
+    <button class="lr-tile" data-v="1.25"><span class="ic">🏃</span>はやい</button>
+    <button class="lr-tile" data-v="1.5"><span class="ic">🐇</span>とても はやい</button>
+    <button class="lr-tile" data-v="2"><span class="ic">🚀</span>2ばい</button>
+  </div>
+  <h3>🔤 <ruby>文字<rt>もじ</rt></ruby>の<ruby>大<rt>おお</rt></ruby>きさ <span class="lr-en">Text size</span></h3>
+  <div class="lr-tiles" data-k="fs">
+    <button class="lr-tile" data-v="18"><span class="ic" style="font-size:18px">あ</span>ちいさい</button>
+    <button class="lr-tile" data-v="22"><span class="ic" style="font-size:22px">あ</span>ふつう</button>
+    <button class="lr-tile" data-v="28"><span class="ic" style="font-size:28px">あ</span>おおきい</button>
+    <button class="lr-tile" data-v="34"><span class="ic" style="font-size:34px">あ</span>もっと</button>
+    <button class="lr-tile" data-v="42"><span class="ic" style="font-size:40px">あ</span>いちばん</button>
+  </div>
+  <h3>↕ <ruby>行<rt>ぎょう</rt></ruby>のあいだ <span class="lr-en">Line spacing</span></h3>
+  <div class="lr-tiles" data-k="lh">
+    <button class="lr-tile" data-v="1.5"><span class="ic">☰</span>せまい</button>
+    <button class="lr-tile" data-v="1.9"><span class="ic">☰</span>ふつう</button>
+    <button class="lr-tile" data-v="2.5"><span class="ic">☰</span>ひろい</button>
+  </div>
+  <h3>🎨 <ruby>色<rt>いろ</rt></ruby> <span class="lr-en">Colors</span></h3>
+  <div class="lr-tiles" data-k="theme">
+    <button class="lr-tile" data-v="std"><span class="lr-sample" style="background:#FFFDF7;color:#1A2E45;border:1px solid #ccc">あ</span>ふつう</button>
+    <button class="lr-tile" data-v="wb"><span class="lr-sample" style="background:#fff;color:#000;border:1px solid #ccc">あ</span>しろ・くろ</button>
+    <button class="lr-tile" data-v="bw"><span class="lr-sample" style="background:#000;color:#fff">あ</span>くろ・しろ</button>
+    <button class="lr-tile" data-v="by"><span class="lr-sample" style="background:#000;color:#FFE600">あ</span>くろ・きいろ</button>
+    <button class="lr-tile" data-v="nw"><span class="lr-sample" style="background:#0B2A6B;color:#fff">あ</span>あお・しろ</button>
+    <button class="lr-tile" data-v="cr"><span class="lr-sample" style="background:#F6ECD2;color:#3B2F1E;border:1px solid #ccc">あ</span>クリーム</button>
+  </div>
+  <h3>✨ よんでいる<ruby>所<rt>ところ</rt></ruby>のしるし <span class="lr-en">Highlight</span></h3>
+  <div class="lr-tiles" data-k="hl">
+    <button class="lr-tile" data-v="y"><span class="lr-sample" style="background:#FFEF7A;color:#000">あ</span>きいろ</button>
+    <button class="lr-tile" data-v="c"><span class="lr-sample" style="background:#8FE3FF;color:#000">あ</span>みずいろ</button>
+    <button class="lr-tile" data-v="p"><span class="lr-sample" style="background:#FFB3D1;color:#000">あ</span>ピンク</button>
+    <button class="lr-tile" data-v="g"><span class="lr-sample" style="background:#A8F0A0;color:#000">あ</span>みどり</button>
+    <button class="lr-tile" data-v="u"><span class="lr-sample" style="text-decoration:underline 4px #F39800;text-underline-offset:6px">あ</span><ruby>下線<rt>かせん</rt></ruby></button>
+  </div>
+  <h3>🖼 <ruby>絵<rt>え</rt></ruby> <span class="lr-en">Pictures</span></h3>
+  <div class="lr-tiles" data-k="noimg">
+    <button class="lr-tile" data-v="0"><span class="ic">🖼</span>みせる</button>
+    <button class="lr-tile" data-v="1"><span class="ic">🚫</span>かくす</button>
+  </div>
+  <div class="lr-row2"><button class="lr-sub" id="lr-reset">↩ もとにもどす</button><button class="lr-main" id="lr-setok">OK</button></div>
+</div></div>
+
+<!-- ダウンロードしたあとの案内（その人の機種の分だけ） -->
+<div class="lr-sheet-bg" id="lr-dlg" role="dialog" aria-label="アプリで読むには"><div class="lr-sheet">
+  <h3>📥 ダウンロードしました <span class="lr-en">Downloaded</span></h3>
+  <p class="lr-note" style="font-size:15px;line-height:1.8">アプリで <ruby>読<rt>よ</rt></ruby>むには、つぎのアプリで ファイルを ひらいてください。<br>
+    <span class="lr-en">To read it in an app, open the file with the app below.</span><br>
+    💡 アプリが なくても、<ruby>本<rt>ほん</rt></ruby>の「▶ よむ」で すぐ <ruby>読<rt>よ</rt></ruby>めます。</p>
+  <div id="lr-dlg-apps"></div>
+  <label class="lr-chk"><input type="checkbox" id="lr-dlg-off"> つぎから この<ruby>案内<rt>あんない</rt></ruby>を<ruby>出<rt>だ</rt></ruby>さない <span class="lr-en">Don't show again</span></label>
+  <div class="lr-row2"><button class="lr-sub" id="lr-dlg-all">ほかの<ruby>機種<rt>きしゅ</rt></ruby></button><button class="lr-main" id="lr-dlg-ok">OK</button></div>
+</div></div>
+
+<!-- あなたについて（はじめに一度だけ） -->
+<div class="lr-sheet-bg" id="lr-attr" role="dialog" aria-label="あなたについて"><div class="lr-sheet">
+  <h3>👋 あなたについて おしえてください <span class="lr-en">Tell us about you</span></h3>
+  <p class="lr-note" style="font-size:15px;line-height:1.8">あてはまるものを ぜんぶ おしてください（いちどだけ）。<ruby>図書館<rt>としょかん</rt></ruby>を よりよくするために つかいます。<br>
+    <span class="lr-en">Tap all that apply (only once). This helps us improve the library.</span></p>
+  <div class="lr-tiles" id="lr-attr-tiles"></div>
+  <div class="lr-row2"><button class="lr-sub" id="lr-attr-later">あとで</button><button class="lr-main" id="lr-attr-ok" disabled>おくる / Send</button></div>
+</div></div>
+
+<div class="lr-busy" id="lr-busy"><div class="lr-spin"></div><div id="lr-busytx"></div></div>
+<div class="lr-toast" id="lr-toast" role="status"><div id="lr-toasttx"></div><button id="lr-toastbtn" hidden>もういちど</button></div>
+<audio id="lr-au" preload="auto"></audio>
+
+<script>
+(function () {
+'use strict';
+const $ = id => document.getElementById(id);
+const safe = (fn, d) => { try { return fn(); } catch (e) { return d; } };
+const au = $('lr-au'), V = $('lrv');
+const TOKEN_KEY = 'od_lr_token_v1', PREF_KEY = 'od_lr_pref_v1', LOGQ = 'od_lr_readlog_q', DLG_OFF = 'od_lr_dlg_off', ATTR_LATER = 'od_lr_attr_later';
+const ATTR_ICON = { '外国ルーツの子ども本人': '🧒', '保護者・家族': '👪', '学校の先生': '🏫', '日本語教室・母語教室': '🗣', '支援団体': '🤝',
+                    '図書館': '📚', '行政': '🏛', 'ボランティア': '🙋', 'その他': '✨' };
+const ATTR_EN = { '外国ルーツの子ども本人': 'Child with roots abroad', '保護者・家族': 'Parent / family', '学校の先生': 'Teacher',
+                  '日本語教室・母語教室': 'Language class', '支援団体': 'Support group', '図書館': 'Library', '行政': 'Government',
+                  'ボランティア': 'Volunteer', 'その他': 'Other' };
+
+// ── 通行証（90日。端末に覚えておく） ──
+const LR = window.LR = {
+  forceReader: !!window.LR_FORCE_READER,
+  // GAS の LR_READER_ENABLED（前回の値を端末に覚えておき、最初の表示からそろえる）
+  serverReader: (function () { const v = safe(() => localStorage.getItem('od_lr_reader'), null);
+                               return v === null ? !!window.LR_DEFAULT_READER : v === '1'; })(),
+  setServerReader(on) { LR.serverReader = !!on; safe(() => localStorage.setItem('od_lr_reader', on ? '1' : '0')); },
+  token() { const o = safe(() => JSON.parse(localStorage.getItem(TOKEN_KEY) || 'null'), null);
+            return o && o.token && o.exp * 1000 > Date.now() + 60000 ? o.token : ''; },
+  saveToken(t, exp) { safe(() => localStorage.setItem(TOKEN_KEY, JSON.stringify({ token: t, exp: exp }))); },
+  clearToken() { safe(() => localStorage.removeItem(TOKEN_KEY)); },
+  readerOn() { return LR.forceReader || LR.serverReader; },
+  onAuth(res) {   // ログインの返事を受けとったとき（library の checkEmailWithRetry から呼ぶ）
+    if (!res || !res.ok) return;
+    if (res.token) LR.saveToken(res.token, res.exp);
+    if (typeof res.reader === 'boolean') LR.setServerReader(res.reader);
+    if (res.attr_needed && res.token && Array.isArray(res.attr_choices)) setTimeout(() => askAttr(res.attr_choices), 600);
+  }
+};
+
+function toast(msg, retry) {
+  $('lr-toasttx').textContent = msg; $('lr-toastbtn').hidden = !retry; $('lr-toast').style.display = 'block';
+  $('lr-toastbtn').onclick = () => { $('lr-toast').style.display = 'none'; retry && retry(); };
+  clearTimeout(toast.t); if (!retry) toast.t = setTimeout(() => $('lr-toast').style.display = 'none', 3500);
+}
+const busy = (on, tx) => { $('lr-busy').classList.toggle('on', on); if (tx) $('lr-busytx').innerHTML = tx; };
+const device = () => /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) ? 'ios'
+  : /Android/.test(navigator.userAgent) ? 'android' : /Windows/.test(navigator.userAgent) ? 'windows' : 'other';
+
+// ── 本だな（IndexedDB） ──
+const DB = (() => {
+  let p;
+  const open = () => p || (p = new Promise((ok, ng) => {
+    const r = indexedDB.open('od-lr-shelf', 1);
+    r.onupgradeneeded = () => r.result.createObjectStore('books', { keyPath: 'id' });
+    r.onsuccess = () => ok(r.result); r.onerror = () => ng(r.error);
+  }));
+  const tx = async (mode, fn) => { const d = await open(); return new Promise((ok, ng) => {
+    const t = d.transaction('books', mode), q = fn(t.objectStore('books'));
+    t.oncomplete = () => ok(q && q.result); t.onerror = () => ng(t.error); }); };
+  return { put: b => tx('readwrite', s => s.put(b)), all: () => tx('readonly', s => s.getAll()),
+           get: id => tx('readonly', s => s.get(id)), del: id => tx('readwrite', s => s.delete(id)) };
+})();
+
+// ── JSZip は、はじめて本を開くときだけ読み込む（図書館のページを重くしない） ──
+let zipReady;
+function needZip() {
+  if (window.JSZip) return Promise.resolve();
+  return zipReady || (zipReady = new Promise((ok, ng) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+    s.onload = ok; s.onerror = () => { zipReady = null; ng(new Error('jszip')); };
+    document.head.appendChild(s);
+  }));
+}
+
+// ── 本を受け取る（GAS の action=book）。だめなときは3回までやり直す ──
+async function fetchBook(book) {
+  const token = LR.token();
+  if (!token) { LR.authLost(); throw new Error('auth'); }
+  const j = await fetchJsonWithRetry({ action: 'book', token: token, id: book.id }, 3);
+  const bin = atob(j.b64), u8 = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+  return { blob: new Blob([u8], { type: 'application/epub+zip' }), fileId: j.fileId, name: j.name };
+}
+// 本だなにあり、同じ版（FileID）ならそれを使う。違えば（公開し直した本）受け取り直す
+async function getBookRec(book) {
+  const old = await DB.get(book.id).catch(() => null);
+  if (old && old.blob && (!book.fileId || old.fileId === book.fileId)) return old;
+  busy(true, '📖 <ruby>本<rt>ほん</rt></ruby>を じゅんびしています<br><span style="font-size:14px;font-weight:400">はじめての<ruby>本<rt>ほん</rt></ruby>は すこし まってね / Getting your book…</span>');
+  try {
+    const got = await fetchBook(book);
+    await needZip();
+    const b = await parseEpub(got.blob);
+    const thumb = b.cover ? await b.zip.file(b.cover).async('base64') : '';
+    const rec = { id: book.id, fileId: got.fileId, name: got.name, title: b.title || book.title, blob: got.blob, thumb,
+                  last: old && old.fileId === got.fileId ? old.last || 0 : 0, total: b.pages.length,
+                  maxPage: old && old.fileId === got.fileId ? old.maxPage || 0 : 0, added: old ? old.added : Date.now(), readAt: Date.now() };
+    await DB.put(rec).catch(() => {});   // 端末の空きが足りなくても、今回は読めるようにする
+    return rec;
+  } finally { busy(false); }
+}
+LR.authLost = function () {   // 通行証の期限が切れたとき：ログインの画面へ
+  LR.clearToken(); closeAll();
+  toast('もういちど ログインしてください / Please log in again');
+  if (typeof doLogout === 'function') doLogout();
+};
+const errMsg = e => /auth/.test(String(e && e.message)) ? '' :
+  'いま 本を ひらけませんでした。インターネットを たしかめて、もういちど おしてね。';
+
+// ── EPUB を読む ──
+const t2s = v => { if (!v) return 0; return String(v).replace('s', '').split(':').map(Number).reduce((s, x) => s * 60 + x, 0); };
+const dir = p => p.includes('/') ? p.slice(0, p.lastIndexOf('/') + 1) : '';
+const join = (b, r) => { const st = []; (b + r).split('/').forEach(x => x === '..' ? st.pop() : x !== '.' && st.push(x)); return st.join('/'); };
+async function parseEpub(blob) {
+  const zip = await JSZip.loadAsync(blob);
+  const need = p => { const f = zip.file(p); if (!f) throw new Error('missing:' + p); return f; };
+  const xml = async p => new DOMParser().parseFromString(await need(p).async('string'), 'application/xml');
+  const opfPath = (await xml('META-INF/container.xml')).querySelector('rootfile').getAttribute('full-path'), od = dir(opfPath);
+  const opf = await xml(opfPath);
+  const title = ((opf.getElementsByTagNameNS('*', 'title')[0] || {}).textContent || '').trim();
+  const items = {}; opf.querySelectorAll('manifest > item').forEach(i => items[i.getAttribute('id')] = i);
+  const cov = [...opf.querySelectorAll('manifest > item')].find(i => /cover-image/.test(i.getAttribute('properties') || ''));
+  const pages = [];
+  for (const ref of opf.querySelectorAll('spine > itemref')) {
+    const it = items[ref.getAttribute('idref')]; if (!it) continue;
+    const href = join(od, it.getAttribute('href')), pd = dir(href);
+    const doc = new DOMParser().parseFromString(await need(href).async('string'), 'application/xhtml+xml');
+    doc.querySelectorAll('script,iframe,object,embed,link,style').forEach(n => n.remove());
+    doc.querySelectorAll('*').forEach(n => [...n.attributes].forEach(a => { if (/^on/i.test(a.name)) n.removeAttribute(a.name); }));
+    doc.querySelectorAll('img').forEach(im => im.setAttribute('data-src', join(pd, im.getAttribute('src'))));
+    const pars = [], mo = it.getAttribute('media-overlay');
+    if (mo && items[mo]) {
+      const sp = join(od, items[mo].getAttribute('href')), sd = dir(sp);
+      (await xml(sp)).querySelectorAll('par').forEach(par => {
+        const tx = par.querySelector('text'), a = par.querySelector('audio'); if (!tx || !a) return;
+        pars.push({ frag: tx.getAttribute('src').split('#')[1] || '', src: join(sd, a.getAttribute('src')),
+                    b: t2s(a.getAttribute('clipBegin')), e: t2s(a.getAttribute('clipEnd')) });
+      });
+    }
+    pages.push({ html: new XMLSerializer().serializeToString(doc.body).replace(/^<body[^>]*>|<\/body>$/g, ''), pars });
+  }
+  if (!pages.length) throw new Error('no-pages');
+  return { zip, title, pages, cover: cov ? join(od, cov.getAttribute('href')) : '' };
+}
+
+// ── 読書ログ（会員番号・属性は GAS が通行証からつける。画面からは送らない） ──
+let sess = null;
+function logPush(ev) {
+  const q = safe(() => JSON.parse(localStorage.getItem(LOGQ) || '[]'), []);
+  q.push(Object.assign({ t: new Date().toISOString(), dev: device() }, ev)); while (q.length > 200) q.shift();
+  safe(() => localStorage.setItem(LOGQ, JSON.stringify(q)));
+}
+function logFlush(beacon) {
+  const q = safe(() => JSON.parse(localStorage.getItem(LOGQ) || '[]'), []);
+  const token = LR.token();
+  if (!q.length || !token || !navigator.onLine) return;
+  const body = new URLSearchParams({ action: 'read', token: token, events: JSON.stringify(q) });
+  const done = () => safe(() => localStorage.setItem(LOGQ, '[]'));
+  if (beacon && navigator.sendBeacon) { if (navigator.sendBeacon(SITE_CONFIG.GAS_URL, body)) done(); return; }
+  fetch(SITE_CONFIG.GAS_URL, { method: 'POST', body, mode: 'no-cors', keepalive: true }).then(done).catch(() => {});
+}
+LR.log = logPush; LR.flush = logFlush;
+function sessEnd() {
+  if (!sess) return;
+  logPush({ book: sess.bookId, ev: sess.finished ? 'finish' : 'close', pages: sess.pages.size, total: bk ? bk.pages.length : 0,
+            sec: Math.round(sess.listened), spd: pref.spd, theme: pref.theme, mode: 'reader' });
+  sess = null; logFlush(true);
+}
+window.addEventListener('online', () => logFlush(false));
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') { saveSpot(); logFlush(true); } });
+// 読んでいる途中でページを閉じた・開き直したときも「閉じた」を残す（読んだページ・聞いた秒が記録されるように）
+window.addEventListener('pagehide', () => { if (sess) { saveSpot(); sessEnd(); } });
+
+// ── 読む ──
+let bk = null, rec = null, pi = 0, qi = -1, playing = false, urls = {}, wake = null, lastT = 0;
+function url(p) { if (!urls[p]) urls[p] = bk.zip.file(p).async('blob').then(x => URL.createObjectURL(x)); return urls[p]; }
+function showPage(i, autoplay) {
+  const keep = playing && autoplay; pause();
+  pi = Math.max(0, Math.min(bk.pages.length - 1, i)); qi = -1;
+  const pg = bk.pages[pi], host = $('lr-page');
+  host.innerHTML = pg.html;
+  host.querySelectorAll('img[data-src]').forEach(im => { const s = im.dataset.src; im.removeAttribute('data-src');
+    url(s).then(u => { if (im.isConnected) im.src = u; }).catch(() => {}); });
+  pg.pars.forEach((p, k) => { const el = host.querySelector('[id="' + CSS.escape(p.frag) + '"]');
+    if (el) { el.dataset.par = k; el.onclick = () => playFrom(k); } });
+  host.scrollTop = 0;
+  $('lr-pg').textContent = (pi + 1) + ' / ' + bk.pages.length;
+  $('lr-bookbar').style.width = ((pi + 1) / bk.pages.length * 100) + '%';
+  $('lr-prev').disabled = pi === 0; $('lr-next').disabled = pi === bk.pages.length - 1;
+  if (sess) sess.pages.add(pi);
+  saveSpot();
+  const nx = bk.pages[pi + 1];
+  if (nx) (nx.html.match(/data-src="([^"]+)"/g) || []).forEach(m => url(m.slice(10, -1)).catch(() => {}));
+  if (keep && pg.pars.length) playFrom(0);
+}
+function mark(k) {
+  V.querySelectorAll('.mo-active').forEach(e => e.classList.remove('mo-active'));
+  const el = V.querySelector('[data-par="' + k + '"]');
+  if (el) { el.classList.add('mo-active'); el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+}
+async function playFrom(k) {
+  const pars = bk.pages[pi].pars; if (!pars[k]) return;
+  qi = k; setPlaying(true);
+  const p = pars[k];
+  if (au.dataset.src !== p.src) {
+    au.src = await url(p.src); au.dataset.src = p.src;
+    await new Promise(r => { au.addEventListener('loadedmetadata', r, { once: true }); setTimeout(r, 4000); });
+    au.playbackRate = Number(pref.spd);
+  }
+  if (Math.abs(au.currentTime - p.b) > 0.25) au.currentTime = p.b;
+  mark(k);
+  try { await au.play(); } catch (e) { setPlaying(false); toast('▶ を おしてね'); }
+}
+function pause() { au.pause(); setPlaying(false); }
+function setPlaying(on) {
+  playing = on; $('lr-playic').textContent = on ? '❚❚' : '▶'; $('lr-playtx').textContent = on ? 'とめる' : 'よむ';
+  $('lr-play').setAttribute('aria-label', on ? 'とめる' : 'よむ');
+  if ('mediaSession' in navigator) navigator.mediaSession.playbackState = on ? 'playing' : 'paused';
+  if (on && 'wakeLock' in navigator && !wake) navigator.wakeLock.request('screen').then(w => { wake = w; w.onrelease = () => wake = null; }).catch(() => {});
+  if (!on && wake) { wake.release().catch(() => {}); wake = null; }
+}
+function tick() {
+  if (!playing || !bk) return;
+  const now = au.currentTime; if (sess && now > lastT && now - lastT < 1) sess.listened += (now - lastT); lastT = now;
+  const pars = bk.pages[pi].pars, p = pars[qi]; if (!p) return;
+  if (now >= p.e - 0.03 || au.ended) {
+    if (qi + 1 < pars.length) playFrom(qi + 1);
+    else if (pi + 1 < bk.pages.length) showPage(pi + 1, true);
+    else { pause(); mark(-1); if (sess) sess.finished = true; toast('🎉 さいごまで よみました！'); }
+  }
+}
+setInterval(tick, 40); au.addEventListener('timeupdate', tick);
+function step(d) {
+  const n = bk.pages[pi].pars.length;
+  if (!n) return showPage(pi + d, playing);
+  const k = (qi < 0 ? (d > 0 ? -1 : 0) : qi) + d;
+  if (k < 0) return showPage(pi - 1, playing);
+  if (k >= n) return showPage(pi + 1, playing);
+  if (playing) playFrom(k); else { qi = k; mark(k); }
+}
+$('lr-play').onclick = () => playing ? pause() : playFrom(qi < 0 ? 0 : qi);
+$('lr-sprev').onclick = () => step(-1); $('lr-snext').onclick = () => step(1);
+$('lr-prev').onclick = () => showPage(pi - 1, playing); $('lr-next').onclick = () => showPage(pi + 1, playing);
+let sx = null, sy = null;
+$('lr-page').addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+$('lr-page').addEventListener('touchend', e => { if (sx === null) return;
+  const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; sx = null;
+  if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) showPage(pi + (dx < 0 ? 1 : -1), playing); }, { passive: true });
+document.addEventListener('keydown', e => {
+  if (!bk || !V.classList.contains('reading') || $('lr-set').classList.contains('open')) return;
+  const k = { ' ': () => $('lr-play').click(), ArrowRight: () => showPage(pi + 1, playing), ArrowLeft: () => showPage(pi - 1, playing),
+              ArrowDown: () => step(1), ArrowUp: () => step(-1), Escape: () => history.back() }[e.key];
+  if (k) { e.preventDefault(); k(); }
+});
+if ('mediaSession' in navigator) safe(() => { const ms = navigator.mediaSession;
+  ms.setActionHandler('play', () => playFrom(qi < 0 ? 0 : qi)); ms.setActionHandler('pause', pause);
+  ms.setActionHandler('nexttrack', () => showPage(pi + 1, playing)); ms.setActionHandler('previoustrack', () => showPage(pi - 1, playing)); });
+
+let spotT;
+function saveSpot() { if (!rec || !bk) return; clearTimeout(spotT);
+  const r = rec, at = pi, total = bk.pages.length;
+  spotT = setTimeout(() => { r.last = at; r.maxPage = Math.max(r.maxPage || 0, at); r.total = total; r.readAt = Date.now(); DB.put(r).catch(() => {}); }, 300); }
+
+// ── 画面の切りかえ ──
+// 「もどる」で1つずつ戻れるよう、開くたびに履歴を1つ足す（本だなから開いた本は、閉じると本だなへ戻る）
+let fromShelf = false;
+function openOverlay() { if (!V.classList.contains('open')) { V.classList.add('open'); V.setAttribute('aria-hidden', 'false');
+  document.documentElement.style.overflow = 'hidden'; history.pushState({ lr: 1 }, ''); } }
+function closeAll() { if (bk) closeBook(); V.classList.remove('open', 'reading'); V.setAttribute('aria-hidden', 'true');
+  document.documentElement.style.overflow = ''; }
+async function openRec(r) {
+  if (!LR.token()) { LR.authLost(); return; }   // 通行証（90日）が切れていたら、もう一度ログインしてもらう
+  busy(true, '📖 <ruby>本<rt>ほん</rt></ruby>を ひらいています');
+  try {
+    await needZip();
+    Object.values(urls).forEach(pr => pr.then(URL.revokeObjectURL).catch(() => {})); urls = {}; au.removeAttribute('src'); delete au.dataset.src;
+    if (sess) sessEnd();   // 前の本の記録を先に閉じる
+    bk = await parseEpub(r.blob); rec = r;
+    sess = { bookId: r.id, pages: new Set(), listened: 0, finished: false };
+    logPush({ book: r.id, ev: 'open', mode: 'reader' }); logFlush(false);
+    $('lr-hd').textContent = bk.title || r.title;
+    if ('mediaSession' in navigator) safe(() => navigator.mediaSession.metadata = new MediaMetadata({ title: bk.title, artist: 'OurDAISY' }));
+    fromShelf = V.classList.contains('open');
+    openOverlay();
+    if (fromShelf) history.pushState({ lr: 2 }, '');
+    V.classList.add('reading');
+    showPage(r.last || 0, false);
+    if (r.last) toast('📖 つづきから（' + (r.last + 1) + 'ページ）');
+  } catch (e) {
+    toast('この本は ひらけませんでした。もういちど おしてね。');
+  } finally { busy(false); }
+}
+function closeBook() { pause(); saveSpot(); sessEnd(); bk = null; rec = null; V.classList.remove('reading');
+  $('lr-hd').innerHTML = '📚 <ruby>本<rt>ほん</rt></ruby>だな <span class="lr-en">My bookshelf</span>'; renderShelf(); }
+window.addEventListener('popstate', () => {
+  if ($('lr-set').classList.contains('open')) { $('lr-set').classList.remove('open'); }
+  if (V.classList.contains('reading')) { const back = fromShelf; closeBook(); if (!back) closeAll(); return; }
+  if (V.classList.contains('open')) closeAll();
+});
+$('lr-close').onclick = () => history.back();
+
+// ── 図書館から呼ぶもの ──
+LR.openBook = async function (book) {
+  try { const r = await getBookRec(book); await openRec(r); }
+  catch (e) { const m = errMsg(e); if (m) toast(m, () => LR.openBook(book)); }
+};
+LR.openShelf = function () { openOverlay(); renderShelf(); };
+LR.download = async function (book) {
+  try {
+    const r = await getBookRec(book);
+    const a = document.createElement('a'); a.href = URL.createObjectURL(r.blob);
+    a.download = r.name || (book.id + '.epub'); document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+    if (typeof recordDl === 'function') recordDl(book.id, book.title);   // ダウンロード数（今までどおり）
+    logPush({ book: book.id, ev: 'download', mode: 'download' }); logFlush(false);
+    if (!safe(() => localStorage.getItem(DLG_OFF), null)) showDlGuide(false);
+  } catch (e) { const m = errMsg(e); if (m) toast(m, () => LR.download(book)); }
+};
+
+async function renderShelf() {
+  const all = (await DB.all().catch(() => [])).sort((a, b) => (b.readAt || 0) - (a.readAt || 0)), L = $('lr-list');
+  if (!all.length) { L.innerHTML = '<p class="lr-note" style="font-size:16px">まだ <ruby>本<rt>ほん</rt></ruby>が ありません。<ruby>図書館<rt>としょかん</rt></ruby>で「▶ よむ」を おしてね。<br><span class="lr-en">No books yet. Tap “▶ Read” in the library.</span></p>'; return; }
+  L.innerHTML = '';
+  all.forEach(r => {
+    const d = document.createElement('div'); d.className = 'lr-book';
+    const pct = r.total ? Math.round(((r.maxPage || 0) + 1) / r.total * 100) : 0;
+    d.innerHTML = '<img alt=""><div class="t"><b></b><span class="lr-note"></span><div class="lr-prog"><i style="width:' + pct + '%"></i></div></div>' +
+      '<button class="lr-go">▶ よむ</button><button class="lr-del" aria-label="本だなから けす">🗑</button>';
+    if (r.thumb) d.querySelector('img').src = 'data:image/jpeg;base64,' + r.thumb;
+    d.querySelector('b').textContent = r.title;
+    d.querySelector('.lr-note').textContent = r.last ? 'つづきから ' + (r.last + 1) + 'ページ' : 'はじめから';
+    d.querySelector('.lr-go').onclick = () => openRec(r);
+    const del = d.querySelector('.lr-del');
+    del.onclick = async () => { if (del.dataset.arm) { await DB.del(r.id); renderShelf(); return; }
+      del.dataset.arm = 1; del.textContent = 'けす？'; setTimeout(() => { delete del.dataset.arm; del.textContent = '🗑'; }, 3000); };
+    L.appendChild(d);
+  });
+}
+
+// ── ダウンロードの案内（その人の機種の分だけ） ──
+const APPS = {
+  ios: ['📱 iPhone / iPad', 'EasyReader', 'https://apps.apple.com/gb/app/dolphin-easyreader/id1161662515',
+        ['App Store で EasyReader を いれる', 'ダウンロードした ファイルを「ファイル」アプリで ひらく', '「共有」→「EasyReader」を えらぶ']],
+  android: ['🤖 Android', 'Colibrio Reader', 'https://play.google.com/store/apps/details?id=com.colibrio.reader',
+        ['Google Play で Colibrio Reader を いれる', 'ダウンロードした ファイルを おす', 'ひらくアプリに「Colibrio Reader」を えらぶ']],
+  windows: ['💻 Windows', 'Thorium Reader', 'https://apps.microsoft.com/detail/9nfzp1g7m2sc?hl=ja-JP&gl=JP',
+        ['Microsoft Store で Thorium Reader を いれる', 'Thorium Reader を ひらく', 'ダウンロードした ファイルを まどに ひきこむ']]
+};
+function showDlGuide(all) {
+  const dev = device(), keys = all || !APPS[dev] ? ['ios', 'android', 'windows'] : [dev];
+  $('lr-dlg-apps').innerHTML = keys.map(k => { const a = APPS[k];
+    return '<div class="lr-app"><b>' + a[0] + '：' + a[1] + '</b><ol class="lr-steps">' + a[3].map(s => '<li>' + s + '</li>').join('') +
+      '</ol><a href="' + a[2] + '" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;font-weight:700;color:#0065A4">アプリを いれる / Get the app ›</a></div>'; }).join('');
+  $('lr-dlg-all').style.display = keys.length > 1 ? 'none' : '';
+  $('lr-dlg').classList.add('open');
+}
+$('lr-dlg-all').onclick = () => showDlGuide(true);
+$('lr-dlg-ok').onclick = () => { if ($('lr-dlg-off').checked) safe(() => localStorage.setItem(DLG_OFF, '1')); $('lr-dlg').classList.remove('open'); };
+
+// ── あなたについて（はじめに一度だけ。「あとで」なら7日後にもう一度） ──
+function askAttr(choices) {
+  const later = Number(safe(() => localStorage.getItem(ATTR_LATER), 0)) || 0;
+  if (Date.now() - later < 7 * 86400000) return;
+  const T = $('lr-attr-tiles'); T.innerHTML = '';
+  choices.forEach(c => { const b = document.createElement('button'); b.className = 'lr-tile'; b.dataset.v = c; b.setAttribute('aria-pressed', 'false');
+    b.innerHTML = '<span class="ic">' + (ATTR_ICON[c] || '•') + '</span>' + c + '<br><span class="lr-en">' + (ATTR_EN[c] || '') + '</span>';
+    b.onclick = () => { b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true'));
+      $('lr-attr-ok').disabled = !T.querySelector('[aria-pressed="true"]'); };
+    T.appendChild(b); });
+  $('lr-attr-ok').disabled = true;
+  $('lr-attr').classList.add('open');
+}
+$('lr-attr-later').onclick = () => { safe(() => localStorage.setItem(ATTR_LATER, String(Date.now()))); $('lr-attr').classList.remove('open'); };
+$('lr-attr-ok').onclick = () => {
+  const v = [...$('lr-attr-tiles').querySelectorAll('[aria-pressed="true"]')].map(b => b.dataset.v);
+  const body = new URLSearchParams({ action: 'profile', token: LR.token(), attr: v.join(',') });
+  fetch(SITE_CONFIG.GAS_URL, { method: 'POST', body, mode: 'no-cors' }).catch(() => {});
+  safe(() => localStorage.setItem(ATTR_LATER, String(Date.now() + 3650 * 86400000)));
+  $('lr-attr').classList.remove('open'); toast('ありがとう！ / Thank you!');
+};
+
+// ── みやすく ──
+const DEF = { spd: '1', fs: '22', lh: '1.9', theme: 'std', hl: 'y', noimg: '0' };
+let pref = Object.assign({}, DEF, safe(() => JSON.parse(localStorage.getItem(PREF_KEY) || '{}'), {}));
+function applyPref() {
+  V.dataset.theme = pref.theme; V.dataset.hl = pref.hl; V.dataset.noimg = pref.noimg;
+  V.style.setProperty('--fs', pref.fs + 'px'); V.style.setProperty('--lh', pref.lh);
+  au.defaultPlaybackRate = au.playbackRate = Number(pref.spd);
+  if ('preservesPitch' in au) au.preservesPitch = true; else au.webkitPreservesPitch = true;
+  document.querySelectorAll('#lr-set .lr-tiles[data-k] .lr-tile').forEach(b => b.setAttribute('aria-pressed', String(String(pref[b.parentNode.dataset.k]) === b.dataset.v)));
+  safe(() => localStorage.setItem(PREF_KEY, JSON.stringify(pref)));
+}
+document.querySelectorAll('#lr-set .lr-tiles[data-k] .lr-tile').forEach(b => b.onclick = () => { pref[b.parentNode.dataset.k] = b.dataset.v; applyPref(); });
+$('lr-setbtn').onclick = () => $('lr-set').classList.add('open');
+$('lr-setok').onclick = () => $('lr-set').classList.remove('open');
+$('lr-set').onclick = e => { if (e.target === $('lr-set')) $('lr-set').classList.remove('open'); };
+$('lr-reset').onclick = () => { pref = Object.assign({}, DEF); applyPref(); toast('↩ もとに もどしました'); };
+au.addEventListener('loadedmetadata', () => au.playbackRate = Number(pref.spd));
+applyPref(); logFlush(false);
+safe(() => localStorage.removeItem('od_lib_tsv_v1'));   // 前の版の控え（ダウンロードのリンク入り）は消す
+document.addEventListener('DOMContentLoaded', () => { if (typeof lrShowShelfBtn === 'function') lrShowShelfBtn(); loadNews(); });
+
+// ── おしらせ（NEWS シート）。読めないときは、端末の控え → 最初のおしらせ の順に出す ──
+const NEWS_KEY = 'od_lr_news_v1', NEWS_HIDE = 'od_lr_news_hide';
+const NEWS_DEFAULT = [{ date: '2026-11-12', ja: '図書館の中で、すぐに よめるように なりました', en: 'You can now read books right in the library',
+  body_ja: '本の「▶ よむ」を おすだけで、アプリなしで よめます。よむ速さや 色も かえられます。これまでどおり ダウンロードも できます。',
+  body_en: 'Just tap “▶ Read” — no app needed. You can change the reading speed and colors. Download is still available.', important: true }];
+const esc2 = x => String(x || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+function fmtDate(d) { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ''); return m ? m[1] + '年' + Number(m[2]) + '月' + Number(m[3]) + '日' : esc2(d); }
+function renderNews(items) {
+  const L = $('lr-news-list'); if (!L) return;
+  const sec = $('lr-news'); if (sec) sec.hidden = !items.length;
+  const now = Date.now();
+  L.innerHTML = items.map(n => { const isNew = n.date && (now - new Date(n.date + 'T00:00:00+09:00').getTime()) / 86400000 <= 30;
+    return '<li class="lr-news-item' + (n.important ? ' imp' : '') + '"><div class="lr-news-meta"><span>' + fmtDate(n.date) + '</span>' +
+      (isNew ? '<span class="lr-news-new">NEW</span>' : '') + '</div>' +
+      (n.ja ? '<div class="lr-news-t">' + esc2(n.ja) + '</div>' : '') + (n.en ? '<div class="lr-news-te">' + esc2(n.en) + '</div>' : '') +
+      (n.body_ja ? '<div class="lr-news-b">' + esc2(n.body_ja) + '</div>' : '') + (n.body_en ? '<div class="lr-news-be">' + esc2(n.body_en) + '</div>' : '') + '</li>'; }).join('');
+  // 本の一覧の上：大事なおしらせの最新1件（✕で閉じたものは、その端末では出さない）
+  const C = $('lr-news-cat'); if (!C) return;
+  const top = items.find(n => n.important);
+  const sig = top ? top.date + '|' + top.ja : '';
+  if (!top || safe(() => localStorage.getItem(NEWS_HIDE), '') === sig) { C.hidden = true; return; }
+  C.innerHTML = '📢 <b>' + esc2(top.ja || top.en) + '</b>' + (top.body_ja ? esc2(top.body_ja) : '') +
+    (top.en && top.ja ? '<br><small>' + esc2(top.en) + '</small>' : '') + '<button type="button" aria-label="とじる">✕</button>';
+  C.querySelector('button').onclick = () => { safe(() => localStorage.setItem(NEWS_HIDE, sig)); C.hidden = true; };
+  C.hidden = false;
+}
+function loadNews() {
+  const cached = safe(() => JSON.parse(localStorage.getItem(NEWS_KEY) || 'null'), null);
+  renderNews(cached && Array.isArray(cached) ? cached : NEWS_DEFAULT);
+  if (typeof fetchJsonWithRetry !== 'function') return;
+  fetchJsonWithRetry({ action: 'news' }, 2).then(j => {
+    if (!j || !Array.isArray(j.news)) return;
+    safe(() => localStorage.setItem(NEWS_KEY, JSON.stringify(j.news)));
+    renderNews(j.news);
+  }).catch(() => {});
+}
+LR.loadNews = loadNews;
+if (LR.forceReader) { const b = document.createElement('div'); b.className = 'lr-beta'; b.textContent = 'β版（ためし）'; document.body.appendChild(b); }
+})();
+</script>
+<!-- /ここで読む -->
+
 </html>
