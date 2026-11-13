@@ -4177,6 +4177,35 @@ document.addEventListener('keydown', function(e) {
 .lr-spin{width:56px;height:56px;border:7px solid #E6F2FA;border-top-color:#F39800;border-radius:50%;animation:lrsp 1s linear infinite}
 @keyframes lrsp{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.lr-spin{animation:none}}
+/* かんそう（2026-11-13） */
+#lr-fb .lr-sheet{max-height:92dvh}
+#lr-fb [hidden],#lr-reg [hidden],#lrv [hidden]{display:none!important}
+#lr-fb .fb-lead{font-size:15px;line-height:1.9;margin:4px 4px 6px}
+#lr-fb .fb-q{font-size:17px;font-weight:800;margin:16px 4px 8px;line-height:1.9}
+#lr-fb .fb-opt{font-size:12px;color:#546E7A;font-weight:600;margin-left:6px;white-space:nowrap}
+#lr-fb .fb-req{font-size:12px;color:#E53935;font-weight:700;margin-left:6px;white-space:nowrap}
+#lr-fb .fb-kinds{grid-template-columns:repeat(2,1fr)}
+#lr-fb .fb-faces{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+#lr-fb .fb-faces .lr-tile{min-height:64px;font-size:11px;padding:4px 2px}
+#lr-fb .fb-faces .lr-tile .ic{font-size:30px}
+#lr-fb .fb-faces .lr-tile[aria-pressed="true"]::after{content:none}
+#lr-fb textarea{width:100%;min-height:120px;font:inherit;font-size:17px;line-height:1.7;padding:12px;border:2px solid #B8D9F0;border-radius:14px;resize:vertical;color:#1A2E45}
+#lr-fb input[type=email]{width:100%;min-height:52px;font:inherit;font-size:17px;padding:10px 12px;border:2px solid #B8D9F0;border-radius:12px}
+#lr-fb .err textarea,#lr-fb .err .lr-tiles{outline:3px solid #E53935;outline-offset:3px;border-radius:14px}
+#lr-fb .fb-msg{display:none;color:#C62828;font-weight:700;font-size:14px;margin:6px 4px 0}
+#lr-fb .err .fb-msg{display:block}
+#lr-fb details{margin-top:14px;border-top:1px dashed #B8D9F0;padding-top:8px}
+#lr-fb summary{cursor:pointer;font-weight:700;color:#0065A4;padding:10px 4px;font-size:15px}
+#lr-fb .fb-book{display:flex;align-items:center;gap:8px;background:#E6F2FA;border-radius:12px;padding:8px 10px;margin:10px 4px 0;font-size:14px}
+#lr-fb .fb-book b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#lr-fb .fb-book button{border:0;background:#fff;border-radius:10px;min-width:40px;min-height:36px;cursor:pointer}
+#lr-fb .rg-agree{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;border:4px solid #B8D9F0;border-radius:16px;background:#fff;font:inherit;font-size:15px;font-weight:700;color:#1A2E45;padding:8px 14px;cursor:pointer;text-align:left;margin-top:12px}
+#lr-fb .rg-agree .bx{flex:none;width:30px;height:30px;border:3px solid #0065A4;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;background:#fff}
+#lr-fb .rg-agree[aria-pressed="true"]{border-color:#F39800}
+#lr-fb .rg-agree[aria-pressed="true"] .bx{background:#F39800;border-color:#F39800}
+#lr-fb .fb-done{text-align:center;padding:30px 10px}
+#lr-fb .fb-done .big{font-size:64px}
+#lr-fb .fb-done p{font-size:17px;line-height:1.9}
 /* 会員登録（2026-11-13） */
 #lr-reg{position:fixed;inset:0;z-index:100050;background:#F7FBFF;overflow:auto;display:none;font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Meiryo",sans-serif;color:#1A2E45}
 #lr-reg.open{display:block}
@@ -4392,6 +4421,62 @@ document.addEventListener('keydown', function(e) {
   </form>
 </div>
 
+<!-- かんそう（2026-11-13：Googleフォームのかわり。答えは FEEDBACK シートに入り、事務局にメールで届く） -->
+<div class="lr-sheet-bg" id="lr-fb" role="dialog" aria-label="かんそう"><div class="lr-sheet">
+ <div id="fb-form">
+  <h3 style="margin-top:4px">💬 つかってみた かんそう <span class="lr-en">Tell us what you think</span></h3>
+  <p class="fb-lead">みんなの こえで、<ruby>図書館<rt>としょかん</rt></ruby>を もっと よくします。どの ことばで <ruby>書<rt>か</rt></ruby>いても だいじょうぶ！<br>
+    <span class="lr-en">Your voice makes the library better. Write in any language.</span></p>
+  <div class="fb-book" id="fb-book" hidden>📖 <b id="fb-book-t"></b><button type="button" id="fb-book-x" aria-label="本を はずす">✕</button></div>
+
+  <div id="fb-k-box"><p class="fb-q">① なにを おしえてくれる？<span class="fb-req">ひつよう</span></p>
+   <div class="lr-tiles fb-kinds" id="fb-kind">
+    <button type="button" class="lr-tile" data-v="よかった"><span class="ic">😊</span>よかった<br><span class="lr-en">Good</span></button>
+    <button type="button" class="lr-tile" data-v="こうしてほしい"><span class="ic">💡</span>こうして ほしい<br><span class="lr-en">Idea</span></button>
+    <button type="button" class="lr-tile" data-v="よみたい本"><span class="ic">📚</span>よみたい <ruby>本<rt>ほん</rt></ruby><br><span class="lr-en">Book request</span></button>
+    <button type="button" class="lr-tile" data-v="こまった"><span class="ic">😕</span>こまった<br><span class="lr-en">Problem</span></button>
+   </div><p class="fb-msg">1つ えらんでね / Please choose one</p></div>
+
+  <p class="fb-q">② <ruby>本<rt>ほん</rt></ruby>は たのしかった？<span class="fb-opt">こたえなくても OK</span></p>
+  <div class="fb-faces" id="fb-face">
+   <button type="button" class="lr-tile" data-v="5"><span class="ic">😆</span>とても</button>
+   <button type="button" class="lr-tile" data-v="4"><span class="ic">🙂</span>たのしい</button>
+   <button type="button" class="lr-tile" data-v="3"><span class="ic">😐</span>ふつう</button>
+   <button type="button" class="lr-tile" data-v="2"><span class="ic">🙁</span>あまり</button>
+   <button type="button" class="lr-tile" data-v="1"><span class="ic">😢</span>ぜんぜん</button>
+  </div>
+
+  <div id="fb-t-box"><p class="fb-q">③ ひとこと おしえて<span class="fb-req">ひつよう</span></p>
+   <textarea id="fb-text" maxlength="2000"></textarea><p class="fb-msg">ひとこと <ruby>書<rt>か</rt></ruby>いてね / Please write a few words</p></div>
+
+  <details id="fb-more"><summary>➕ もっと おしえる（こたえなくても OK）<span class="lr-en"> / More (optional)</span></summary>
+   <p class="fb-q" style="margin-top:6px">だれが <ruby>書<rt>か</rt></ruby>いている？</p>
+   <div class="lr-tiles" id="fb-who">
+    <button type="button" class="lr-tile" data-v="子ども"><span class="ic">🧒</span><ruby>子<rt>こ</rt></ruby>ども<br><span class="lr-en">Child</span></button>
+    <button type="button" class="lr-tile" data-v="おうちの人"><span class="ic">👪</span>おうちの <ruby>人<rt>ひと</rt></ruby><br><span class="lr-en">Family</span></button>
+    <button type="button" class="lr-tile" data-v="先生"><span class="ic">🏫</span><ruby>先生<rt>せんせい</rt></ruby><br><span class="lr-en">Teacher</span></button>
+    <button type="button" class="lr-tile" data-v="応援している人"><span class="ic">🤝</span><ruby>応援<rt>おうえん</rt></ruby>している <ruby>人<rt>ひと</rt></ruby><br><span class="lr-en">Supporter</span></button>
+   </div>
+   <p class="fb-q">よんだ <ruby>子<rt>こ</rt></ruby>どもの <ruby>年<rt>とし</rt></ruby>は？</p>
+   <div class="lr-tiles" id="fb-age">
+    <button type="button" class="lr-tile" data-v="0〜5さい">0〜5さい</button>
+    <button type="button" class="lr-tile" data-v="6〜8さい">6〜8さい</button>
+    <button type="button" class="lr-tile" data-v="9〜12さい">9〜12さい</button>
+    <button type="button" class="lr-tile" data-v="13さい以上">13さい <ruby>以上<rt>いじょう</rt></ruby></button>
+   </div>
+  </details>
+
+  <button type="button" class="rg-agree" id="fb-reply" aria-pressed="false"><span class="bx">✓</span><span>へんじが ほしい<br><span class="lr-en">I would like a reply</span></span></button>
+  <div id="fb-mail-box" hidden><p class="fb-q" style="font-size:15px">へんじを おくる メールアドレス</p>
+   <input type="email" id="fb-email" inputmode="email" autocomplete="email" placeholder="example@mail.com"><p class="fb-msg">メールアドレスを ただしく <ruby>入<rt>い</rt></ruby>れてね</p></div>
+  <input type="text" id="fb-website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+  <div class="lr-row2"><button type="button" class="lr-sub" id="fb-cancel">とじる</button><button type="button" class="lr-main" id="fb-send">📨 おくる / Send</button></div>
+ </div>
+ <div class="fb-done" id="fb-done" hidden><div class="big">🎉</div>
+  <p><b>ありがとう！</b><br>あなたの こえは、エファジャパンの みんなに とどきました。<br><span class="lr-en">Thank you! Your message has been sent.</span></p>
+  <div class="lr-row2" style="grid-template-columns:1fr"><button type="button" class="lr-main" id="fb-ok">OK</button></div></div>
+</div></div>
+
 <div class="lr-busy" id="lr-busy"><div class="lr-spin"></div><div id="lr-busytx"></div></div>
 <div class="lr-toast" id="lr-toast" role="status"><div id="lr-toasttx"></div><button id="lr-toastbtn" hidden>もういちど</button></div>
 <audio id="lr-au" preload="auto"></audio>
@@ -4432,7 +4517,7 @@ const LR = window.LR = {
 };
 
 function toast(msg, retry) {
-  $('lr-toasttx').textContent = msg; $('lr-toastbtn').hidden = !retry; $('lr-toast').style.display = 'block';
+  $('lr-toasttx').textContent = msg; $('lr-toastbtn').hidden = !retry; $('lr-toastbtn').textContent = 'もういちど'; $('lr-toast').style.display = 'block';
   $('lr-toastbtn').onclick = () => { $('lr-toast').style.display = 'none'; retry && retry(); };
   clearTimeout(toast.t); if (!retry) toast.t = setTimeout(() => $('lr-toast').style.display = 'none', 3500);
 }
@@ -4620,7 +4705,9 @@ function tick() {
   if (now >= p.e - 0.03 || au.ended) {
     if (qi + 1 < pars.length) playFrom(qi + 1);
     else if (pi + 1 < bk.pages.length) showPage(pi + 1, true);
-    else { pause(); mark(-1); if (sess) sess.finished = true; toast('🎉 さいごまで よみました！'); }
+    else { pause(); mark(-1); if (sess) sess.finished = true;
+      toast('🎉 さいごまで よみました！ かんそうを おしえてね', () => LR.openFeedback({ kind: 'よかった', book: LR.lastBook }));
+      $('lr-toastbtn').textContent = '💬 かんそうを おくる'; }
   }
 }
 setInterval(tick, 40); au.addEventListener('timeupdate', tick);
@@ -4671,6 +4758,7 @@ async function openRec(r) {
     if (sess) sessEnd();   // 前の本の記録を先に閉じる
     bk = await parseEpub(r.blob); rec = r;
     sess = { bookId: r.id, pages: new Set(), listened: 0, finished: false };
+    LR.lastBook = { id: r.id, title: r.title };
     logPush({ book: r.id, ev: 'open', mode: 'reader' }); logFlush(false);
     $('lr-hd').textContent = bk.title || r.title;
     if ('mediaSession' in navigator) safe(() => navigator.mediaSession.metadata = new MediaMetadata({ title: bk.title, artist: 'OurDAISY' }));
@@ -4949,6 +5037,76 @@ async function rgSubmit() {
   toast(res.existed ? 'すでに 登録されています。図書館へ どうぞ！ / You are already a member.' : '🎉 登録できました！ようこそ / Welcome!');
 }
 LR.esc = esc2;
+
+// ── かんそう（GAS の feedback。ログインしていれば通行証もつける） ──
+const FB_HINT = { 'よかった': 'どんな ところが よかった？ / What did you like?',
+  'こうしてほしい': 'どう なったら もっと いい？ / What would make it better?',
+  'よみたい本': 'どんな 本を よみたい？ れい）どうぶつの はなし、むかしばなし、○○ごの 本 / What books would you like?',
+  'こまった': 'なにが こまった？ どの がめんで？ / What was the problem? Where?' };
+let fbBook = null, fbBuilt = false;
+const fbPick = id => (($(id).querySelector('[aria-pressed="true"]') || {}).dataset || {}).v || '';
+function fbSingle(id, after) { $(id).querySelectorAll('.lr-tile').forEach(b => b.onclick = () => {
+  const on = b.getAttribute('aria-pressed') === 'true';
+  $(id).querySelectorAll('.lr-tile').forEach(x => x.setAttribute('aria-pressed', 'false'));
+  if (!(on && id !== 'fb-kind')) b.setAttribute('aria-pressed', 'true');   // もう一度おすと はずせる（種類いがい）
+  after && after(); }); }
+function fbBuild() {
+  if (fbBuilt) return; fbBuilt = true;
+  fbSingle('fb-kind', () => { $('fb-k-box').classList.remove('err'); $('fb-text').placeholder = FB_HINT[fbPick('fb-kind')] || ''; });
+  fbSingle('fb-face'); fbSingle('fb-who'); fbSingle('fb-age');
+  $('fb-text').addEventListener('input', () => $('fb-t-box').classList.remove('err'));
+  $('fb-email').addEventListener('input', () => $('fb-mail-box').classList.remove('err'));
+  $('fb-reply').onclick = () => { const on = $('fb-reply').getAttribute('aria-pressed') !== 'true';
+    $('fb-reply').setAttribute('aria-pressed', String(on)); $('fb-mail-box').hidden = !(on && !LR.token()); };
+  $('fb-book-x').onclick = () => { fbBook = null; $('fb-book').hidden = true; };
+  $('fb-cancel').onclick = () => $('lr-fb').classList.remove('open');
+  $('fb-ok').onclick = () => $('lr-fb').classList.remove('open');
+  $('lr-fb').onclick = e => { if (e.target === $('lr-fb')) $('lr-fb').classList.remove('open'); };
+  $('fb-send').onclick = fbSend;
+}
+LR.openFeedback = function (opt) {
+  fbBuild(); opt = opt || {};
+  $('fb-form').hidden = false; $('fb-done').hidden = true;
+  ['fb-kind', 'fb-face', 'fb-who', 'fb-age'].forEach(id => $(id).querySelectorAll('.lr-tile').forEach(x => x.setAttribute('aria-pressed', 'false')));
+  $('fb-text').value = ''; $('fb-email').value = ''; $('fb-reply').setAttribute('aria-pressed', 'false'); $('fb-mail-box').hidden = true;
+  document.querySelectorAll('#lr-fb .err').forEach(x => x.classList.remove('err'));
+  if (opt.kind) { const b = $('fb-kind').querySelector('[data-v="' + opt.kind + '"]'); if (b) b.setAttribute('aria-pressed', 'true'); }
+  $('fb-text').placeholder = FB_HINT[fbPick('fb-kind')] || 'ひとこと どうぞ / A few words';
+  fbBook = opt.book || LR.lastBook || null;
+  $('fb-book').hidden = !fbBook; if (fbBook) $('fb-book-t').textContent = (fbBook.title || fbBook.id) + ' について';
+  $('lr-fb').classList.add('open');
+};
+async function fbSend() {
+  const kind = fbPick('fb-kind'), text = $('fb-text').value.trim(), reply = $('fb-reply').getAttribute('aria-pressed') === 'true';
+  const email = $('fb-email').value.trim();
+  let bad = false;
+  if (!kind) { $('fb-k-box').classList.add('err'); bad = true; }
+  if (!text) { $('fb-t-box').classList.add('err'); bad = true; }
+  if (reply && !LR.token() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { $('fb-mail-box').classList.add('err'); bad = true; }
+  if (bad) { const e = document.querySelector('#lr-fb .err'); if (e) e.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+  let client = safe(() => localStorage.getItem('od_lr_client'), '');
+  if (!client) { client = Math.random().toString(36).slice(2) + Date.now().toString(36); safe(() => localStorage.setItem('od_lr_client', client)); }
+  const body = new URLSearchParams({ action: 'feedback', kind, text, face: fbPick('fb-face'), who: fbPick('fb-who'), age: fbPick('fb-age'),
+    book: fbBook ? fbBook.id : '', dev: device(), lang: (typeof _lang === 'string' ? _lang : 'ja'), reply: reply ? '1' : '',
+    email: reply ? email : '', token: LR.token(), client, website: $('fb-website').value,
+    fid: client.slice(0, 12) + Date.now().toString(36) });   // 送り直しても二重にならない印
+  $('fb-send').disabled = true; busy(true, '📨 おくっています… / Sending…');
+  let res = null;
+  try { const r = await fetch(SITE_CONFIG.GAS_URL, { method: 'POST', body }); res = await r.json(); }
+  catch (e) {   // 返事が読めないとき：もう一度、返事を待たずに送る（届いたかは事務局のメールで分かる）
+    try { await fetch(SITE_CONFIG.GAS_URL, { method: 'POST', body, mode: 'no-cors' }); res = { ok: true }; } catch (e2) { res = null; }
+  } finally { busy(false); $('fb-send').disabled = false; }
+  if (!res) return toast('いま おくれませんでした。もういちど おしてね。', fbSend);
+  if (res.error === 'busy') return toast('すこし まってから、もういちど おしてね。');
+  if (res.error) return toast('おくれませんでした。もういちど たしかめてね。');
+  $('fb-form').hidden = true; $('fb-done').hidden = false;
+}
+document.addEventListener('DOMContentLoaded', () => {
+  // 右下の「つかってみた かんそう」ボタン：Googleフォームではなく、この画面を開く
+  document.querySelectorAll('a.floating-fab').forEach(a => { a.href = '?feedback'; a.removeAttribute('target');
+    a.addEventListener('click', e => { e.preventDefault(); LR.openFeedback(); }); });
+  if (/(^|[?&])feedback(=|&|$)/.test(location.search.slice(1)) || location.hash === '#feedback') setTimeout(() => LR.openFeedback(), 300);
+});
 document.addEventListener('DOMContentLoaded', () => {
   if (/(^|[?&])register(=|&|$)/.test(location.search.slice(1)) || location.hash === '#register') setTimeout(() => LR.openRegister(), 300);
 });
