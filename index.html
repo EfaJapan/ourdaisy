@@ -3065,7 +3065,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // ガイドページURL：現在のURLのベースに ?page=guide を付加
   SITE_CONFIG.GITHUB_README_URL = location.href.split('?')[0] + '?page=guide';
 
-  document.getElementById('link-register').href        = SITE_CONFIG.FORM_URL;
+  // 2026-11-13：会員登録は図書館のページの登録画面で行う（Googleフォームは使わない）
+  const lnkReg = document.getElementById('link-register');
+  lnkReg.href = '?register'; lnkReg.removeAttribute('target');
+  lnkReg.onclick = function (e) { if (window.LR && LR.openRegister) { e.preventDefault(); LR.openRegister(); } };
   document.getElementById('link-reader-guide').href    = SITE_CONFIG.GITHUB_README_URL;
   document.getElementById('link-reader-guide-cat').href= SITE_CONFIG.GITHUB_README_URL;
   const rgBottom = document.getElementById('link-reader-guide-bottom');
@@ -4174,6 +4177,37 @@ document.addEventListener('keydown', function(e) {
 .lr-spin{width:56px;height:56px;border:7px solid #E6F2FA;border-top-color:#F39800;border-radius:50%;animation:lrsp 1s linear infinite}
 @keyframes lrsp{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.lr-spin{animation:none}}
+/* 会員登録（2026-11-13） */
+#lr-reg{position:fixed;inset:0;z-index:100050;background:#F7FBFF;overflow:auto;display:none;font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Meiryo",sans-serif;color:#1A2E45}
+#lr-reg.open{display:block}
+#lr-reg .rg-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:10px 14px;padding-top:max(10px,env(safe-area-inset-top));background:#004070;color:#fff}
+#lr-reg .rg-head h2{flex:1;margin:0;font-size:18px}
+#lr-reg .rg-close{min-width:64px;min-height:48px;border:0;border-radius:14px;background:rgba(255,255,255,.18);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+#lr-reg .rg-in{max-width:720px;margin:0 auto;padding:16px 16px 40px}
+#lr-reg .rg-lead{font-size:15px;line-height:1.8;margin:4px 0 12px}
+#lr-reg .rg-box{background:#fff;border:2px solid #B8D9F0;border-radius:18px;padding:14px;margin:12px 0}
+#lr-reg .rg-box.err{border-color:#E53935;background:#FFF5F5}
+#lr-reg .rg-q{font-size:17px;font-weight:800;margin:0 0 4px;line-height:1.9}
+#lr-reg .rg-q .n{margin-right:6px;vertical-align:2px}
+#lr-reg .rg-q .n{display:inline-flex;width:28px;height:28px;border-radius:14px;background:#F39800;color:#fff;align-items:center;justify-content:center;font-size:15px}
+#lr-reg .rg-req{font-size:12px;color:#E53935;font-weight:700;margin-left:6px;white-space:nowrap}
+#lr-reg .rg-en{font-size:13px;color:#546E7A;margin:0 0 8px}
+#lr-reg .rg-msg{display:none;color:#C62828;font-weight:700;font-size:14px;margin-top:6px}
+#lr-reg .rg-box.err .rg-msg{display:block}
+#lr-reg input[type=email],#lr-reg input[type=text],#lr-reg select{width:100%;min-height:52px;font:inherit;font-size:17px;padding:10px 12px;border:2px solid #B8D9F0;border-radius:12px;background:#fff;color:#1A2E45}
+#lr-reg .rg-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#lr-reg .rg-2 label{font-size:13px;color:#546E7A;font-weight:700}
+#lr-reg .lr-tiles{grid-template-columns:repeat(auto-fill,minmax(104px,1fr))}
+#lr-reg .rg-rules{background:#FFF8EC;border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.8;margin:6px 0 10px}
+#lr-reg .rg-rules li{margin-bottom:4px}
+#lr-reg .rg-agree{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;border:4px solid #B8D9F0;border-radius:16px;background:#fff;font:inherit;font-size:16px;font-weight:800;color:#1A2E45;padding:8px 14px;cursor:pointer;text-align:left}
+#lr-reg .rg-agree .bx{flex:none;width:32px;height:32px;border:3px solid #0065A4;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;background:#fff}
+#lr-reg .rg-agree[aria-pressed="true"]{border-color:#F39800}
+#lr-reg .rg-agree[aria-pressed="true"] .bx{background:#F39800;border-color:#F39800}
+#lr-reg .rg-submit{width:100%;min-height:68px;border:0;border-radius:20px;background:#F39800;color:#fff;font:inherit;font-size:20px;font-weight:800;cursor:pointer;margin-top:8px}
+#lr-reg .rg-submit:disabled{opacity:.6}
+#lr-reg .rg-sum{display:none;background:#FFF5F5;border:2px solid #E53935;border-radius:14px;padding:10px 12px;color:#C62828;font-weight:700;margin-top:10px;line-height:1.7}
+#lr-reg .rg-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 /* おしらせ */
 .lr-news-section{background:#FFF8EC;padding:26px 16px;border-top:4px solid #F39800}
 .lr-news-in{max-width:860px;margin:0 auto}
@@ -4294,6 +4328,69 @@ document.addEventListener('keydown', function(e) {
   <div class="lr-tiles" id="lr-attr-tiles"></div>
   <div class="lr-row2"><button class="lr-sub" id="lr-attr-later">あとで</button><button class="lr-main" id="lr-attr-ok" disabled>おくる / Send</button></div>
 </div></div>
+
+<!-- 会員登録（2026-11-13：Googleフォームのかわり。答えは Member シートに今までと同じ形で入る） -->
+<div id="lr-reg" role="dialog" aria-label="会員登録">
+  <div class="rg-head"><h2>📝 <ruby>会員<rt>かいいん</rt></ruby><ruby>登録<rt>とうろく</rt></ruby> <span style="font-size:13px;opacity:.8">Registration</span></h2>
+    <button type="button" class="rg-close" id="rg-close">✕ とじる</button></div>
+  <form class="rg-in" id="rg-form" novalidate autocomplete="on">
+    <p class="rg-lead">OURDAISY <ruby>図書館<rt>としょかん</rt></ruby>へ ようこそ！ <ruby>電子<rt>でんし</rt></ruby>ブックを <ruby>使<rt>つか</rt></ruby>うために、<ruby>登録<rt>とうろく</rt></ruby>してください（2<ruby>分<rt>ふん</rt></ruby>ぐらい）。<br>
+      <span class="rg-en">Welcome! Please register to read the e-books (about 2 minutes).</span></p>
+
+    <div class="rg-box" data-f="email"><p class="rg-q"><span class="n">1</span>📧 メールアドレス <span class="rg-req">ひつよう</span></p>
+      <p class="rg-en">Email address — you will log in with this</p>
+      <input type="email" id="rg-email" name="email" inputmode="email" autocomplete="email" placeholder="example@mail.com">
+      <p class="rg-msg">メールアドレスを ただしく 入れてください / Please enter a valid email</p></div>
+
+    <div class="rg-box" data-f="name"><p class="rg-q"><span class="n">2</span>👤 なまえ <span class="rg-req">ひつよう</span></p>
+      <p class="rg-en">Your name</p>
+      <div class="rg-2"><div><label for="rg-family"><ruby>姓<rt>せい</rt></ruby> / Family name</label><input type="text" id="rg-family" autocomplete="family-name" maxlength="50"></div>
+        <div><label for="rg-first"><ruby>名<rt>めい</rt></ruby> / First name</label><input type="text" id="rg-first" autocomplete="given-name" maxlength="50"></div></div>
+      <p class="rg-msg">姓と 名を 入れてください / Please enter your family and first name</p></div>
+
+    <div class="rg-box" data-f="attr"><p class="rg-q"><span class="n">3</span>👋 あなたについて <span class="rg-req">ひつよう</span></p>
+      <p class="rg-en">About you — tap all that apply</p>
+      <div class="lr-tiles" id="rg-attr"></div>
+      <p class="rg-msg">1つ いじょう えらんでください / Please choose at least one</p></div>
+
+    <div class="rg-box" data-f="country"><p class="rg-q"><span class="n">4</span>🌏 ルーツや かかわりのある <ruby>国<rt>くに</rt></ruby> <span class="rg-req">ひつよう</span></p>
+      <p class="rg-en">Countries you or your family have ties to — tap all that apply</p>
+      <div class="lr-tiles" id="rg-country"></div>
+      <label for="rg-country-other" style="display:block;font-size:14px;font-weight:700;margin:10px 0 4px">ほかの <ruby>国<rt>くに</rt></ruby>（じゆうに <ruby>書<rt>か</rt></ruby>いてください） / Other countries</label>
+      <input type="text" id="rg-country-other" maxlength="100" placeholder="れい）中国、韓国 / e.g. China, Korea">
+      <p class="rg-msg">1つ いじょう えらぶか、書いてください / Choose or write at least one</p></div>
+
+    <div class="rg-box" data-f="pref"><p class="rg-q"><span class="n">5</span>🏠 <ruby>住<rt>す</rt></ruby>んでいる <ruby>県<rt>けん</rt></ruby> <span class="rg-req">ひつよう</span></p>
+      <p class="rg-en">Your prefecture</p>
+      <select id="rg-pref"><option value="">えらんでください / Choose</option></select>
+      <p class="rg-msg">県を えらんでください / Please choose your prefecture</p></div>
+
+    <div class="rg-box" data-f="gender"><p class="rg-q"><span class="n">6</span>🧑 <ruby>性別<rt>せいべつ</rt></ruby> <span class="rg-req">ひつよう</span></p>
+      <p class="rg-en">Gender</p>
+      <div class="lr-tiles" id="rg-gender"></div>
+      <p class="rg-msg">1つ えらんでください / Please choose one</p></div>
+
+    <div class="rg-box" data-f="birth"><p class="rg-q"><span class="n">7</span>🎂 <ruby>生<rt>う</rt></ruby>まれた <ruby>年<rt>とし</rt></ruby> <span class="rg-req">ひつよう</span></p>
+      <p class="rg-en">Year of birth</p>
+      <select id="rg-birth"><option value="">えらんでください / Choose</option></select>
+      <p class="rg-msg">生まれた年を えらんでください / Please choose your birth year</p></div>
+
+    <div class="rg-box" data-f="agree"><p class="rg-q"><span class="n">8</span>📜 <ruby>使<rt>つか</rt></ruby>い<ruby>方<rt>かた</rt></ruby>の ルール <span class="rg-req">ひつよう</span></p>
+      <ul class="rg-rules">
+        <li>この<ruby>電子<rt>でんし</rt></ruby>ブックを <ruby>使<rt>つか</rt></ruby>う<ruby>権利<rt>けんり</rt></ruby>は、エファジャパンにあります。<br><span class="rg-en">The usage rights for these e-books belong to EFA Japan.</span></li>
+        <li><ruby>本<rt>ほん</rt></ruby>の<ruby>著作権<rt>ちょさくけん</rt></ruby>は、<ruby>作<rt>つく</rt></ruby>った<ruby>人<rt>ひと</rt></ruby>と<ruby>出版社<rt>しゅっぱんしゃ</rt></ruby>にあります。<br><span class="rg-en">Copyrights belong to the authors and publishers.</span></li>
+        <li>ファイルを <ruby>売<rt>う</rt></ruby>ったり、<ruby>他<rt>ほか</rt></ruby>の<ruby>人<rt>ひと</rt></ruby>に <ruby>配<rt>くば</rt></ruby>ったりすることは、<ruby>法律<rt>ほうりつ</rt></ruby>で<ruby>禁止<rt>きんし</rt></ruby>されています。<br><span class="rg-en">Selling or distributing these files to others without permission is prohibited by law.</span></li>
+        <li><ruby>使<rt>つか</rt></ruby>う<ruby>人<rt>ひと</rt></ruby>は、1<ruby>人<rt>ひとり</rt></ruby>ずつ <ruby>会員<rt>かいいん</rt></ruby><ruby>登録<rt>とうろく</rt></ruby>をしてください。<br><span class="rg-en">Each user must register individually.</span></li>
+        <li>よりよい <ruby>図書館<rt>としょかん</rt></ruby>にするため、よんだ <ruby>本<rt>ほん</rt></ruby>の きろくを とります（<ruby>名前<rt>なまえ</rt></ruby>や メールアドレスは きろくしません）。<br><span class="rg-en">To improve the library, we record which books are read — never your name or email address.</span></li>
+      </ul>
+      <button type="button" class="rg-agree" id="rg-agree" aria-pressed="false"><span class="bx">✓</span><span>ルールを <ruby>理解<rt>りかい</rt></ruby>しました<br><span class="rg-en" style="margin:0">I agree to the Terms of Use</span></span></button>
+      <p class="rg-msg">ルールを よんで、おしてください / Please read and agree to the rules</p></div>
+
+    <div class="rg-hp" aria-hidden="true"><label>website<input type="text" id="rg-website" tabindex="-1" autocomplete="off"></label></div>
+    <button type="submit" class="rg-submit" id="rg-submit">✅ <ruby>登録<rt>とうろく</rt></ruby>して <ruby>図書館<rt>としょかん</rt></ruby>に <ruby>入<rt>はい</rt></ruby>る<br><span style="font-size:13px;font-weight:600">Register and enter the library</span></button>
+    <div class="rg-sum" id="rg-sum"></div>
+  </form>
+</div>
 
 <div class="lr-busy" id="lr-busy"><div class="lr-spin"></div><div id="lr-busytx"></div></div>
 <div class="lr-toast" id="lr-toast" role="status"><div id="lr-toasttx"></div><button id="lr-toastbtn" hidden>もういちど</button></div>
@@ -4734,6 +4831,127 @@ function loadNews() {
   }).catch(() => {});
 }
 LR.loadNews = loadNews;
+
+// ── 会員登録（GAS の register。選択肢は library_register.gs と同じもの） ──
+const RG_ATTR = ['外国ルーツの子ども本人', '保護者・家族', '学校の先生', '日本語教室・母語教室', '支援団体', '図書館', '行政', 'ボランティア', 'その他'];
+const RG_COUNTRIES = ['Laos / ラオス', 'Cambodia / カンボジア', 'Myanmar / ミャンマー', 'Nepal / ネパール', 'Vietnam / ベトナム',
+  'Thailand / タイ', 'Philippines / フィリピン', 'Indonesia / インドネシア', 'Sri Lanka / スリランカ', 'India / インド',
+  'Brazil / ブラジル', 'Peru / ペルー'];
+const RG_FLAG = ['🇱🇦', '🇰🇭', '🇲🇲', '🇳🇵', '🇻🇳', '🇹🇭', '🇵🇭', '🇮🇩', '🇱🇰', '🇮🇳', '🇧🇷', '🇵🇪'];
+const RG_PREFS = ['Hokkaido / 北海道(ほっかいどう)', 'Aomori / 青森県(あおもりけん)', 'Iwate / 岩手県(いわてけん)', 'Miyagi / 宮城県(みやぎけん)',
+  'Akita / 秋田県(あきたけん)', 'Yamagata / 山形県(やまがたけん)', 'Fukushima / 福島県(ふくしまけん)', 'Ibaraki / 茨城県(いばらきけん)',
+  'Tochigi / 栃木県(とちぎけん)', 'Gunma / 群馬県(ぐんまけん)', 'Saitama / 埼玉県(さいたまけん)', 'Chiba / 千葉県(ちばけん)',
+  'Tokyo / 東京都(とうきょうと)', 'Kanagawa / 神奈川県(かながわけん)', 'Niigata / 新潟県(にいがたけん)', 'Toyama / 富山県(とやまけん)',
+  'Ishikawa / 石川県(いしかわけん)', 'Fukui / 福井県(ふくいけん)', 'Yamanashi / 山梨県(やまなしけん)', 'Nagano / 長野県(ながのけん)',
+  'Gifu / 岐阜県(ぎふけん)', 'Shizuoka / 静岡県(しずおかけん)', 'Aichi / 愛知県(あいちけん)', 'Mie / 三重県(みえけん)',
+  'Shiga / 滋賀県(しがけん)', 'Kyoto / 京都府(きょうとふ)', 'Osaka / 大阪府(おおさかふ)', 'Hyogo / 兵庫県(ひょうごけん)',
+  'Nara / 奈良県(ならけん)', 'Wakayama / 和歌山県(わかやまけん)', 'Tottori / 鳥取県(とっとりけん)', 'Shimane / 島根県(しまねけん)',
+  'Okayama / 岡山県(おかやまけん)', 'Hiroshima / 広島県(ひろしまけん)', 'Yamaguchi / 山口県(やまぐちけん)', 'Tokushima / 徳島県(とくしまけん)',
+  'Kagawa / 香川県(かがわけん)', 'Ehime / 愛媛県(えひめけん)', 'Kochi / 高知県(こうちけん)', 'Fukuoka / 福岡県(ふくおかけん)',
+  'Saga / 佐賀県(さがけん)', 'Nagasaki / 長崎県(ながさきけん)', 'Kumamoto / 熊本県(くまもとけん)', 'Oita / 大分県(おおいたけん)',
+  'Miyazaki / 宮崎県(みやざきけん)', 'Kagoshima / 鹿児島県(かごしまけん)', 'Okinawa / 沖縄県(おきなわけん)'];
+const RG_GENDERS = ['Male / 男性(だんせい)', 'Female / 女性(じょせい)', 'Other / その他(た)'];
+const RG_GENDER_ICON = ['👦', '👧', '🌈'];
+let rgOpenedAt = 0, rgBuilt = false;
+function rgTiles(host, items, multi, label, icon) {
+  host.innerHTML = '';
+  items.forEach((v, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'lr-tile'; b.dataset.v = v;
+    b.setAttribute('aria-pressed', 'false');
+    const lb = label ? label(v) : v;
+    b.innerHTML = (icon ? '<span class="ic">' + icon(v, i) + '</span>' : '') + lb;
+    b.onclick = () => { if (!multi) host.querySelectorAll('.lr-tile').forEach(x => x.setAttribute('aria-pressed', 'false'));
+      b.setAttribute('aria-pressed', multi ? String(b.getAttribute('aria-pressed') !== 'true') : 'true');
+      host.closest('.rg-box').classList.remove('err'); };
+    host.appendChild(b); });
+}
+const rgPicked = id => [...$(id).querySelectorAll('[aria-pressed="true"]')].map(b => b.dataset.v);
+const rgSplit = v => { const m = /^(.*?) \/ (.*)$/.exec(v); return m ? '<b>' + esc2(m[2].replace(/\(.*?\)/g, '')) + '</b><br><span class="lr-en">' + esc2(m[1]) + '</span>' : esc2(v); };
+function rgBuild() {
+  if (rgBuilt) return; rgBuilt = true;
+  rgTiles($('rg-attr'), RG_ATTR, true, v => esc2(v) + '<br><span class="lr-en">' + esc2(ATTR_EN[v] || '') + '</span>', v => ATTR_ICON[v] || '•');
+  rgTiles($('rg-country'), RG_COUNTRIES, true, rgSplit, (v, i) => RG_FLAG[i]);
+  rgTiles($('rg-gender'), RG_GENDERS, false, rgSplit, (v, i) => RG_GENDER_ICON[i]);
+  RG_PREFS.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v.replace(/\(.*?\)/g, ''); $('rg-pref').appendChild(o); });
+  const y = new Date().getFullYear();
+  for (let i = y; i >= 1956; i--) { const o = document.createElement('option'); o.value = String(i); o.textContent = i + '年'; $('rg-birth').appendChild(o); }
+  const o = document.createElement('option'); o.value = '～1955'; o.textContent = '1955年より前 / before 1956'; $('rg-birth').appendChild(o);
+  $('rg-agree').onclick = () => { $('rg-agree').setAttribute('aria-pressed', String($('rg-agree').getAttribute('aria-pressed') !== 'true'));
+    $('rg-agree').closest('.rg-box').classList.remove('err'); };
+  ['rg-email', 'rg-family', 'rg-first', 'rg-country-other', 'rg-pref', 'rg-birth'].forEach(id =>
+    $(id).addEventListener('input', () => $(id).closest('.rg-box').classList.remove('err')));
+  $('rg-close').onclick = () => LR.closeRegister();
+  $('rg-form').onsubmit = e => { e.preventDefault(); rgSubmit(); };
+}
+LR.openRegister = function () {
+  rgBuild(); rgOpenedAt = Date.now();
+  const last = safe(() => localStorage.getItem('efa_last_email'), '') || '';
+  const typed = (document.getElementById('login-email') || {}).value || '';
+  if (!$('rg-email').value) $('rg-email').value = typed || '';
+  $('lr-reg').classList.add('open'); document.documentElement.style.overflow = 'hidden'; $('lr-reg').scrollTop = 0;
+  if (!last) setTimeout(() => $('rg-email').focus(), 200);
+};
+LR.closeRegister = function () { $('lr-reg').classList.remove('open'); document.documentElement.style.overflow = ''; };
+function rgValues() {
+  return { email: $('rg-email').value.trim(), family: $('rg-family').value.trim(), first: $('rg-first').value.trim(),
+           attr: rgPicked('rg-attr'), countries: rgPicked('rg-country'), country_other: $('rg-country-other').value.trim(),
+           pref: $('rg-pref').value, gender: rgPicked('rg-gender')[0] || '', birth: $('rg-birth').value,
+           agree: $('rg-agree').getAttribute('aria-pressed') === 'true' };
+}
+function rgCheck(v) {
+  const bad = [];
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) bad.push('email');
+  if (!v.family || !v.first) bad.push('name');
+  if (!v.attr.length) bad.push('attr');
+  if (!v.countries.length && !v.country_other) bad.push('country');
+  if (!v.pref) bad.push('pref');
+  if (!v.gender) bad.push('gender');
+  if (!v.birth) bad.push('birth');
+  if (!v.agree) bad.push('agree');
+  return bad;
+}
+function rgShowErr(bad, msg) {
+  document.querySelectorAll('#lr-reg .rg-box').forEach(b => b.classList.toggle('err', bad.indexOf(b.dataset.f) >= 0));
+  const s = $('rg-sum');
+  s.innerHTML = msg || ('⚠️ <ruby>赤<rt>あか</rt></ruby>い ところを たしかめてください（' + bad.length + 'か<ruby>所<rt>しょ</rt></ruby>） / Please check the items in red');
+  s.style.display = 'block';
+  const first = document.querySelector('#lr-reg .rg-box.err'); if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+async function rgSubmit() {
+  const v = rgValues(), bad = rgCheck(v);
+  if (bad.length) return rgShowErr(bad);
+  $('rg-sum').style.display = 'none';
+  const body = new URLSearchParams({ action: 'register', email: v.email, family: v.family, first: v.first, attr: v.attr.join('|'),
+    countries: v.countries.join('|'), country_other: v.country_other, pref: v.pref, gender: v.gender, birth: v.birth,
+    agree: '1', website: $('rg-website').value, waited: String(Date.now() - rgOpenedAt) });
+  $('rg-submit').disabled = true;
+  busy(true, '📝 <ruby>登録<rt>とうろく</rt></ruby>しています… / Registering…');
+  let res = null;
+  try {
+    const r = await fetch(SITE_CONFIG.GAS_URL, { method: 'POST', body });
+    res = await r.json();
+  } catch (e) {
+    // 返事が読めなかったとき（通信や端末の設定）：登録できたかを、ログインで確かめる
+    try { res = await fetchJsonWithRetry({ action: 'auth', email: v.email }, 3); if (res && res.ok) res.created = true; } catch (e2) { res = null; }
+  } finally { busy(false); $('rg-submit').disabled = false; }
+  if (!res) return rgShowErr([], '📶 いま つながりません。インターネットを たしかめて、もういちど おしてください。<br>Could not connect. Please try again.');
+  if (res.error) {
+    const map = { email: 'email', family: 'name', first: 'name', attr: 'attr', country: 'country', pref: 'pref', gender: 'gender', birth: 'birth', agree: 'agree' };
+    if (map[res.error]) return rgShowErr([map[res.error]]);
+    return rgShowErr([], 'いま 登録できませんでした。すこし まってから、もういちど おしてください。<br>Registration failed. Please try again later.');
+  }
+  if (!res.ok) return rgShowErr([], 'いま 登録できませんでした。もういちど おしてください。<br>Please try again.');
+  // 登録できた → そのまま図書館へ
+  LR.onAuth(res);
+  safe(() => { sessionStorage.setItem('efa_email', v.email); localStorage.setItem('efa_last_email', v.email); });
+  try { _email = v.email; } catch (e) {}
+  LR.closeRegister();
+  if (typeof showCatalog === 'function') showCatalog();
+  toast(res.existed ? 'すでに 登録されています。図書館へ どうぞ！ / You are already a member.' : '🎉 登録できました！ようこそ / Welcome!');
+}
+LR.esc = esc2;
+document.addEventListener('DOMContentLoaded', () => {
+  if (/(^|[?&])register(=|&|$)/.test(location.search.slice(1)) || location.hash === '#register') setTimeout(() => LR.openRegister(), 300);
+});
 if (LR.forceReader) { const b = document.createElement('div'); b.className = 'lr-beta'; b.textContent = 'β版（ためし）'; document.body.appendChild(b); }
 })();
 </script>
