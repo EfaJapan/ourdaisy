@@ -4651,8 +4651,15 @@ document.addEventListener('visibilitychange', () => { if (document.visibilitySta
 window.addEventListener('pagehide', () => { if (sess) { saveSpot(); sessEnd(); } });
 
 // ── 読む ──
-let bk = null, rec = null, pi = 0, qi = -1, playing = false, urls = {}, wake = null, lastT = 0;
-function url(p) { if (!urls[p]) urls[p] = bk.zip.file(p).async('blob').then(x => URL.createObjectURL(x)); return urls[p]; }
+let bk = null, rec = null, pi = 0, qi = -1, playing = false, urls = {}, ready = {}, wake = null, lastT = 0, loading = false, seq = 0;
+// Safari は「種類（MIME）の ない」blob の音を 再生できないので、拡張子から 種類を つける
+const MIME = { mp3: 'audio/mpeg', m4a: 'audio/mp4', mp4: 'audio/mp4', aac: 'audio/aac', wav: 'audio/wav', ogg: 'audio/ogg', oga: 'audio/ogg',
+  opus: 'audio/ogg', webm: 'audio/webm', jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', gif: 'image/gif', webp: 'image/webp', svg: 'image/svg+xml' };
+function url(p) { if (!urls[p]) urls[p] = bk.zip.file(p).async('arraybuffer').then(x => {
+  const t = MIME[(String(p).split('.').pop() || '').toLowerCase()];
+  return (ready[p] = URL.createObjectURL(t ? new Blob([x], { type: t }) : new Blob([x]))); }); return urls[p]; }
+// iPhone：マナーモード（よこの スイッチ）でも 音が でるように
+safe(() => { if (navigator.audioSession) navigator.audioSession.type = 'playback'; });
 function showPage(i, autoplay) {
   const keep = playing && autoplay; pause();
   pi = Math.max(0, Math.min(bk.pages.length - 1, i)); qi = -1;
@@ -4667,6 +4674,7 @@ function showPage(i, autoplay) {
   $('lr-bookbar').style.width = ((pi + 1) / bk.pages.length * 100) + '%';
   $('lr-prev').disabled = pi === 0; $('lr-next').disabled = pi === bk.pages.length - 1;
   if (sess) sess.pages.add(pi);
+  pg.pars.forEach(p => url(p.src).catch(() => {}));   // 音を さきに よみこむ（▶ を おした しゅんかんに 再生できるように）
   saveSpot();
   const nx = bk.pages[pi + 1];
   if (nx) (nx.html.match(/data-src="([^"]+)"/g) || []).forEach(m => url(m.slice(10, -1)).catch(() => {}));
@@ -4677,20 +4685,32 @@ function mark(k) {
   const el = V.querySelector('[data-par="' + k + '"]');
   if (el) { el.classList.add('mo-active'); el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
 }
+// Safari（Mac・iPhone）は、ボタンを おした あと すぐに play() しないと 再生を ことわる。
+// そのため、音が よみこみずみなら 待たずに その場で play() し、位置あわせは あとから する。
 async function playFrom(k) {
   const pars = bk.pages[pi].pars; if (!pars[k]) return;
-  qi = k; setPlaying(true);
+  const my = ++seq; qi = k; setPlaying(true); mark(k);
   const p = pars[k];
   if (au.dataset.src !== p.src) {
-    au.src = await url(p.src); au.dataset.src = p.src;
-    await new Promise(r => { au.addEventListener('loadedmetadata', r, { once: true }); setTimeout(r, 4000); });
-    au.playbackRate = Number(pref.spd);
-  }
-  if (Math.abs(au.currentTime - p.b) > 0.25) au.currentTime = p.b;
-  mark(k);
-  try { await au.play(); } catch (e) { setPlaying(false); toast('▶ を おしてね'); }
+    loading = true;   // 音の いれかえ中は、前の音の「おわり」で 次へ すすまない
+    let u = ready[p.src];
+    if (!u) { try { u = await url(p.src); } catch (e) { u = null; } if (my !== seq) return;
+      if (!u) { loading = false; setPlaying(false); toast('おとが よみこめませんでした。もういちど おしてね。', () => playFrom(k)); return; } }
+    au.src = u; au.dataset.src = p.src;
+    if (p.b > 0.25) au.addEventListener('loadedmetadata', () => { if (my === seq) au.currentTime = p.b; }, { once: true });
+  } else if (Math.abs(au.currentTime - p.b) > 0.25) au.currentTime = p.b;
+  au.playbackRate = Number(pref.spd);
+  try { await au.play(); if (my !== seq) return; loading = false; soundHint(); }
+  catch (e) { if (my !== seq) return; loading = false; setPlaying(false);
+    toast(e && e.name === 'NotAllowedError' ? '▶ を もういちど おしてね' : 'おとが ながせませんでした。もういちど おしてね。', () => playFrom(k)); }
 }
-function pause() { au.pause(); setPlaying(false); }
+// iPhone・iPad：はじめて よむときに 1回だけ、音の たしかめかたを 出す
+function soundHint() {
+  if (device() !== 'ios' || safe(() => localStorage.getItem('od_lr_sndhint'))) return;
+  safe(() => localStorage.setItem('od_lr_sndhint', '1'));
+  toast('🔈 おとが きこえないときは、音量ボタンと マナーモードを たしかめてね');
+}
+function pause() { seq++; loading = false; au.pause(); setPlaying(false); }
 function setPlaying(on) {
   playing = on; $('lr-playic').textContent = on ? '❚❚' : '▶'; $('lr-playtx').textContent = on ? 'とめる' : 'よむ';
   $('lr-play').setAttribute('aria-label', on ? 'とめる' : 'よむ');
@@ -4699,9 +4719,9 @@ function setPlaying(on) {
   if (!on && wake) { wake.release().catch(() => {}); wake = null; }
 }
 function tick() {
-  if (!playing || !bk) return;
+  if (!playing || !bk || loading) return;
   const now = au.currentTime; if (sess && now > lastT && now - lastT < 1) sess.listened += (now - lastT); lastT = now;
-  const pars = bk.pages[pi].pars, p = pars[qi]; if (!p) return;
+  const pars = bk.pages[pi].pars, p = pars[qi]; if (!p || au.dataset.src !== p.src) return;
   if (now >= p.e - 0.03 || au.ended) {
     if (qi + 1 < pars.length) playFrom(qi + 1);
     else if (pi + 1 < bk.pages.length) showPage(pi + 1, true);
@@ -4754,7 +4774,7 @@ async function openRec(r) {
   busy(true, '📖 <ruby>本<rt>ほん</rt></ruby>を ひらいています');
   try {
     await needZip();
-    Object.values(urls).forEach(pr => pr.then(URL.revokeObjectURL).catch(() => {})); urls = {}; au.removeAttribute('src'); delete au.dataset.src;
+    Object.values(urls).forEach(pr => pr.then(URL.revokeObjectURL).catch(() => {})); urls = {}; ready = {}; au.removeAttribute('src'); delete au.dataset.src;
     if (sess) sessEnd();   // 前の本の記録を先に閉じる
     bk = await parseEpub(r.blob); rec = r;
     sess = { bookId: r.id, pages: new Set(), listened: 0, finished: false };
