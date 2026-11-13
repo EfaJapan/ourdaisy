@@ -4562,6 +4562,21 @@ async function fetchBook(book) {
   return { blob: new Blob([u8], { type: 'application/epub+zip' }), fileId: j.fileId, name: j.name };
 }
 // 本だなにあり、同じ版（FileID）ならそれを使う。違えば（公開し直した本）受け取り直す
+// 本だなは 端末の中に たまるので、多くなりすぎたら しばらく読んでいない本から 自動で消す（いま開く本は消さない）
+//   消しても、もう一度「よむ」を押せば 受け取り直せる。ダウンロードしたファイル（端末のフォルダ）には さわらない
+const SHELF_MAX_BOOKS = 20, SHELF_MAX_BYTES = 200 * 1024 * 1024;
+const recSize = r => (r && r.blob && r.blob.size) || 0;
+const mb = n => (n / 1048576).toFixed(n < 10485760 ? 1 : 0) + 'MB';
+const BUSY_DL = '📥 ダウンロードしています… / Downloading…';
+async function trimShelf(keepId) {
+  const all = (await DB.all().catch(() => [])).sort((a, b) => (a.readAt || 0) - (b.readAt || 0));
+  let total = all.reduce((s, r) => s + recSize(r), 0), n = all.length;
+  for (const r of all) {
+    if (n <= SHELF_MAX_BOOKS && total <= SHELF_MAX_BYTES) break;
+    if (r.id === keepId) continue;
+    await DB.del(r.id).catch(() => {}); total -= recSize(r); n--;
+  }
+}
 async function getBookRec(book) {
   const old = await DB.get(book.id).catch(() => null);
   if (old && old.blob && (!book.fileId || old.fileId === book.fileId)) return old;
@@ -4575,6 +4590,7 @@ async function getBookRec(book) {
                   last: old && old.fileId === got.fileId ? old.last || 0 : 0, total: b.pages.length,
                   maxPage: old && old.fileId === got.fileId ? old.maxPage || 0 : 0, added: old ? old.added : Date.now(), readAt: Date.now() };
     await DB.put(rec).catch(() => {});   // 端末の空きが足りなくても、今回は読めるようにする
+    await trimShelf(rec.id);
     return rec;
   } finally { busy(false); }
 }
@@ -4809,7 +4825,10 @@ LR.openBook = async function (book) {
 LR.openShelf = function () { openOverlay(); renderShelf(); };
 LR.download = async function (book) {
   try {
-    const r = await getBookRec(book);
+    // 本だなにある本はそれを使う。ない本は受け取るだけで、本だなには入れない（端末に二重にたまらないように）
+    const old = await DB.get(book.id).catch(() => null);
+    let r = old && old.blob && (!book.fileId || old.fileId === book.fileId) ? old : null;
+    if (!r) { busy(true, BUSY_DL); try { const got = await fetchBook(book); r = { blob: got.blob, name: got.name }; } finally { busy(false); } }
     const a = document.createElement('a'); a.href = URL.createObjectURL(r.blob);
     a.download = r.name || (book.id + '.epub'); document.body.appendChild(a); a.click();
     setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
@@ -4823,6 +4842,11 @@ async function renderShelf() {
   const all = (await DB.all().catch(() => [])).sort((a, b) => (b.readAt || 0) - (a.readAt || 0)), L = $('lr-list');
   if (!all.length) { L.innerHTML = '<p class="lr-note" style="font-size:16px">まだ <ruby>本<rt>ほん</rt></ruby>が ありません。<ruby>図書館<rt>としょかん</rt></ruby>で「▶ よむ」を おしてね。<br><span class="lr-en">No books yet. Tap “▶ Read” in the library.</span></p>'; return; }
   L.innerHTML = '';
+  const total = all.reduce((s, r) => s + recSize(r), 0);
+  const sum = document.createElement('p'); sum.className = 'lr-note';
+  sum.textContent = '📱 この端末に ' + all.length + 'さつ（' + mb(total) + '）。' + SHELF_MAX_BOOKS + 'さつ・' + mb(SHELF_MAX_BYTES) + 'をこえると、しばらく よんでいない本から じどうで けします。 / ' +
+    all.length + ' books (' + mb(total) + ') on this device. Old books are removed automatically over ' + SHELF_MAX_BOOKS + ' books or ' + mb(SHELF_MAX_BYTES) + '.';
+  L.appendChild(sum);
   all.forEach(r => {
     const d = document.createElement('div'); d.className = 'lr-book';
     const pct = r.total ? Math.round(((r.maxPage || 0) + 1) / r.total * 100) : 0;
@@ -4830,7 +4854,7 @@ async function renderShelf() {
       '<button class="lr-go">▶ よむ</button><button class="lr-del" aria-label="本だなから けす">🗑</button>';
     if (r.thumb) d.querySelector('img').src = 'data:image/jpeg;base64,' + r.thumb;
     d.querySelector('b').textContent = r.title;
-    d.querySelector('.lr-note').textContent = r.last ? 'つづきから ' + (r.last + 1) + 'ページ' : 'はじめから';
+    d.querySelector('.lr-note').textContent = (r.last ? 'つづきから ' + (r.last + 1) + 'ページ' : 'はじめから') + '・' + mb(recSize(r));
     d.querySelector('.lr-go').onclick = () => openRec(r);
     const del = d.querySelector('.lr-del');
     del.onclick = async () => { if (del.dataset.arm) { await DB.del(r.id); renderShelf(); return; }
