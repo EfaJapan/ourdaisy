@@ -4212,6 +4212,7 @@ document.addEventListener('keydown', function(e) {
 #lr-reg .rg-q{font-size:17px;font-weight:800;margin:0 0 4px;line-height:1.9}
 #lr-reg .rg-q .n{margin-right:6px;vertical-align:2px}
 #lr-reg .rg-q .n{display:inline-flex;width:28px;height:28px;border-radius:14px;background:#F39800;color:#fff;align-items:center;justify-content:center;font-size:15px}
+#lr-reg .rg-opt{font-size:12px;color:#546E7A;font-weight:700;margin-left:6px;white-space:nowrap}
 #lr-reg .rg-req{font-size:12px;color:#E53935;font-weight:700;margin-left:6px;white-space:nowrap}
 #lr-reg .rg-en{font-size:13px;color:#546E7A;margin:0 0 8px}
 #lr-reg .rg-msg{display:none;color:#C62828;font-weight:700;font-size:14px;margin-top:6px}
@@ -4407,6 +4408,13 @@ document.addEventListener('keydown', function(e) {
       </ul>
       <button type="button" class="rg-agree" id="rg-agree" aria-pressed="false"><span class="bx">✓</span><span>ルールを <ruby>理解<rt>りかい</rt></ruby>しました<br><span class="rg-en" style="margin:0">I agree to the Terms of Use</span></span></button>
       <p class="rg-msg">ルールを よんで、おしてください / Please read and agree to the rules</p></div>
+
+    <!-- 2026-11-15：メールマガジンの案内（えらんだ人は、事務局が手で登録する） -->
+    <div class="rg-box" data-f="mag"><p class="rg-q"><span class="n">9</span>✉️ エファジャパンの メールマガジン <span class="rg-opt">えらばなくても よい</span></p>
+      <p class="rg-en">EFA Japan newsletter (optional)</p>
+      <p class="rg-lead" style="margin:4px 0 10px">エファジャパンが、アジアの<ruby>子<rt>こ</rt></ruby>どもたちとの<ruby>活動<rt>かつどう</rt></ruby>や、<ruby>日本<rt>にほん</rt></ruby>での<ruby>活動<rt>かつどう</rt></ruby>を おしらせする メールです。<ruby>希望<rt>きぼう</rt></ruby>する<ruby>人<rt>ひと</rt></ruby>は おしてください。<ruby>登録<rt>とうろく</rt></ruby>は <ruby>事務局<rt>じむきょく</rt></ruby>が します。<br>
+        <span class="rg-en" style="margin:0">News about EFA Japan's work with children in Asia and in Japan. Tap if you would like it — our office will add you.</span></p>
+      <button type="button" class="rg-agree" id="rg-mag" aria-pressed="false"><span class="bx">✓</span><span>メールマガジンを <ruby>受<rt>う</rt></ruby>け<ruby>取<rt>と</rt></ruby>りたい<br><span class="rg-en" style="margin:0">I would like to receive the newsletter</span></span></button></div>
 
     <div class="rg-hp" aria-hidden="true"><label>website<input type="text" id="rg-website" tabindex="-1" autocomplete="off"></label></div>
     <button type="submit" class="rg-submit" id="rg-submit">✅ <ruby>登録<rt>とうろく</rt></ruby>して <ruby>図書館<rt>としょかん</rt></ruby>に <ruby>入<rt>はい</rt></ruby>る<br><span style="font-size:13px;font-weight:600">Register and enter the library</span></button>
@@ -5000,6 +5008,7 @@ function rgBuild() {
   const y = new Date().getFullYear();
   for (let i = y; i >= 1956; i--) { const o = document.createElement('option'); o.value = String(i); o.textContent = i + '年'; $('rg-birth').appendChild(o); }
   const o = document.createElement('option'); o.value = '～1955'; o.textContent = '1955年より前 / before 1956'; $('rg-birth').appendChild(o);
+  $('rg-mag').onclick = () => $('rg-mag').setAttribute('aria-pressed', String($('rg-mag').getAttribute('aria-pressed') !== 'true'));
   $('rg-agree').onclick = () => { $('rg-agree').setAttribute('aria-pressed', String($('rg-agree').getAttribute('aria-pressed') !== 'true'));
     $('rg-agree').closest('.rg-box').classList.remove('err'); };
   ['rg-email', 'rg-family', 'rg-first', 'rg-country-other', 'rg-pref', 'rg-birth'].forEach(id =>
@@ -5020,7 +5029,7 @@ function rgValues() {
   return { email: $('rg-email').value.trim(), family: $('rg-family').value.trim(), first: $('rg-first').value.trim(),
            attr: rgPicked('rg-attr'), countries: rgPicked('rg-country'), country_other: $('rg-country-other').value.trim(),
            pref: $('rg-pref').value, gender: rgPicked('rg-gender')[0] || '', birth: $('rg-birth').value,
-           agree: $('rg-agree').getAttribute('aria-pressed') === 'true' };
+           agree: $('rg-agree').getAttribute('aria-pressed') === 'true', mag: $('rg-mag').getAttribute('aria-pressed') === 'true' };
 }
 function rgCheck(v) {
   const bad = [];
@@ -5047,7 +5056,7 @@ async function rgSubmit() {
   $('rg-sum').style.display = 'none';
   const body = new URLSearchParams({ action: 'register', email: v.email, family: v.family, first: v.first, attr: v.attr.join('|'),
     countries: v.countries.join('|'), country_other: v.country_other, pref: v.pref, gender: v.gender, birth: v.birth,
-    agree: '1', website: $('rg-website').value, waited: String(Date.now() - rgOpenedAt) });
+    agree: '1', newsletter: v.mag ? '1' : '', website: $('rg-website').value, waited: String(Date.now() - rgOpenedAt) });
   $('rg-submit').disabled = true;
   busy(true, '📝 <ruby>登録<rt>とうろく</rt></ruby>しています… / Registering…');
   let res = null;
