@@ -2355,7 +2355,7 @@ body.modal-open .floating-fab { display: none !important; }
   </div>
   <div class="header-controls">
     <button class="btn-lang lr-shelf-btn" id="btn-shelf" onclick="LR.openShelf()" style="display:none">📚 <ruby>本<rt>ほん</rt></ruby>だな</button>
-    <button class="btn-lang" id="btn-lang" onclick="toggleLang()">EN</button>
+    
     <button class="btn-logout" id="btn-logout" onclick="doLogout()"></button>
   </div>
 </header>
@@ -2969,8 +2969,8 @@ const I18N = {
     readerBannerSub: '音つきの本を楽しもう',
     searchHolder:    'タイトル・作者をさがす / Search...',
     booksCount:      '{n}さつの<ruby>本<rt>ほん</rt></ruby>があります / {n} books available',
-    daisyBtn:        '📥 図書（としょ）データを受（う）け取（と）る',
-    loading:         '読み込んでいます…',
+    daisyBtn:        '📥 図書（としょ）データを受（う）け取（と）る / Download',
+    loading:         '読み込んでいます… / Loading…',
     noResults:       '本が見つかりませんでした。',
     ageAll:          '年齢：ぜんぶ',
     jpAll:           '日本語レベル：ぜんぶ',
@@ -3118,18 +3118,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function applyI18n() {
   const t = I18N[_lang];
   setT('btn-logout',      t.logout);
-  setT('login-checking',  t.loginChecking);
   setLoginErrText();
-  setT('not-reg-txt',     t.notReg);
-  document.getElementById('link-register').textContent = t.regLink;
 
   const si = document.getElementById('search-input');
   if (si) si.placeholder = t.searchHolder;
 
-  document.getElementById('btn-lang').innerHTML =
-    _lang === 'ja'
-      ? '🌐 <span style="font-size:10px;opacity:.85">言語 / </span>ENGLISH'
-      : '🌐 <span style="font-size:10px;opacity:.85">Language / </span>日本語';
 
   // カタログ中なら再描画
   if (_loggedIn) { buildLangTabs(); applyFilters(); }
@@ -3458,7 +3451,7 @@ function buildLangTabs() {
   SITE_CONFIG.LANGUAGES.forEach(l => {
     const btn = document.createElement('button');
     btn.className = 'lang-tab' + (l.code === _activeLang ? ' active' : '');
-    btn.innerHTML = `${l.emoji} ${_lang === 'ja' ? l.ja : l.en}`;
+    btn.innerHTML = `${l.emoji} ${l.ja} <span style="font-size:.8em;opacity:.75;font-family:'Nunito',sans-serif">${l.en}</span>`;
     btn.onclick = () => { _activeLang = l.code; buildLangTabs(); applyFilters(); };
     cont.appendChild(btn);
   });
