@@ -2335,6 +2335,58 @@ body.modal-open .floating-fab { display: none !important; }
 @media (min-width: 1024px) {
   #screen-landing .feature-cards { grid-template-columns: repeat(4, 1fr); }
 }
+
+/* ===== 2026-11-16：1つの本＝1枚のカード・あたらしい本 ===== */
+.od-read { padding: 0 9px 6px; display: flex; flex-direction: column; gap: 6px; }
+.od-read-h { font-size: 11px; font-weight: 800; color: var(--efa-blue); font-family: 'Nunito', sans-serif; padding-top: 2px; }
+.btn-daisy.od-vbtn { margin: 0; width: 100%; flex-direction: column; gap: 0; line-height: 1.2; padding: 4px 6px; min-height: 44px; border: 0; cursor: pointer; font: inherit; font-weight: 800; }
+.od-vbtn .od-v-ja { font-size: 13px; }
+.od-vbtn ruby rt { font-size: 8px; color: inherit; opacity: .9; }
+.od-vbtn .od-v-en { font-size: 10px; font-weight: 600; opacity: .85; }
+.btn-daisy.od-J2 { background: #2E7D32; } .btn-daisy.od-J2:hover { background: #1B5E20; }
+.btn-daisy.od-J3 { background: #D96A00; } .btn-daisy.od-J3:hover { background: #A85200; }
+.btn-daisy.od-J1 { background: #6A4C93; }
+details.od-dl { margin: 2px 9px 10px; border-top: 1px dashed var(--border); padding-top: 4px; }
+details.od-dl > summary { cursor: pointer; font-size: 12px; color: #0065A4; font-weight: 700; padding: 8px 2px; min-height: 36px; list-style-position: inside; }
+.od-dl-note { font-size: 10.5px; color: var(--text-lt); margin: 0 2px 2px; }
+details.od-dl .lr-btn-dl { width: 100%; margin: 0; min-height: 40px; text-align: left; font-size: 12px; padding: 6px 4px; }
+details.od-dl .lr-btn-dl .od-v-en { font-size: 10px; opacity: .8; }
+.custom-dd.on .dd-btn { background: var(--efa-blue); color: #fff; border-color: var(--efa-blue); }
+.dd-reset { border: 2px solid #E53935; color: #E53935; background: #fff; border-radius: var(--radius-sm); font: inherit; font-size: 13px; font-weight: 800; padding: 8px 14px; min-height: 40px; cursor: pointer; flex-shrink: 0; }
+.dd-reset:hover { background: #FFEBEE; }
+.filter-row .dd-reset { order: -1; }   /* スマホでは横にはみ出すため、出たときは先頭に */
+/* あたらしい本 */
+.od-new { margin: 14px 14px 4px; padding: 12px 0 6px; background: linear-gradient(180deg, #FFF8E7, #FFFFFF); border: 2px solid #FFE3A3; border-radius: var(--radius-md); }
+.od-new-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 0 14px 8px; flex-wrap: wrap; }
+.od-new-head h2 { margin: 0; font-size: 17px; color: var(--efa-dark); }
+.od-new-en { font-size: 12px; color: var(--text-lt); font-family: 'Nunito', sans-serif; font-weight: 700; }
+.od-new-hint { font-size: 11px; color: var(--text-lt); }
+.od-new-row { display: flex; gap: 12px; overflow-x: auto; padding: 4px 14px 12px; align-items: flex-start; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
+.od-new-row { align-items: stretch; }
+.od-new-row .book-card { flex: 0 0 156px; width: 156px; }
+/* あたらしい本の段は小さめ：表紙は正方形、説明・つくった人・ダウンロードは下の一覧で */
+.od-new-row .book-cover-area { aspect-ratio: 1 / 1; }
+.od-new-row .book-cover-area img { object-position: center top; }
+.od-new-row .book-desc, .od-new-row .book-desc-toggle, .od-new-row .book-credits, .od-new-row .od-read-h, .od-new-row details.od-dl { display: none; }
+.od-new-row .book-title { -webkit-line-clamp: 2; }
+.od-new-row .book-title-jp { -webkit-line-clamp: 1; }
+.od-new-row .book-meta { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.od-new-row .od-read { padding-top: 2px; padding-bottom: 10px; }
+@media (prefers-reduced-motion: reduce) { .od-new-hint { display: none; } }
+@media (min-width: 769px) {
+  #screen-catalog .od-new { max-width: var(--pc-w); margin: 28px auto 0; padding: 18px 0 8px; }
+  #screen-catalog .od-new-head h2 { font-size: 22px; }
+  #screen-catalog .od-new-row .book-card { flex-basis: 200px; width: 200px; }
+  #screen-catalog .od-read { padding: 0 14px 8px; gap: 8px; }
+  #screen-catalog .od-read-h { font-size: 13px; }
+  #screen-catalog .btn-daisy.od-vbtn { margin: 0; padding: 8px; min-height: 50px; }
+  #screen-catalog .od-vbtn .od-v-ja { font-size: 15px; }
+  #screen-catalog .od-vbtn .od-v-en { font-size: 12px; }
+  #screen-catalog details.od-dl { margin: 2px 14px 14px; }
+  #screen-catalog details.od-dl > summary { font-size: 14px; }
+  #screen-catalog .dd-reset { font-size: 15px; min-height: 48px; padding: 10px 18px; }
+}
+@media (min-width: 769px) and (max-width: 1264px) { #screen-catalog .od-new { margin-left: 32px; margin-right: 32px; } }
 </style>
 <!-- =====================================================  HEADER -->
 <header class="site-header">
@@ -2704,6 +2756,15 @@ body.modal-open .floating-fab { display: none !important; }
 <!-- 大事なおしらせ（2026-11-12） -->
   <div id="lr-news-cat" class="lr-news-cat" hidden></div>
 
+<!-- あたらしい本（2026-11-16） -->
+  <section class="od-new" id="od-new" hidden aria-label="あたらしい本 / New books">
+    <div class="od-new-head">
+      <h2>✨ あたらしい<ruby>本<rt>ほん</rt></ruby> <span class="od-new-en">New books</span></h2>
+      <span class="od-new-hint">👉 さわると とまります / Tap to stop</span>
+    </div>
+    <div class="od-new-row" id="od-new-row"></div>
+  </section>
+
 <!-- リーダーアプリ バナー -->
   <div class="reader-banner">
     <div class="reader-banner-text">
@@ -2733,7 +2794,7 @@ body.modal-open .floating-fab { display: none !important; }
       <!-- 対象年齢 -->
       <div class="custom-dd" id="dd-age">
         <button class="dd-btn" onclick="toggleDD('age')">
-          <span id="dd-age-label"><ruby>年<rt>ねん</rt></ruby>れい：ぜんぶ / All Ages</span>
+          <span id="dd-age-label">🎂 <ruby>年<rt>ねん</rt></ruby>れい / Age</span>
           <span class="dd-arrow">▼</span>
         </button>
         <div class="dd-menu" id="dd-age-menu" style="display:none"></div>
@@ -2741,24 +2802,23 @@ body.modal-open .floating-fab { display: none !important; }
       <!-- 読書レベル（2026-10追加：母語の本文の読みやすさ） -->
       <div class="custom-dd" id="dd-lv">
         <button class="dd-btn" onclick="toggleDD('lv')">
-          <span id="dd-lv-label"><ruby>読<rt>よ</rt></ruby>むレベル：ぜんぶ / All Reading Levels</span>
+          <span id="dd-lv-label">📖 <ruby>読<rt>よ</rt></ruby>むレベル / Level</span>
           <span class="dd-arrow">▼</span>
         </button>
         <div class="dd-menu" id="dd-lv-menu" style="display:none"></div>
       </div>
-      <!-- 日本語レベル -->
-      <div class="custom-dd" id="dd-jp">
-        <button class="dd-btn" onclick="toggleDD('jp')">
-          <span id="dd-jp-label"><ruby>日本語<rt>にほんご</rt></ruby>レベル：ぜんぶ / All Levels</span>
+      <!-- ならびかえ（2026-11-16：日本語レベルのかわり。1枚のカードに3つの版があるため） -->
+      <div class="custom-dd" id="dd-sort">
+        <button class="dd-btn" onclick="toggleDD('sort')">
+          <span id="dd-sort-label">↕ あたらしい<ruby>順<rt>じゅん</rt></ruby> / Newest</span>
           <span class="dd-arrow">▼</span>
         </button>
-        <div class="dd-menu" id="dd-jp-menu" style="display:none">
-          <button class="dd-item active" onclick="selectJP('ALL')">ぜんぶ / All</button>
-          <button class="dd-item" onclick="selectJP('N/A')">母語のみ / Mother Tongue Only</button>
-          <button class="dd-item" onclick="selectJP('J2')">J2 やさしい日本語</button>
-          <button class="dd-item" onclick="selectJP('J3')">J3 標準日本語</button>
+        <div class="dd-menu" id="dd-sort-menu" style="display:none">
+          <button class="dd-item active" data-val="new" onclick="selectSort('new')">あたらしい<ruby>順<rt>じゅん</rt></ruby> / Newest</button>
+          <button class="dd-item" data-val="name" onclick="selectSort('name')">なまえ<ruby>順<rt>じゅん</rt></ruby> / A–Z</button>
         </div>
       </div>
+      <button type="button" class="dd-reset" id="dd-reset" onclick="odResetFilters()" hidden>✕ もどす / Reset</button>
     </div>
   </div>
 
@@ -3373,6 +3433,7 @@ function parseTsv(tsv) {
       cover:     (cells[c.cover]      || '').trim(),
       credits:   parseCredits(cells[c.credits]),
       isNew,
+      dateAdded: dateAdded ? dateAdded.getTime() : 0,
     };
   });
   odAnnotateLevels(rows);   // 2026-10：対象年齢・読書レベルを新区分コードに読み替え
@@ -3467,7 +3528,7 @@ function toggleDD(type) {
   const menu = document.getElementById(`dd-${type}-menu`);
   const isOpen = menu.style.display === 'block';
   // 全部閉じる
-  ['age','lv','jp'].forEach(t => {
+  ['age','lv','sort'].forEach(t => {
     document.getElementById(`dd-${t}-menu`).style.display = 'none';
   });
   if (!isOpen) {
@@ -3491,7 +3552,7 @@ function toggleDD(type) {
 // 画面クリックでドロップダウンを閉じる
 document.addEventListener('click', function(e) {
   if (!e.target.closest('.custom-dd')) {
-    ['age','lv','jp'].forEach(t => {
+    ['age','lv','sort'].forEach(t => {
       const m = document.getElementById(`dd-${t}-menu`);
       if (m) m.style.display = 'none';
     });
@@ -3499,22 +3560,28 @@ document.addEventListener('click', function(e) {
 });
 
 // スクロール・リサイズ時はボタンとメニューの位置がずれるため閉じる（fixed化に伴う対応）
-window.addEventListener('scroll', function() {
-  ['age','lv','jp'].forEach(t => {
+window.addEventListener('scroll', function(e) {
+  if (e.target && e.target.id === 'od-new-row') return;   // 2026-11-16：あたらしい本の段の動きでは閉じない
+  ['age','lv','sort'].forEach(t => {
     const m = document.getElementById(`dd-${t}-menu`);
     if (m) m.style.display = 'none';
   });
 }, true);
 window.addEventListener('resize', function() {
-  ['age','lv','jp'].forEach(t => {
+  ['age','lv','sort'].forEach(t => {
     const m = document.getElementById(`dd-${t}-menu`);
     if (m) m.style.display = 'none';
   });
 });
 
+function odSetDD(type, val, list, allHtml, icon) {
+  const f = list.find(x => x.code === val);
+  document.getElementById('dd-' + type + '-label').innerHTML = f ? icon + ' ' + esc(f.short) : allHtml;
+  document.getElementById('dd-' + type).classList.toggle('on', !!f);
+}
 function selectAge(val, label) {
   _ageVal = val;
-  document.getElementById('dd-age-label').innerHTML = label;
+  odSetDD('age', val, OD_AGE_FILTERS, '🎂 <ruby>年<rt>ねん</rt></ruby>れい / Age', '🎂');
   document.getElementById('dd-age-menu').style.display = 'none';
   // activeクラス更新
   document.querySelectorAll('#dd-age-menu .dd-item').forEach(el => {
@@ -3574,7 +3641,7 @@ function buildLevelOptions() {
 let _lvVal = 'ALL';
 function selectLevel(val, label) {
   _lvVal = val;
-  document.getElementById('dd-lv-label').innerHTML = label;
+  odSetDD('lv', val, OD_LEVEL_FILTERS, '📖 <ruby>読<rt>よ</rt></ruby>むレベル / Level', '📖');
   document.getElementById('dd-lv-menu').style.display = 'none';
   document.querySelectorAll('#dd-lv-menu .dd-item').forEach(el => {
     el.classList.toggle('active', el.dataset.val === val);
@@ -3585,92 +3652,227 @@ function selectLevel(val, label) {
 // ============================================================
 // 絞り込み（⑪⑬⑭ 修正済み）
 // ============================================================
-function applyFilters() {
-  const q = document.getElementById('search-input').value.toLowerCase().trim();
-
-  const filtered = _books.filter(b => {
-    // ⑪ 言語：startsWith で「Lao」も「Lao / Japanese」もマッチ
-    const lm = _activeLang === 'ALL' || b.lang.startsWith(_activeLang);
-    // ⑬ 年齢（2026-10）：新区分コードで一致（旧表記も読み替え済み）
-    const am = _ageVal === 'ALL' || b.age_code === _ageVal;
-    // 読書レベル（2026-10追加）
-    const rm = _lvVal === 'ALL' || b.lv_code === _lvVal;
-    // ⑭ 日本語レベル：startsWith（"J1"が"J1: ..."にマッチ）
-    const jm = _jpVal === 'ALL' || b.jp_lv.startsWith(_jpVal);
-    const tm = !q || b.title.toLowerCase().includes(q)
-                  || (b.title_jp && b.title_jp.toLowerCase().includes(q))
-                  || (b.author && b.author.toLowerCase().includes(q));
-    return lm && am && rm && jm && tm;
+// 2026-11-16：版（母語だけ・やさしい日本語・日本語）をまとめて、1つの本を1枚のカードにする
+const OD_VER = {
+  MT: { o: 0, ja: '<ruby>母語<rt>ぼご</rt></ruby>だけ', en: 'Mother tongue only', plain: '母語だけ' },
+  J1: { o: 1, ja: '＋ひらがな', en: '+ Hiragana', plain: 'ひらがな' },
+  J2: { o: 2, ja: '＋やさしい<ruby>日本語<rt>にほんご</rt></ruby>', en: '+ Easy Japanese', plain: 'やさしい日本語' },
+  J3: { o: 3, ja: '＋<ruby>日本語<rt>にほんご</rt></ruby>', en: '+ Japanese', plain: '日本語' },
+};
+function odVerCode(b) {
+  const j = (b.jp_lv || '').toUpperCase();
+  if (j.startsWith('N/A')) return 'MT';
+  const m = j.match(/^J[123]/); if (m) return m[0];
+  const k = (b.id.match(/-(MT|HJ|EJ|SJ)$/) || [])[1];
+  return { MT: 'MT', HJ: 'J1', EJ: 'J2', SJ: 'J3' }[k] || 'MT';
+}
+let _odGroups = [], _odGroupsSrc = null, _sortVal = 'new';
+function odGroups() {
+  if (_odGroupsSrc === _books) return _odGroups;
+  const map = new Map();
+  _books.forEach(b => {
+    const key = b.id.replace(/-(MT|HJ|EJ|SJ)$/, '');
+    if (!map.has(key)) map.set(key, []);
+    map.get(key).push(b);
   });
-  renderBooks(filtered);
+  _odGroups = [...map.entries()].map(([key, vs]) => {
+    vs = vs.map(v => Object.assign(v, { ver: odVerCode(v) })).sort((a, b) => OD_VER[a.ver].o - OD_VER[b.ver].o);
+    const m = vs[0], pick = f => (vs.find(v => v[f]) || {})[f] || '';
+    const cr = [], seen = new Set();
+    vs.forEach(v => (v.credits || []).forEach(c => { const k = c.role + '\t' + c.names; if (!seen.has(k)) { seen.add(k); cr.push(c); } }));
+    return {
+      key, versions: vs, title: m.title || pick('title'), title_jp: pick('title_jp'), author: pick('author'),
+      lang: (m.lang || pick('lang')).split('/')[0].trim(), cover: pick('cover'),
+      desc_en: pick('desc_en'), desc_jp: pick('desc_jp'), credits: cr,
+      age_code: m.age_code || pick('age_code'), lv_code: m.lv_code || pick('lv_code'),
+      date: Math.max(...vs.map(v => v.dateAdded || 0)), isNew: vs.some(v => v.isNew),
+    };
+  });
+  _odGroupsSrc = _books;
+  return _odGroups;
+}
+function odSorted(list, how) {
+  const a = list.slice();
+  if (how === 'name') return a.sort((x, y) => (x.title_jp || x.title).localeCompare(y.title_jp || y.title, 'ja'));
+  return a.sort((x, y) => (y.date - x.date) || y.key.localeCompare(x.key));
+}
+function selectSort(val) {
+  _sortVal = val;
+  document.getElementById('dd-sort-label').innerHTML = val === 'name'
+    ? '↕ なまえ<ruby>順<rt>じゅん</rt></ruby> / A–Z' : '↕ あたらしい<ruby>順<rt>じゅん</rt></ruby> / Newest';
+  document.getElementById('dd-sort-menu').style.display = 'none';
+  document.querySelectorAll('#dd-sort-menu .dd-item').forEach(el => el.classList.toggle('active', el.dataset.val === val));
+  applyFilters();
+}
+function odResetFilters() {
+  document.getElementById('search-input').value = '';
+  _activeLang = 'ALL'; buildLangTabs();
+  _ageVal = 'ALL'; _lvVal = 'ALL';
+  odSetDD('age', 'ALL', OD_AGE_FILTERS, '🎂 <ruby>年<rt>ねん</rt></ruby>れい / Age', '🎂');
+  odSetDD('lv', 'ALL', OD_LEVEL_FILTERS, '📖 <ruby>読<rt>よ</rt></ruby>むレベル / Level', '📖');
+  ['age', 'lv'].forEach(t => document.querySelectorAll('#dd-' + t + '-menu .dd-item').forEach(el => el.classList.toggle('active', el.dataset.val === 'ALL')));
+  applyFilters();
 }
 
 // ============================================================
-// カード描画
+// 絞り込み（2026-11-16：1つの本ごと。どれかの版が合えば出す）
 // ============================================================
-function renderBooks(books) {
+function applyFilters() {
+  const q = document.getElementById('search-input').value.toLowerCase().trim();
+  const groups = odGroups();
+  const filtered = groups.filter(g => g.versions.some(b => {
+    const lm = _activeLang === 'ALL' || b.lang.startsWith(_activeLang);
+    const am = _ageVal === 'ALL' || b.age_code === _ageVal;
+    const rm = _lvVal === 'ALL' || b.lv_code === _lvVal;
+    const tm = !q || b.title.toLowerCase().includes(q)
+                  || (b.title_jp && b.title_jp.toLowerCase().includes(q))
+                  || (b.author && b.author.toLowerCase().includes(q));
+    return lm && am && rm && tm;
+  }));
+  const rs = document.getElementById('dd-reset');
+  if (rs) rs.hidden = !(q || _activeLang !== 'ALL' || _ageVal !== 'ALL' || _lvVal !== 'ALL');
+  renderBooks(odSorted(filtered, _sortVal));
+  odRenderNew(groups);
+}
+
+// ============================================================
+// カード描画（1つの本＝1枚）
+// ============================================================
+function odCard(g, t, i) {
+  const card = document.createElement('div');
+  card.className = 'book-card od-card';
+  card.style.animationDelay = Math.min(i * 0.04, 0.5) + 's';
+  const newBadge = g.isNew ? '<div class="badge-new">🆕 新着 / New</div>' : '';
+  const coverSrc = toDriveImgUrl(g.cover);
+  const coverHtml = coverSrc
+    ? `<img src="${esc(coverSrc)}" alt="${esc(g.title)}" loading="lazy"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+       <div class="book-cover-placeholder" style="display:none">📖</div>`
+    : '<div class="book-cover-placeholder">📖</div>';
+  card.innerHTML = `
+    <div class="book-cover-area">
+      ${coverHtml}
+      ${newBadge}
+      ${g.lang ? `<div class="lang-badge">${esc(g.lang)}</div>` : ''}
+    </div>
+    <div class="book-body">
+      <div class="book-title">${esc(g.title)}</div>
+      ${g.title_jp ? `<div class="book-title-jp">${esc(g.title_jp)}</div>` : ''}
+      <div class="book-meta">${esc(g.author)}${odShort(OD_AGE_FILTERS, g.age_code)}${odShort(OD_LEVEL_FILTERS, g.lv_code)}</div>
+      ${(g.desc_en || g.desc_jp) ? `<div class="book-desc">${g.desc_en ? esc(g.desc_en) : ''}${(g.desc_en && g.desc_jp) ? '<br>' : ''}${g.desc_jp ? esc(g.desc_jp) : ''}</div>` : ''}${creditsHtml(g.credits)}${(g.desc_en || g.desc_jp || (g.credits && g.credits.length)) ? `<button class="book-desc-toggle" onclick="toggleDesc(this)">つづきを読む / Read more</button>` : ''}
+    </div>
+    ${lrCardButtons(g, t)}
+  `;
+  return card;
+}
+function renderBooks(groups) {
   const grid  = document.getElementById('book-grid');
   const noRes = document.getElementById('no-results');
   const cnt   = document.getElementById('books-count');
   grid.innerHTML = '';
   noRes.style.display = 'none';
-
-  if (books.length === 0) { noRes.style.display = 'block'; cnt.textContent = ''; return; }
-
+  if (groups.length === 0) { noRes.style.display = 'block'; cnt.textContent = ''; return; }
   const t = I18N[_lang];
-  cnt.innerHTML = t.booksCount.split('{n}').join(`<strong>${books.length}</strong>`);  // 2026-10: {n}が2か所ある文言で2つ目が残っていた
-
-  books.forEach((book, i) => {
-    const card = document.createElement('div');
-    card.className = 'book-card';
-    card.style.animationDelay = Math.min(i * 0.04, 0.5) + 's';
-
-    const newBadge = book.isNew ? '<div class="badge-new">🆕 新着 / New Arrival</div>' : '';
-
-    const coverSrc = toDriveImgUrl(book.cover);
-    const coverHtml = coverSrc
-      ? `<img src="${esc(coverSrc)}" alt="${esc(book.title)}" loading="lazy"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-         <div class="book-cover-placeholder" style="display:none">📖</div>`
-      : '<div class="book-cover-placeholder">📖</div>';
-
-    const jpBadge = book.jp_lv && book.jp_lv !== 'N/A'
-      ? `<div class="jp-level-badge">${esc(book.jp_lv)}</div>` : '';
-
-    card.innerHTML = `
-      <div class="book-cover-area">
-        ${coverHtml}
-        ${newBadge}
-        <div class="lang-badge">${esc(book.lang)}</div>
-        ${jpBadge}
-      </div>
-      <div class="book-body">
-        <div class="book-title">${esc(book.title)}</div>
-        ${book.title_jp ? `<div class="book-title-jp">${esc(book.title_jp)}</div>` : ''}
-        <div class="book-meta">${esc(book.author)}${odShort(OD_AGE_FILTERS, book.age_code)}${odShort(OD_LEVEL_FILTERS, book.lv_code)}</div>
-        ${(book.desc_en || book.desc_jp) ? `<div class="book-desc">${book.desc_en ? esc(book.desc_en) : ''}${(book.desc_en && book.desc_jp) ? '<br>' : ''}${book.desc_jp ? esc(book.desc_jp) : ''}</div>` : ''}${creditsHtml(book.credits)}${(book.desc_en || book.desc_jp || (book.credits && book.credits.length)) ? `<button class="book-desc-toggle" onclick="toggleDesc(this)">つづきを読む / Read more</button>` : ''}
-      </div>
-      ${lrCardButtons(book, t)}
-    `;
-    grid.appendChild(card);
-  });
+  cnt.innerHTML = t.booksCount.split('{n}').join(`<strong>${groups.length}</strong>`);
+  const frag = document.createDocumentFragment();
+  groups.forEach((g, i) => frag.appendChild(odCard(g, t, i)));
+  grid.appendChild(frag);
 }
 
-// 2026-11-12：「ここで読む」のボタン。よむ（大）＋ダウンロード（小）。よむを出さないときはダウンロードだけ
-function lrCardButtons(book, t) {
-  const id = JSON.stringify(book.id).replace(/"/g, '&quot;');
+// 「よむ」：版ごとに1つずつ（大きいボタン）。ダウンロードは折りたたみの中に版ごと
+function lrCardButtons(g, t) {
+  const vs = g.versions;
+  const jid = b => JSON.stringify(b.id).replace(/"/g, '&quot;');
+  const lab = b => `<span class="od-v-ja">${OD_VER[b.ver].ja}</span><span class="od-v-en">${OD_VER[b.ver].en}</span>`;
   if (window.LR && LR.readerOn()) {
-    return `<button type="button" class="btn-daisy lr-btn-read" onclick="lrOpen(${id})">▶ よむ / Read</button>` +
-           `<button type="button" class="lr-btn-dl" onclick="lrDl(${id})" title="アプリで読む人 / For reading in an app">📥 ダウンロード<span class="lr-dl-sub">（アプリで<ruby>読<rt>よ</rt></ruby>む<ruby>人<rt>ひと</rt></ruby>）</span> / Download</button>`;
+    return `<div class="od-read"><div class="od-read-h">▶ <ruby>読<rt>よ</rt></ruby>む / Read</div>` +
+      vs.map(b => `<button type="button" class="btn-daisy lr-btn-read od-vbtn od-${b.ver}" onclick="lrOpen(${jid(b)})">${lab(b)}</button>`).join('') +
+      `</div><details class="od-dl"><summary>📥 ダウンロード / Download</summary>` +
+      `<div class="od-dl-note">アプリで<ruby>読<rt>よ</rt></ruby>む<ruby>人<rt>ひと</rt></ruby> / For reading in an app</div>` +
+      vs.map(b => `<button type="button" class="lr-btn-dl" onclick="lrDl(${jid(b)})">📥 ${OD_VER[b.ver].ja} <span class="od-v-en">${OD_VER[b.ver].en}</span></button>`).join('') +
+      `</details>`;
   }
-  if (book.download) {
-    return `<a class="btn-daisy" href="${esc(book.download)}" target="_blank" rel="noopener" onclick="recordDl(${id},${JSON.stringify(book.title).replace(/"/g,'&quot;')})">${t.daisyBtn}</a>`;
-  }
-  return `<button type="button" class="btn-daisy lr-btn-read" onclick="lrDl(${id})">${t.daisyBtn}</button>`;
+  return `<div class="od-read"><div class="od-read-h">📥 <ruby>受<rt>う</rt></ruby>け<ruby>取<rt>と</rt></ruby>る / Download</div>` +
+    vs.map(b => b.download
+      ? `<a class="btn-daisy od-vbtn od-${b.ver}" href="${esc(b.download)}" target="_blank" rel="noopener" onclick="recordDl(${jid(b)},${JSON.stringify(b.title).replace(/"/g, '&quot;')})">${lab(b)}</a>`
+      : `<button type="button" class="btn-daisy lr-btn-read od-vbtn od-${b.ver}" onclick="lrDl(${jid(b)})">${lab(b)}</button>`).join('') +
+    `</div>`;
 }
+
+// ============================================================
+// あたらしい本（2026-11-16）：上に1段。左へ自動で流れる
+// ============================================================
+const OD_NEW_MAX = 12;
+const _odNew = { raf: 0, key: '', x: 0, half: 0, hold: 0, hover: false, focus: false, vis: true, io: null };
+function odRenderNew(groups) {
+  const sec = document.getElementById('od-new'), row = document.getElementById('od-new-row');
+  if (!sec || !row) return;
+  const list = odSorted(groups.filter(g => g.date > 0), 'new').slice(0, OD_NEW_MAX);
+  const key = list.map(g => g.key + ':' + g.versions.map(v => v.id).join(',')).join('|') + '/' + (window.LR && LR.readerOn() ? 1 : 0);
+  if (key === _odNew.key) return;
+  _odNew.key = key;
+  cancelAnimationFrame(_odNew.raf);
+  row.innerHTML = '';
+  sec.hidden = list.length === 0;
+  if (!list.length) return;
+  const t = I18N[_lang];
+  list.forEach((g, i) => row.appendChild(odCard(g, t, i)));
+  requestAnimationFrame(() => odNewLoop(row));
+}
+function odNewLoop(row) {
+  // 動きを減らす設定の人・1画面に収まるときは動かさない（指でよこに動かせる）
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  row.querySelectorAll('.od-clone').forEach(e => e.remove());
+  if (row.scrollWidth <= row.clientWidth + 8) return;
+  const orig = [...row.children];
+  orig.forEach(c => { const d = c.cloneNode(true); d.classList.add('od-clone'); d.setAttribute('aria-hidden', 'true'); d.inert = true;
+    d.querySelectorAll('button,a,summary').forEach(b => b.tabIndex = -1); row.appendChild(d); });
+  _odNew.half = row.children[orig.length].offsetLeft - orig[0].offsetLeft;
+  _odNew.x = row.scrollLeft;
+  if (!row._odBound) {
+    row._odBound = true;
+    const hold = ms => { _odNew.hold = performance.now() + ms; };
+    row.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') _odNew.hover = true; });
+    row.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') _odNew.hover = false; });
+    row.addEventListener('touchstart', () => hold(5000), { passive: true });
+    row.addEventListener('touchmove', () => hold(5000), { passive: true });
+    row.addEventListener('wheel', () => hold(3000), { passive: true });
+    row.addEventListener('focusin', () => { _odNew.focus = true; });
+    row.addEventListener('focusout', () => { _odNew.focus = false; });
+    row.addEventListener('scroll', () => {
+      if (_odNew.half && row.scrollLeft >= _odNew.half) row.scrollLeft -= _odNew.half;
+      if (_odNew.half && row.scrollLeft <= 0 && performance.now() < _odNew.hold) row.scrollLeft += _odNew.half;
+    }, { passive: true });
+    if ('IntersectionObserver' in window) {
+      _odNew.io = new IntersectionObserver(es => { _odNew.vis = es[0].isIntersecting; });
+      _odNew.io.observe(row);
+    }
+  }
+  let last = performance.now();
+  const SPEED = 0.028;   // 1秒に 28px ほど
+  const step = now => {
+    const dt = Math.min(now - last, 80); last = now;
+    const lrv = document.getElementById('lrv');
+    const stop = _odNew.hover || _odNew.focus || now < _odNew.hold || !_odNew.vis || document.hidden ||
+      !row.offsetParent || (lrv && lrv.classList.contains('open')) || row.querySelector('details[open]');
+    if (stop) _odNew.x = row.scrollLeft;
+    else {
+      _odNew.x += dt * SPEED;
+      if (_odNew.x >= _odNew.half) _odNew.x -= _odNew.half;
+      row.scrollLeft = _odNew.x;
+    }
+    _odNew.raf = requestAnimationFrame(step);
+  };
+  _odNew.raf = requestAnimationFrame(step);
+}
+let _odNewRT = 0;
+window.addEventListener('resize', () => { clearTimeout(_odNewRT); _odNewRT = setTimeout(() => {
+  const row = document.getElementById('od-new-row'); if (row && row.children.length) { cancelAnimationFrame(_odNew.raf); row.scrollLeft = 0; odNewLoop(row); } }, 300); });
+
 function lrFind(id) { return _books.find(b => b.id === id); }
-function lrOpen(id) { const b = lrFind(id); if (b) LR.openBook({ id: b.id, title: b.title, fileId: b.fileId }); }
-function lrDl(id)   { const b = lrFind(id); if (b) LR.download({ id: b.id, title: b.title, fileId: b.fileId }); }
+function lrTitle(b) { const v = OD_VER[b.ver || odVerCode(b)]; return b.title + (v ? '（' + v.plain + '）' : ''); }
+function lrOpen(id) { const b = lrFind(id); if (b) LR.openBook({ id: b.id, title: lrTitle(b), fileId: b.fileId }); }
+function lrDl(id)   { const b = lrFind(id); if (b) LR.download({ id: b.id, title: lrTitle(b), fileId: b.fileId }); }
 function lrShowShelfBtn() { const sb = document.getElementById('btn-shelf'); if (sb) sb.style.display = (_loggedIn && window.LR && LR.readerOn()) ? 'inline-block' : 'none';
   document.querySelectorAll('.lr-newsteps').forEach(el => el.style.display = (window.LR && LR.readerFlag()) ? '' : 'none');
   document.querySelectorAll('details.lr-appguide').forEach(el => { if (!(window.LR && LR.readerFlag())) el.open = true; }); }
@@ -4587,7 +4789,7 @@ async function getBookRec(book) {
     await needZip();
     const b = await parseEpub(got.blob);
     const thumb = b.cover ? await b.zip.file(b.cover).async('base64') : '';
-    const rec = { id: book.id, fileId: got.fileId, name: got.name, title: b.title || book.title, blob: got.blob, thumb,
+    const rec = { id: book.id, fileId: got.fileId, name: got.name, title: book.title || b.title, blob: got.blob, thumb,
                   last: old && old.fileId === got.fileId ? old.last || 0 : 0, total: b.pages.length,
                   maxPage: old && old.fileId === got.fileId ? old.maxPage || 0 : 0, added: old ? old.added : Date.now(), readAt: Date.now() };
     await DB.put(rec).catch(() => {});   // 端末の空きが足りなくても、今回は読めるようにする
