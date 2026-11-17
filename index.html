@@ -3205,7 +3205,9 @@ function showScreen(name) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const el = document.getElementById('screen-' + name);
   if (el) el.classList.add('active');
+  window.scrollTo(0, 0);   // 2026-11-17：切りかえたら いちばん上から
 }
+try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch (e) {}
 
 // ============================================================
 // LOGIN
