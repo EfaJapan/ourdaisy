@@ -4971,6 +4971,11 @@ $('lr-page').addEventListener('touchend', e => { if (sx === null) return;
   if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) showPage(pi + (dx < 0 ? 1 : -1), playing); }, { passive: true });
 document.addEventListener('keydown', e => {
   if (!bk || !V.classList.contains('reading') || $('lr-set').classList.contains('open')) return;
+  // 2026-11-19：かんそうなどの画面が開いているとき・文字を入力しているときは、本のキー操作をしない
+  //   （かんそうの記入欄で → ↓ を押すとページが進み、空白で読み上げが始まっていた）
+  if (e.isComposing || document.querySelector('.lr-sheet-bg.open')) return;
+  const t = e.target;
+  if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
   const k = { ' ': () => $('lr-play').click(), ArrowRight: () => showPage(pi + 1, playing), ArrowLeft: () => showPage(pi - 1, playing),
               ArrowDown: () => step(1), ArrowUp: () => step(-1), Escape: () => history.back() }[e.key];
   if (k) { e.preventDefault(); k(); }
