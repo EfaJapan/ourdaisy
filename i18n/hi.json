@@ -2,13 +2,14 @@
 "_meta": {
 "lang": "hi",
 "reviewed": false,
-"strings": 286
+"strings": 290
 },
 "t": {
 "+ Easy Japanese": "+ आसान जापानी",
 "+ Japanese": "+ जापानी",
 "A narrator reads the book aloud for you.": "वाचक आपके लिए किताब ज़ोर से पढ़ता है।",
 "About you — tap all that apply": "आपके बारे में — जो भी लागू हों, सभी पर टैप करें",
+"Add to home screen": "होम स्क्रीन पर जोड़ें",
 "Age": "उम्र",
 "All": "सभी",
 "All Ages": "सभी उम्र",
@@ -111,6 +112,8 @@
 "No books found.": "कोई किताब नहीं मिली।",
 "No books yet. Tap “▶ Read” in the library.": "अभी कोई किताब नहीं है। पुस्तकालय में “▶ पढ़ें” पर टैप करें।",
 "Not a member yet?": "अभी तक पंजीकरण नहीं किया?",
+"On Android: open the menu (⋮), then tap “Add to Home screen”.": "Android पर: मेनू (⋮) खोलें, फिर “होम स्क्रीन पर जोड़ें” दबाएँ।",
+"On iPhone: tap the Share button, then “Add to Home Screen”.": "iPhone पर: शेयर बटन दबाएँ, फिर “होम स्क्रीन में जोड़ें” दबाएँ।",
 "Once the book opens in Reader App, tap the ▶ Play button. The voice will read aloud while the text highlights!": "जब किताब रीडर ऐप में खुल जाए, तो ▶ (प्ले) बटन पर टैप करें। आवाज़ ज़ोर से पढ़ेगी और पाठ हाइलाइट होता जाएगा!",
 "Only registered members can use this library.": "केवल पंजीकृत सदस्य ही इस पुस्तकालय का उपयोग कर सकते हैं।",
 "Open books downloaded from EFA OURDAISY directly in your reader app.": "EFA OURDAISY से डाउनलोड की गई किताबें सीधे अपने रीडर ऐप में खोलें।",
@@ -133,6 +136,7 @@
 "Portuguese": "पुर्तगाली",
 "Preschool": "प्री-स्कूल",
 "Problem": "परेशानी",
+"Put this library on your home screen. Next time, you can open it with one tap.": "इस पुस्तकालय को होम स्क्रीन पर रखें। अगली बार आप एक टैप में खोल सकते हैं।",
 "Read": "पढ़ें",
 "Read books in your heritage language to keep it alive.": "अपने परिवार की भाषा में किताबें पढ़ें, ताकि वह भाषा जीवित रहे।",
 "Read more": "और पढ़ें",

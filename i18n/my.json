@@ -2,13 +2,14 @@
 "_meta": {
 "lang": "my",
 "reviewed": false,
-"strings": 286
+"strings": 290
 },
 "t": {
 "+ Easy Japanese": "+ လွယ်ကူသော ဂျပန်ဘာသာ",
 "+ Japanese": "+ ဂျပန်ဘာသာ",
 "A narrator reads the book aloud for you.": "ဇာတ်ကြောင်းပြောသူက စာအုပ်ကို သင့်အတွက် အသံထွက်ဖတ်ပြပါသည်။",
 "About you — tap all that apply": "သင့်အကြောင်း — ကိုက်ညီသမျှ အားလုံးကို နှိပ်ပါ",
+"Add to home screen": "ပင်မစာမျက်နှာသို့ ထည့်ရန်",
 "Age": "အသက်",
 "All": "အားလုံး",
 "All Ages": "အသက်အရွယ်မရွေး",
@@ -111,6 +112,8 @@
 "No books found.": "စာအုပ် မတွေ့ပါ။",
 "No books yet. Tap “▶ Read” in the library.": "စာအုပ် မရှိသေးပါ။ စာကြည့်တိုက်ထဲတွင် “▶ ဖတ်ရန်” ကို နှိပ်ပါ။",
 "Not a member yet?": "မှတ်ပုံမတင်ရသေးဘူးလား?",
+"On Android: open the menu (⋮), then tap “Add to Home screen”.": "Android တွင်- မီနူး (⋮) ကို ဖွင့်ပြီး “ပင်မစာမျက်နှာသို့ ထည့်ရန်” ကို နှိပ်ပါ။",
+"On iPhone: tap the Share button, then “Add to Home Screen”.": "iPhone တွင်- မျှဝေရန် ခလုတ်ကို နှိပ်ပြီး “ပင်မစာမျက်နှာသို့ ထည့်ရန်” ကို နှိပ်ပါ။",
 "Once the book opens in Reader App, tap the ▶ Play button. The voice will read aloud while the text highlights!": "စာအုပ်သည် စာဖတ်အက်ပ်တွင် ပွင့်လာသောအခါ ▶ (ဖွင့်) ခလုတ်ကို နှိပ်ပါ။ အသံက ဖတ်ပြပြီး စာသားကို အရောင်ခြယ်ပြပါမည်!",
 "Only registered members can use this library.": "မှတ်ပုံတင်ထားသော အဖွဲ့ဝင်များသာ ဤစာကြည့်တိုက်ကို သုံးနိုင်သည်။",
 "Open books downloaded from EFA OURDAISY directly in your reader app.": "EFA OURDAISY မှ ဒေါင်းလုဒ်လုပ်ထားသော စာအုပ်များကို သင့်စာဖတ်အက်ပ်တွင် တိုက်ရိုက် ဖွင့်ပါ။",
@@ -133,6 +136,7 @@
 "Portuguese": "ပေါ်တူဂီဘာသာ",
 "Preschool": "မူကြို",
 "Problem": "ပြဿနာ",
+"Put this library on your home screen. Next time, you can open it with one tap.": "ဤစာကြည့်တိုက်ကို ပင်မစာမျက်နှာပေါ်တွင် ထားပါ။ နောက်တစ်ကြိမ် တစ်ချက်နှိပ်ရုံဖြင့် ဖွင့်နိုင်ပါတယ်။",
 "Read": "ဖတ်ရန်",
 "Read books in your heritage language to keep it alive.": "သင့်မိသားစု၏ ဘာသာစကားဖြင့် စာအုပ်များဖတ်ပြီး ထိုဘာသာစကားကို ဆက်လက်ရှင်သန်စေပါ။",
 "Read more": "ဆက်ဖတ်ရန်",

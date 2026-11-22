@@ -2,13 +2,14 @@
 "_meta": {
 "lang": "ne",
 "reviewed": false,
-"strings": 286
+"strings": 290
 },
 "t": {
 "+ Easy Japanese": "+ सजिलो जापानी",
 "+ Japanese": "+ जापानी",
 "A narrator reads the book aloud for you.": "वाचकले तपाईंका लागि किताब ठूलो स्वरमा पढिदिन्छ।",
 "About you — tap all that apply": "तपाईंको बारेमा — मिल्ने सबैमा ट्याप गर्नुहोस्",
+"Add to home screen": "होम स्क्रिनमा थप्नुहोस्",
 "Age": "उमेर",
 "All": "सबै",
 "All Ages": "सबै उमेर",
@@ -111,6 +112,8 @@
 "No books found.": "कुनै किताब भेटिएन।",
 "No books yet. Tap “▶ Read” in the library.": "अहिलेसम्म किताब छैन। पुस्तकालयमा “▶ पढ्नुहोस्” मा ट्याप गर्नुहोस्।",
 "Not a member yet?": "अझै दर्ता गर्नुभएको छैन?",
+"On Android: open the menu (⋮), then tap “Add to Home screen”.": "Android मा: मेनु (⋮) खोल्नुहोस्, अनि “होम स्क्रिनमा थप्नुहोस्” थिच्नुहोस्।",
+"On iPhone: tap the Share button, then “Add to Home Screen”.": "iPhone मा: सेयर बटन थिच्नुहोस्, अनि “होम स्क्रिनमा थप्नुहोस्” थिच्नुहोस्।",
 "Once the book opens in Reader App, tap the ▶ Play button. The voice will read aloud while the text highlights!": "किताब रिडर एपमा खुलेपछि ▶ (प्ले) बटनमा ट्याप गर्नुहोस्। आवाजले ठूलो स्वरमा पढ्छ र पाठ हाइलाइट हुँदै जान्छ!",
 "Only registered members can use this library.": "दर्ता भएका सदस्यले मात्र यो पुस्तकालय प्रयोग गर्न सक्छन्।",
 "Open books downloaded from EFA OURDAISY directly in your reader app.": "EFA OURDAISY बाट डाउनलोड गरेका किताबहरू सिधै आफ्नो रिडर एपमा खोल्नुहोस्।",
@@ -133,6 +136,7 @@
 "Portuguese": "पोर्चुगिज",
 "Preschool": "पूर्व-विद्यालय",
 "Problem": "समस्या",
+"Put this library on your home screen. Next time, you can open it with one tap.": "यो पुस्तकालयलाई होम स्क्रिनमा राख्नुहोस्। अर्को पटक एक पटक थिचेर खोल्न सक्नुहुन्छ।",
 "Read": "पढ्नुहोस्",
 "Read books in your heritage language to keep it alive.": "आफ्नो परिवारको भाषामा किताब पढ्नुहोस्, ताकि त्यो भाषा जीवित रहोस्।",
 "Read more": "थप पढ्नुहोस्",

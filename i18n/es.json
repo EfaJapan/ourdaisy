@@ -2,13 +2,14 @@
 "_meta": {
 "lang": "es",
 "reviewed": false,
-"strings": 286
+"strings": 290
 },
 "t": {
 "+ Easy Japanese": "+ Japonés fácil",
 "+ Japanese": "+ Japonés",
 "A narrator reads the book aloud for you.": "Un narrador te lee el libro en voz alta.",
 "About you — tap all that apply": "Sobre ti — toca todas las opciones que correspondan",
+"Add to home screen": "Añadir a la pantalla de inicio",
 "Age": "Edad",
 "All": "Todos",
 "All Ages": "Todas las edades",
@@ -111,6 +112,8 @@
 "No books found.": "No se encontraron libros.",
 "No books yet. Tap “▶ Read” in the library.": "Todavía no hay libros aquí. Toca “▶ Leer” en la biblioteca.",
 "Not a member yet?": "¿Todavía no te has registrado?",
+"On Android: open the menu (⋮), then tap “Add to Home screen”.": "En Android: abre el menú (⋮) y toca “Añadir a pantalla de inicio”.",
+"On iPhone: tap the Share button, then “Add to Home Screen”.": "En iPhone: toca el botón Compartir y luego “Añadir a pantalla de inicio”.",
 "Once the book opens in Reader App, tap the ▶ Play button. The voice will read aloud while the text highlights!": "Cuando el libro se abra en la aplicación de lectura, toca el botón ▶ (reproducir). ¡La voz lee en voz alta y el texto se resalta!",
 "Only registered members can use this library.": "Solo las personas registradas pueden usar esta biblioteca.",
 "Open books downloaded from EFA OURDAISY directly in your reader app.": "Abre los libros descargados de EFA OURDAISY directamente en tu aplicación de lectura.",
@@ -133,6 +136,7 @@
 "Portuguese": "Portugués",
 "Preschool": "Preescolar",
 "Problem": "Problema",
+"Put this library on your home screen. Next time, you can open it with one tap.": "Pon esta biblioteca en la pantalla de inicio. La próxima vez, la abres con un toque.",
 "Read": "Leer",
 "Read books in your heritage language to keep it alive.": "Lee libros en la lengua de tu familia para mantenerla viva.",
 "Read more": "Leer más",

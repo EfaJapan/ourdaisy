@@ -1,0 +1,16 @@
+{
+  "name": "EFA OURDAISY Library",
+  "short_name": "OURDAISY",
+  "description": "マルチメディアデイジー図書館 / Multimedia Daisy Library",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F7FBFF",
+  "theme_color": "#004070",
+  "lang": "ja",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

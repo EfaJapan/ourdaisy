@@ -2,13 +2,14 @@
 "_meta": {
 "lang": "si",
 "reviewed": false,
-"strings": 286
+"strings": 290
 },
 "t": {
 "+ Easy Japanese": "+ පහසු ජපන් භාෂාව",
 "+ Japanese": "+ ජපන් භාෂාව",
 "A narrator reads the book aloud for you.": "කථකයා ඔබ වෙනුවෙන් පොත ශබ්ද නඟා කියවයි.",
 "About you — tap all that apply": "ඔබ ගැන — අදාළ සියල්ල තට්ටු කරන්න",
+"Add to home screen": "මුල් තිරයට එක් කරන්න",
 "Age": "වයස",
 "All": "සියල්ල",
 "All Ages": "සියලු වයස්",
@@ -111,6 +112,8 @@
 "No books found.": "පොත් හමු නොවීය.",
 "No books yet. Tap “▶ Read” in the library.": "තවම පොත් නැත. පුස්තකාලයේ “▶ කියවන්න” තට්ටු කරන්න.",
 "Not a member yet?": "තවම ලියාපදිංචි වී නැද්ද?",
+"On Android: open the menu (⋮), then tap “Add to Home screen”.": "Android හි: මෙනුව (⋮) විවෘත කර, “මුල් තිරයට එක් කරන්න” ඔබන්න.",
+"On iPhone: tap the Share button, then “Add to Home Screen”.": "iPhone හි: බෙදාගැනීමේ බොත්තම ඔබා, “මුල් තිරයට එක් කරන්න” ඔබන්න.",
 "Once the book opens in Reader App, tap the ▶ Play button. The voice will read aloud while the text highlights!": "පොත කියවීමේ යෙදුමේ විවෘත වූ පසු ▶ (ධාවන) බොත්තම තට්ටු කරන්න. හඬ ශබ්ද නඟා කියවන අතර පෙළ උද්දීපනය වේ!",
 "Only registered members can use this library.": "මෙම පුස්තකාලය භාවිත කළ හැක්කේ ලියාපදිංචි සාමාජිකයන්ට පමණි.",
 "Open books downloaded from EFA OURDAISY directly in your reader app.": "EFA OURDAISY වෙතින් බාගත කළ පොත් ඔබේ කියවීමේ යෙදුමේ කෙලින්ම විවෘත කරන්න.",
@@ -133,6 +136,7 @@
 "Portuguese": "පෘතුගීසි",
 "Preschool": "පෙර පාසල",
 "Problem": "ගැටලුව",
+"Put this library on your home screen. Next time, you can open it with one tap.": "මෙම පුස්තකාලය මුල් තිරයට එක් කරන්න. ඊළඟ වතාවේ එක් තට්ටුවකින් විවෘත කළ හැකිය.",
 "Read": "කියවන්න",
 "Read books in your heritage language to keep it alive.": "ඔබේ පවුලේ භාෂාවෙන් පොත් කියවා, ඒ භාෂාව ජීවමානව තබා ගන්න.",
 "Read more": "තව කියවන්න",
