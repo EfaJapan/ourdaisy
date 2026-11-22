@@ -5266,7 +5266,7 @@ async function rgSubmit() {
   $('rg-sum').style.display = 'none';
   const body = new URLSearchParams({ action: 'register', email: v.email, family: v.family, first: v.first, attr: v.attr.join('|'),
     countries: v.countries.join('|'), country_other: v.country_other, pref: v.pref, gender: v.gender, birth: v.birth,
-    agree: '1', newsletter: v.mag ? '1' : '', website: $('rg-website').value, waited: String(Date.now() - rgOpenedAt) });
+    agree: '1', newsletter: v.mag ? '1' : '', lang: ((window.OD_I18N && OD_I18N.lang) || ''), website: $('rg-website').value, waited: String(Date.now() - rgOpenedAt) });
   $('rg-submit').disabled = true;
   busy(true, '📝 <ruby>登録<rt>とうろく</rt></ruby>しています… / Registering…');
   let res = null;
@@ -5343,7 +5343,7 @@ async function fbSend() {
   let client = safe(() => localStorage.getItem('od_lr_client'), '');
   if (!client) { client = Math.random().toString(36).slice(2) + Date.now().toString(36); safe(() => localStorage.setItem('od_lr_client', client)); }
   const body = new URLSearchParams({ action: 'feedback', kind, text, face: fbPick('fb-face'), who: fbPick('fb-who'), age: fbPick('fb-age'),
-    book: fbBook ? fbBook.id : '', dev: device(), lang: (typeof _lang === 'string' ? _lang : 'ja'), reply: reply ? '1' : '',
+    book: fbBook ? fbBook.id : '', dev: device(), lang: ((window.OD_I18N && OD_I18N.lang) || (typeof _lang === 'string' ? _lang : 'ja')), reply: reply ? '1' : '',
     email: reply ? email : '', token: LR.token(), client, website: $('fb-website').value,
     fid: client.slice(0, 12) + Date.now().toString(36) });   // 送り直しても二重にならない印
   $('fb-send').disabled = true; busy(true, '📨 おくっています… / Sending…');
@@ -5370,5 +5370,8 @@ if (LR.forceReader) { const b = document.createElement('div'); b.className = 'lr
 })();
 </script>
 <!-- /ここで読む -->
+
+<!-- 画面の言葉の切り替え（2026-11-22 追加）。しくみは i18n/od-i18n.js、訳は i18n/<言語>.json -->
+<script src="i18n/od-i18n.js?v=1_0_0" defer></script>
 
 </html>
