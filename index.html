@@ -2387,6 +2387,23 @@ details.od-dl .lr-btn-dl .od-v-en { font-size: 10px; opacity: .8; }
   #screen-catalog .dd-reset { font-size: 15px; min-height: 48px; padding: 10px 18px; }
 }
 @media (min-width: 769px) and (max-width: 1264px) { #screen-catalog .od-new { margin-left: 32px; margin-right: 32px; } }
+
+/* ── こんな本があります／ログインを上に（2026-11-22） ── */
+.od-peek{background:#F7FBFF;padding:18px 0 6px}
+.od-peek-head{padding:0 16px 8px;text-align:center}
+.od-peek-head h2{margin:0;font-size:19px;color:var(--efa-dark,#004070);font-weight:800}
+.od-peek-sub{margin:2px 0 0;font-size:12.5px;color:var(--text-lt,#546E7A)}
+.od-peek-row{display:flex;gap:10px;overflow-x:auto;padding:6px 16px 12px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.od-peek-item{flex:0 0 118px;width:118px;border:0;background:#fff;border-radius:14px;padding:0 0 8px;box-shadow:0 2px 10px rgba(0,64,112,.12);cursor:pointer;text-align:left;scroll-snap-align:start;font-family:inherit;overflow:hidden}
+.od-peek-item img{width:118px;height:118px;object-fit:cover;object-position:center top;display:block;background:#E3F0FA}
+.od-peek-item b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:12.5px;line-height:1.35;color:#1A2E45;margin:6px 8px 0;min-height:2.7em}
+.od-peek-item span{display:block;font-size:10.5px;color:#0065A4;font-weight:700;margin:3px 8px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.od-peek-count{text-align:center;font-size:13px;color:var(--text-lt,#546E7A);margin:0 16px 8px}
+#od-login-sec{padding-top:18px;background:#F7FBFF}
+.od-tologin{text-align:center;padding:26px 16px 34px;background:var(--cream,#FFF8EC)}
+.od-tologin-btn{border:0;background:#F39800;color:#fff;font-weight:800;font-size:18px;padding:14px 30px;border-radius:30px;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(243,152,0,.35);line-height:1.5}
+.od-tologin-btn small{display:block;font-size:12px;font-weight:600;opacity:.95}
+@media (min-width:900px){.od-peek-row{max-width:980px;margin:0 auto}.od-peek-item{flex-basis:140px;width:140px}.od-peek-item img{width:140px;height:140px}}
 </style>
 <!-- =====================================================  HEADER -->
 <header class="site-header">
@@ -2438,6 +2455,72 @@ details.od-dl .lr-btn-dl .od-v-en { font-size: 10px; opacity: .8; }
       <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#F7FBFF"/>
       </svg>
+    </div>
+  </section>
+
+  <!-- こんな本があります（2026-11-22：入る前に、本の表紙が見える。本の一覧が読めないときは出さない） -->
+  <section class="od-peek" id="od-peek" hidden aria-label="こんな本があります">
+    <div class="od-peek-head">
+      <h2>📚 こんな<ruby>本<rt>ほん</rt></ruby>が あります</h2>
+      <p class="od-peek-sub"><span class="en">Books available in many languages with Japanese versions.</span></p>
+    </div>
+    <div class="od-peek-row" id="od-peek-row"></div>
+    <p class="od-peek-count" id="od-peek-count"></p>
+  </section>
+
+  <!-- ログイン -->
+  <section class="login-section" id="od-login-sec">
+    <div class="login-card">
+      <div class="login-card-header">
+        <span class="key-icon">🚀</span>
+        <h2 id="login-title">
+          <ruby>図書館<rt>としょかん</rt></ruby>に<ruby>入<rt>はい</rt></ruby>る
+        </h2>
+        <div class="sub" id="login-en-sub">Log in to the library</div>
+      </div>
+      <div class="login-card-body">
+        <p style="font-size:13px;color:var(--text-lt);margin-bottom:14px;line-height:1.65" id="login-desc">
+          <ruby>登録<rt>とうろく</rt></ruby>したメールアドレスを<ruby>入<rt>い</rt></ruby>れてください。<br>
+          <span class="en">Enter your registered email address.</span>
+        </p>
+        <div class="input-group">
+          <span class="i-icon">✉️</span>
+          <input type="email" id="login-email"
+                 placeholder="example@email.com"
+                 autocomplete="email"
+                 inputmode="email"
+                 onfocus="this.select()"
+                 onkeydown="if(event.key==='Enter')doLogin()">
+        </div>
+        <button class="btn-login" id="btn-login-main" onclick="doLogin()">
+          🚀 <ruby>入<rt>はい</rt></ruby>る！
+          <span class="btn-login en-sub" id="login-btn-en">Tap to enter the library</span>
+        </button>
+        <div class="login-loading" id="login-loading">
+          <span class="loader"></span>
+          <span id="login-checking"><ruby>確認<rt>かくにん</rt></ruby>しています…</span>
+        </div>
+        <div class="login-alert" id="login-alert" style="display:none">
+          <strong id="login-err-t">⚠️ <ruby>登録<rt>とうろく</rt></ruby>されていません</strong>
+          <span id="login-err-m">
+            このメールアドレスは<ruby>登録<rt>とうろく</rt></ruby>されていません。<br>
+            まず<ruby>登録<rt>とうろく</rt></ruby>をしてください。
+          </span><br>
+          <small id="login-err-en" style="color:#7A4A00;font-family:'Nunito',sans-serif">
+            This email is not registered. Please register first.
+          </small>
+        </div>
+        <div class="register-prompt">
+          <span id="not-reg-txt">
+            まだメンバー<ruby>登録<rt>とうろく</rt></ruby>をしていない<ruby>人<rt>ひと</rt></ruby>：<br>
+            <small class="en" style="display:block;margin-top:2px">Not a member yet?</small>
+          </span>
+          <a href="#" id="link-register" target="_blank">
+            あたらしく<ruby>登録<rt>とうろく</rt></ruby>する →<br>
+            <small class="en">Register here</small>
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -2661,60 +2744,9 @@ details.od-dl .lr-btn-dl .od-v-en { font-size: 10px; opacity: .8; }
     </div>
   </section>
 
-  <!-- ログイン -->
-  <section class="login-section">
-    <div class="login-card">
-      <div class="login-card-header">
-        <span class="key-icon">🚀</span>
-        <h2 id="login-title">
-          <ruby>図書館<rt>としょかん</rt></ruby>に<ruby>入<rt>はい</rt></ruby>る
-        </h2>
-        <div class="sub" id="login-en-sub">Log in to the library</div>
-      </div>
-      <div class="login-card-body">
-        <p style="font-size:13px;color:var(--text-lt);margin-bottom:14px;line-height:1.65" id="login-desc">
-          <ruby>登録<rt>とうろく</rt></ruby>したメールアドレスを<ruby>入<rt>い</rt></ruby>れてください。<br>
-          <span class="en">Enter your registered email address.</span>
-        </p>
-        <div class="input-group">
-          <span class="i-icon">✉️</span>
-          <input type="email" id="login-email"
-                 placeholder="example@email.com"
-                 autocomplete="email"
-                 inputmode="email"
-                 onfocus="this.select()"
-                 onkeydown="if(event.key==='Enter')doLogin()">
-        </div>
-        <button class="btn-login" id="btn-login-main" onclick="doLogin()">
-          🚀 <ruby>入<rt>はい</rt></ruby>る！
-          <span class="btn-login en-sub" id="login-btn-en">Tap to enter the library</span>
-        </button>
-        <div class="login-loading" id="login-loading">
-          <span class="loader"></span>
-          <span id="login-checking"><ruby>確認<rt>かくにん</rt></ruby>しています…</span>
-        </div>
-        <div class="login-alert" id="login-alert" style="display:none">
-          <strong id="login-err-t">⚠️ <ruby>登録<rt>とうろく</rt></ruby>されていません</strong>
-          <span id="login-err-m">
-            このメールアドレスは<ruby>登録<rt>とうろく</rt></ruby>されていません。<br>
-            まず<ruby>登録<rt>とうろく</rt></ruby>をしてください。
-          </span><br>
-          <small id="login-err-en" style="color:#7A4A00;font-family:'Nunito',sans-serif">
-            This email is not registered. Please register first.
-          </small>
-        </div>
-        <div class="register-prompt">
-          <span id="not-reg-txt">
-            まだメンバー<ruby>登録<rt>とうろく</rt></ruby>をしていない<ruby>人<rt>ひと</rt></ruby>：<br>
-            <small class="en" style="display:block;margin-top:2px">Not a member yet?</small>
-          </span>
-          <a href="#" id="link-register" target="_blank">
-            あたらしく<ruby>登録<rt>とうろく</rt></ruby>する →<br>
-            <small class="en">Register here</small>
-          </a>
-        </div>
-      </div>
-    </div>
+  <!-- いちばん下からも、ログインの所へ行ける（2026-11-22） -->
+  <section class="od-tologin">
+    <button type="button" class="od-tologin-btn" onclick="odGoLogin()">🚀 <ruby>図書館<rt>としょかん</rt></ruby>に<ruby>入<rt>はい</rt></ruby>る<small class="en">Log in to the library</small></button>
   </section>
 
   <!-- 協力・支援団体（現在非表示。団体追加時に .partner-section の display を block に変更） -->
@@ -5371,6 +5403,61 @@ if (LR.forceReader) { const b = document.createElement('div'); b.className = 'lr
 </script>
 <!-- /ここで読む -->
 
+<!-- こんな本があります／ログインを上に（2026-11-22） -->
+<script>
+function odGoLogin() {
+  var sec = document.getElementById('od-login-sec'); if (!sec) return;
+  sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(function () { var i = document.getElementById('login-email'); if (i) try { i.focus({ preventScroll: true }); } catch (e) {} }, 500);
+}
+(function () {
+  var KEY = 'od_peek_v1', MAX = 12, HOURS = 6, list = null, total = 0;
+  var esc = function (x) { return String(x || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
+  function pick(rows) {            // 同じ本の版（-MT・-EJ・-SJ）は1つにまとめる
+    var seen = {}, out = [];
+    rows.forEach(function (b) {
+      if (!b.id || !b.title) return;
+      var k = b.id.replace(/-(MT|EJ|SJ)$/i, '');
+      if (seen[k]) { if (!seen[k].cover && b.cover) seen[k].cover = b.cover; return; }
+      seen[k] = { title: b.title, jp: b.title_jp, lang: String(b.lang || '').replace(/\s*\/\s*Japanese\s*$/i, ''), cover: b.cover, d: b.dateAdded || 0 };
+      out.push(seen[k]);
+    });
+    return out;
+  }
+  function render() {
+    var sec = document.getElementById('od-peek'), row = document.getElementById('od-peek-row');
+    if (!sec || !row || !list || !list.length) return;
+    var tab = '';
+    try { var L = window.OD_I18N && OD_I18N.lang && OD_I18N.langs.filter(function (l) { return l.c === OD_I18N.lang; })[0]; tab = L ? L.tab : ''; } catch (e) {}
+    var a = list.slice().sort(function (x, y) {      // えらんだ言葉の本を先に。そのあとは新しい順
+      var ax = tab && x.lang.indexOf(tab) === 0 ? 1 : 0, ay = tab && y.lang.indexOf(tab) === 0 ? 1 : 0;
+      return ay - ax || y.d - x.d;
+    }).slice(0, MAX);
+    row.innerHTML = a.map(function (b) {
+      return '<button type="button" class="od-peek-item" data-od-skip onclick="odGoLogin()">' +
+        (b.cover ? '<img loading="lazy" alt="" src="' + esc(toDriveImgUrl(b.cover)) + '" onerror="this.style.visibility=\'hidden\'">' : '<img alt="">') +
+        '<b>' + esc(b.title) + '</b><span>' + esc(b.lang) + '</span></button>';
+    }).join('');
+    var c = document.getElementById('od-peek-count');
+    if (c) c.innerHTML = '<strong>' + total + '</strong>さつの<ruby>本<rt>ほん</rt></ruby>があります / <strong>' + total + '</strong> books available';
+    sec.hidden = false;
+  }
+  function start() {
+    try { var c = JSON.parse(localStorage.getItem(KEY) || 'null'); if (c && c.list) { list = c.list; total = c.total; render(); if (Date.now() - c.t < HOURS * 3600000) return; } } catch (e) {}
+    if (typeof fetchJsonWithRetry !== 'function' || typeof parseTsv !== 'function') return;
+    try { if (window.LR && LR.token && LR.token()) return; } catch (e) {}      // ログインしている人には出さない（すぐ本の一覧に入るため）
+    fetchJsonWithRetry({ action: 'tsv' }, 1).then(function (j) {
+      if (!j || !j.tsv) return;
+      var all = pick(parseTsv(j.tsv)); if (!all.length) return;
+      total = all.length; list = all;
+      try { localStorage.setItem(KEY, JSON.stringify({ t: Date.now(), total: total, list: all })); } catch (e) {}
+      render();
+    }).catch(function () {});
+  }
+  document.addEventListener('od-i18n-change', render);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
 <!-- 画面の言葉の切り替え（2026-11-22 追加）。しくみは i18n/od-i18n.js、訳は i18n/<言語>.json -->
 <script src="i18n/od-i18n.js?v=1_2_2" defer></script>
 
