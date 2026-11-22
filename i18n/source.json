@@ -24,6 +24,7 @@
   "Choose a book and download the DAISY file.",
   "Choose or write at least one",
   "Colors",
+  "Connection failed. Please wait a moment and try again.",
   "Copyrights belong to the authors and publishers.",
   "Countries you or your family have ties to — tap all that apply",
   "Don't show again",
@@ -282,7 +283,13 @@
   "本が開けない・声が出ない": "The book won't open, or there is no sound",
   "ダウンロードしたファイルがどこにあるかわからない": "I can't find the downloaded file",
   "読む速さを変えたい": "I want to change the reading speed",
-  "たのしんで読んでね！🎉": "Enjoy reading!"
+  "たのしんで読んでね！🎉": "Enjoy reading!",
+  "本が見つかりませんでした。": "No books were found.",
+  "つづきから {0}ページ・{1}MB": "Continue from page {0} · {1}MB",
+  "はじめから・{0}MB": "From the beginning · {0}MB",
+  "世界の言葉で読もう！": "Let's read in the languages of the world!",
+  "図書館に入る": "Log in to the library",
+  "📖 電子ブックを読む方法": "How to Read Digital Books"
  },
  "skip": [
   "Aichi",

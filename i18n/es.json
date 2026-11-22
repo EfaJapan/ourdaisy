@@ -2,7 +2,7 @@
 "_meta": {
 "lang": "es",
 "reviewed": false,
-"strings": 280
+"strings": 287
 },
 "t": {
 "+ Easy Japanese": "+ Japonés fácil",
@@ -28,6 +28,7 @@
 "Choose a book and download the DAISY file.": "Elige un libro y descarga el archivo DAISY.",
 "Choose or write at least one": "Elige o escribe al menos uno",
 "Colors": "Colores",
+"Connection failed. Please wait a moment and try again.": "No se pudo conectar. Espera un momento e inténtalo de nuevo.",
 "Copyrights belong to the authors and publishers.": "Los derechos de autor pertenecen a los autores y a las editoriales.",
 "Countries you or your family have ties to — tap all that apply": "Países con los que tú o tu familia tienen vínculos — toca todos los que correspondan",
 "Don't show again": "No mostrar de nuevo",
@@ -284,6 +285,12 @@
 "本が開けない・声が出ない": "El libro no se abre o no tiene sonido",
 "ダウンロードしたファイルがどこにあるかわからない": "No sé dónde está el archivo descargado",
 "読む速さを変えたい": "Quiero cambiar la velocidad de lectura",
-"たのしんで読んでね！🎉": "¡Disfruta la lectura!"
+"たのしんで読んでね！🎉": "¡Disfruta la lectura!",
+"本が見つかりませんでした。": "No se encontró ningún libro.",
+"つづきから {0}ページ・{1}MB": "Continuar desde la página {0} · {1}MB",
+"はじめから・{0}MB": "Desde el principio · {0}MB",
+"世界の言葉で読もう！": "¡Leamos en los idiomas del mundo!",
+"図書館に入る": "Entrar a la biblioteca",
+"📖 電子ブックを読む方法": "Cómo leer los libros digitales"
 }
 }

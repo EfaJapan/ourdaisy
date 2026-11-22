@@ -22,7 +22,7 @@
 'use strict';
 if (window.OD_I18N) return;
 
-var VERSION = '1.2.0';
+var VERSION = '1.2.1';
 var LS_LANG = 'od_ui_lang', LS_BETA = 'od_i18n_beta', LS_MAN = 'od_i18n_manifest_v1', LS_DICT = 'od_i18n_dict_v1_';
 var JA_RE = /[぀-ヿ㐀-鿿]/;
 var FONT_CDN = 'https://cdn.jsdelivr.net/npm/@fontsource/';
@@ -462,6 +462,7 @@ var CSS =
   '.od-add{font-size:.86em;opacity:.9;font-weight:inherit}.od-add::before{content:" / "}' +
   '.lr-tile .od-add,.lr-bar .od-add,.lr-hbtn .od-add,#lr-toasttx .od-add,#lr-busytx .od-add{display:block;font-size:.74em;line-height:1.25}' +
   '.lr-tile .od-add::before,.lr-bar .od-add::before,.lr-hbtn .od-add::before,#lr-toasttx .od-add::before,#lr-busytx .od-add::before{content:""}' +
+  'h1 .od-add,#login-title .od-add{display:block;font-size:.58em;line-height:1.35;margin-top:.25em;opacity:.95}h1 .od-add::before,#login-title .od-add::before{content:""}' +
   '.od-lang-btn{background:#fff;border:2px solid var(--efa-border,#B8D9F0);color:var(--efa-dark,#004070);padding:7px 12px;border-radius:20px;' +
     'font-size:12px;font-weight:800;cursor:pointer;min-height:38px;display:flex;align-items:center;gap:4px;white-space:nowrap;font-family:"OD I18N","Nunito",sans-serif}' +
   '.od-lang-strip{background:#fff;border-bottom:2px solid var(--border,#B8D9F0);padding:12px 12px 14px;text-align:center}' +

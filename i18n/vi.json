@@ -2,7 +2,7 @@
 "_meta": {
 "lang": "vi",
 "reviewed": false,
-"strings": 280
+"strings": 287
 },
 "t": {
 "+ Easy Japanese": "+ Tiếng Nhật dễ",
@@ -28,6 +28,7 @@
 "Choose a book and download the DAISY file.": "Chọn một cuốn sách và tải tệp DAISY về.",
 "Choose or write at least one": "Hãy chọn hoặc viết ít nhất một mục",
 "Colors": "Màu sắc",
+"Connection failed. Please wait a moment and try again.": "Không kết nối được. Vui lòng đợi một chút rồi thử lại.",
 "Copyrights belong to the authors and publishers.": "Bản quyền thuộc về tác giả và nhà xuất bản.",
 "Countries you or your family have ties to — tap all that apply": "Những nước mà bạn hoặc gia đình có gắn bó — chạm vào tất cả các mục phù hợp",
 "Don't show again": "Không hiển thị lại",
@@ -284,6 +285,12 @@
 "本が開けない・声が出ない": "Không mở được sách hoặc không có tiếng",
 "ダウンロードしたファイルがどこにあるかわからない": "Không biết tệp đã tải về nằm ở đâu",
 "読む速さを変えたい": "Muốn đổi tốc độ đọc",
-"たのしんで読んでね！🎉": "Chúc bạn đọc vui!"
+"たのしんで読んでね！🎉": "Chúc bạn đọc vui!",
+"本が見つかりませんでした。": "Không tìm thấy sách nào.",
+"つづきから {0}ページ・{1}MB": "Đọc tiếp từ trang {0} · {1}MB",
+"はじめから・{0}MB": "Từ đầu · {0}MB",
+"世界の言葉で読もう！": "Cùng đọc bằng các ngôn ngữ trên thế giới!",
+"図書館に入る": "Vào thư viện",
+"📖 電子ブックを読む方法": "Cách đọc sách điện tử"
 }
 }
