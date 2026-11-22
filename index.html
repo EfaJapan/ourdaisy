@@ -4613,24 +4613,24 @@ document.addEventListener('keydown', function(e) {
       <div class="lr-tiles" id="rg-attr"></div>
       <p class="rg-msg">1つ いじょう えらんでください / Please choose at least one</p></div>
 
-    <div class="rg-box" data-f="country"><p class="rg-q"><span class="n">4</span>🌏 ルーツや かかわりのある <ruby>国<rt>くに</rt></ruby> <span class="rg-req">ひつよう</span></p>
+    <div class="rg-box" data-f="country"><p class="rg-q"><span class="n">4</span>🌏 ルーツや かかわりのある <ruby>国<rt>くに</rt></ruby> <span class="rg-opt">えらばなくても よい</span></p>
       <p class="rg-en">Countries you or your family have ties to — tap all that apply</p>
       <div class="lr-tiles" id="rg-country"></div>
       <label for="rg-country-other" style="display:block;font-size:14px;font-weight:700;margin:10px 0 4px">ほかの <ruby>国<rt>くに</rt></ruby>（じゆうに <ruby>書<rt>か</rt></ruby>いてください） / Other countries</label>
       <input type="text" id="rg-country-other" maxlength="100" placeholder="れい）中国、韓国 / e.g. China, Korea">
       <p class="rg-msg">1つ いじょう えらぶか、書いてください / Choose or write at least one</p></div>
 
-    <div class="rg-box" data-f="pref"><p class="rg-q"><span class="n">5</span>🏠 <ruby>住<rt>す</rt></ruby>んでいる <ruby>県<rt>けん</rt></ruby> <span class="rg-req">ひつよう</span></p>
+    <div class="rg-box" data-f="pref"><p class="rg-q"><span class="n">5</span>🏠 <ruby>住<rt>す</rt></ruby>んでいる <ruby>県<rt>けん</rt></ruby> <span class="rg-opt">えらばなくても よい</span></p>
       <p class="rg-en">Your prefecture</p>
       <select id="rg-pref"><option value="">えらんでください / Choose</option></select>
       <p class="rg-msg">県を えらんでください / Please choose your prefecture</p></div>
 
-    <div class="rg-box" data-f="gender"><p class="rg-q"><span class="n">6</span>🧑 <ruby>性別<rt>せいべつ</rt></ruby> <span class="rg-req">ひつよう</span></p>
+    <div class="rg-box" data-f="gender"><p class="rg-q"><span class="n">6</span>🧑 <ruby>性別<rt>せいべつ</rt></ruby> <span class="rg-opt">えらばなくても よい</span></p>
       <p class="rg-en">Gender</p>
       <div class="lr-tiles" id="rg-gender"></div>
       <p class="rg-msg">1つ えらんでください / Please choose one</p></div>
 
-    <div class="rg-box" data-f="birth"><p class="rg-q"><span class="n">7</span>🎂 <ruby>生<rt>う</rt></ruby>まれた <ruby>年<rt>とし</rt></ruby> <span class="rg-req">ひつよう</span></p>
+    <div class="rg-box" data-f="birth"><p class="rg-q"><span class="n">7</span>🎂 <ruby>生<rt>う</rt></ruby>まれた <ruby>年<rt>とし</rt></ruby> <span class="rg-opt">えらばなくても よい</span></p>
       <p class="rg-en">Year of birth</p>
       <select id="rg-birth"><option value="">えらんでください / Choose</option></select>
       <p class="rg-msg">生まれた年を えらんでください / Please choose your birth year</p></div>
@@ -5273,15 +5273,17 @@ function rgValues() {
            pref: $('rg-pref').value, gender: rgPicked('rg-gender')[0] || '', birth: $('rg-birth').value,
            agree: $('rg-agree').getAttribute('aria-pressed') === 'true', mag: $('rg-mag').getAttribute('aria-pressed') === 'true' };
 }
+const RG_MUST = { country: false, pref: false, gender: false, birth: false };
 function rgCheck(v) {
   const bad = [];
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) bad.push('email');
   if (!v.family || !v.first) bad.push('name');
   if (!v.attr.length) bad.push('attr');
-  if (!v.countries.length && !v.country_other) bad.push('country');
-  if (!v.pref) bad.push('pref');
-  if (!v.gender) bad.push('gender');
-  if (!v.birth) bad.push('birth');
+  // 2026-11-22：国・県・性別・生まれた年は「えらばなくても よい」にした（RG_MUST に名前を足すと、ひつように もどせる）
+  if (RG_MUST.country && !v.countries.length && !v.country_other) bad.push('country');
+  if (RG_MUST.pref && !v.pref) bad.push('pref');
+  if (RG_MUST.gender && !v.gender) bad.push('gender');
+  if (RG_MUST.birth && !v.birth) bad.push('birth');
   if (!v.agree) bad.push('agree');
   return bad;
 }
