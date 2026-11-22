@@ -1,6 +1,7 @@
 /* =============================================================================
  * od-i18n.js — OurDAISY 図書館：画面の言葉の切り替え（多言語表示）
- * Version: 1.0.0 — 2026-11-22
+ * Version: 1.1.0 — 2026-11-22
+ *   1.1.0：12言語に対応。つなげて書く文字（クメール語・ミャンマー語など）で、字の間をあけない（あけると字がくずれる）
  *
  * しくみ
  *   ・図書館の画面（index.html）は、今までどおり「やさしい日本語＋英語」で書く。
@@ -20,7 +21,7 @@
 'use strict';
 if (window.OD_I18N) return;
 
-var VERSION = '1.0.0';
+var VERSION = '1.1.0';
 var LS_LANG = 'od_ui_lang', LS_BETA = 'od_i18n_beta', LS_MAN = 'od_i18n_manifest_v1', LS_DICT = 'od_i18n_dict_v1_';
 var JA_RE = /[぀-ヿ㐀-鿿]/;
 var FONT_CDN = 'https://cdn.jsdelivr.net/npm/@fontsource/';
@@ -171,6 +172,16 @@ function skipped(el) {
   }
   return !!(el && el.closest && el.closest(SKIP_SEL));
 }
+// 訳を入れた所に、その言語の書体を先頭に足す（画面のどの書体の所でも、文字がくずれないように）
+function markFont(el) {
+  var L = BY[lang];
+  if (!L || !L.font || !el || el.nodeType !== 1 || el.hasAttribute('data-od-ff')) return;
+  var ff = '';
+  try { ff = getComputedStyle(el).fontFamily || ''; } catch (e) {}
+  el.__odFont = el.style.fontFamily || '';
+  el.style.fontFamily = '"OD I18N"' + (ff ? ', ' + ff : '');
+  el.setAttribute('data-od-ff', '1');
+}
 function doText(node) {
   var cur = node.nodeValue;
   if (node.__odOut !== undefined && cur !== node.__odOut) { node.__odSrc = undefined; node.__odOut = undefined; }   // 画面が書きかえた
@@ -183,6 +194,7 @@ function doText(node) {
   }
   node.__odSrc = src; node.__odOut = out;
   if (cur !== out) node.nodeValue = out;
+  markFont(node.parentNode);
 }
 function doAttrs(el) {
   for (var i = 0; i < ATTRS.length; i++) {
@@ -196,6 +208,7 @@ function doAttrs(el) {
     if (out == null) { if (rec) { el.setAttribute(a, src); st[a] = null; } continue; }
     st[a] = { src: src, out: out };
     if (cur !== out) el.setAttribute(a, out);
+    if (a === 'placeholder') markFont(el);
   }
 }
 // 日本語だけの文（英語がない所）：うしろに「 / 訳」を足す。ふりがなは数えない
@@ -221,10 +234,11 @@ function doAdd(el) {
     if (key && JA_RE.test(key) && key.indexOf(' / ') < 0) want = lookup(key);
   }
   if (want == null) { if (old) old.remove(); return false; }
-  if (old) { if (old.__odKey !== want) { old.textContent = want; old.__odKey = want; } return true; }
+  if (old) { if (old.__odKey !== want) { old.textContent = want; old.__odKey = want; } markFont(old); return true; }
   var sp = document.createElement('span');
   sp.className = 'od-add'; sp.textContent = want; sp.__odKey = want;
   el.appendChild(sp);
+  markFont(sp);
   return true;
 }
 function walk(root) {
@@ -247,6 +261,8 @@ function restoreAll() {
   try {
     var adds = document.querySelectorAll('.od-add');
     for (var i = 0; i < adds.length; i++) adds[i].remove();
+    var ffs = document.querySelectorAll('[data-od-ff]');
+    for (var f = 0; f < ffs.length; f++) { ffs[f].style.fontFamily = ffs[f].__odFont || ''; ffs[f].removeAttribute('data-od-ff'); ffs[f].__odFont = undefined; }
     var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null), n;
     while ((n = w.nextNode())) {
       if (n.__odSrc !== undefined) { if (n.nodeValue !== n.__odSrc) n.nodeValue = n.__odSrc; n.__odSrc = undefined; n.__odOut = undefined; continue; }
@@ -267,6 +283,7 @@ function applyAll() {
   document.documentElement.setAttribute('data-od-lang', lang || 'none');
   var L = BY[lang];
   document.documentElement.classList.toggle('od-tall', !!(L && L.tall));
+  document.documentElement.classList.toggle('od-script', !!(L && L.font));   // 字の間をあけると くずれる文字
   syncUi();
 }
 
@@ -436,7 +453,14 @@ var CSS =
   '.od-tile.wide{grid-column:1 / -1;min-height:56px}' +
   '.od-lang-close{display:block;margin:14px auto 0;border:none;background:var(--efa-blue,#0065A4);color:#fff;border-radius:24px;padding:12px 32px;font-size:15px;font-weight:800;cursor:pointer;min-height:48px}' +
   '.od-beta-tag{font-size:10px;background:#888;color:#fff;border-radius:8px;padding:1px 6px;margin-left:4px;vertical-align:middle}' +
-  'html.od-tall .en,html.od-tall .lr-en,html.od-tall .rg-en,html.od-tall .en-title,html.od-tall .od-add{line-height:1.9}';
+  'html.od-tall .en,html.od-tall .lr-en,html.od-tall .rg-en,html.od-tall .en-title,html.od-tall .od-add{line-height:1.9}' +
+  'html.od-script body,html.od-script body *{letter-spacing:normal !important}' +
+  // せまい画面のヘッダー：ボタンが3つ並んでも、はみ出さないようにする（言語をえらんでいるときだけ）
+  'html[data-od-lang]:not([data-od-lang="none"]) .header-controls .od-add{display:block;font-size:.72em;line-height:1.2}' +
+  'html[data-od-lang]:not([data-od-lang="none"]) .header-controls .od-add::before{content:""}' +
+  'html[data-od-lang]:not([data-od-lang="none"]) .header-controls .lr-shelf-btn{flex-direction:column;gap:0;padding:4px 12px;line-height:1.2}' +
+  'html[data-od-lang]:not([data-od-lang="none"]) .btn-logout{white-space:normal;line-height:1.15;text-align:center;max-width:96px;padding:5px 10px}' +
+  '@media (max-width:480px){.od-lang-btn .od-lang-name{display:none}.od-lang-btn{padding:7px 10px}}';
 
 var ui = { btn: null, strip: null, modal: null };
 function tileHtml(l) {
@@ -493,7 +517,7 @@ function buildUi() {
   syncUi();
 }
 function syncUi() {
-  if (ui.btn) ui.btn.textContent = '🌐 ' + (BY[lang] ? BY[lang].n : 'Language');
+  if (ui.btn) ui.btn.innerHTML = '🌐 <span class="od-lang-name">' + (BY[lang] ? BY[lang].n : 'Language') + '</span>';
   [ui.strip, ui.modal].forEach(function (root) {
     if (!root) return;
     var all = root.querySelectorAll('[data-od-c]');

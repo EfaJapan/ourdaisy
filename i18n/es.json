@@ -2,7 +2,7 @@
 "_meta": {
 "lang": "es",
 "reviewed": false,
-"strings": 281
+"strings": 280
 },
 "t": {
 "+ Easy Japanese": "+ Japonés fácil",
@@ -279,7 +279,6 @@
 "あとで": "Después",
 "だれが 書いている？": "¿Quién escribe?",
 "よんだ 子どもの 年は？": "¿Qué edad tiene el niño o la niña que leyó?",
-"よかったこと・きづいたこと": "Lo que te gustó o notaste",
 "リーダーアプリは無料ですか？": "¿La aplicación de lectura es gratuita?",
 "どんなスマホで使えますか？": "¿En qué celulares puedo usarla?",
 "本が開けない・声が出ない": "El libro no se abre o no tiene sonido",
