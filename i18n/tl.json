@@ -2,13 +2,14 @@
 "_meta": {
 "lang": "tl",
 "reviewed": false,
-"strings": 286
+"strings": 290
 },
 "t": {
 "+ Easy Japanese": "+ Madaling Japanese",
 "+ Japanese": "+ Japanese",
 "A narrator reads the book aloud for you.": "May tagapagsalaysay na magbabasa ng aklat nang malakas para sa iyo.",
 "About you — tap all that apply": "Tungkol sa iyo — i-tap ang lahat ng naaangkop",
+"Add to home screen": "Idagdag sa home screen",
 "Age": "Edad",
 "All": "Lahat",
 "All Ages": "Lahat ng edad",
@@ -111,6 +112,8 @@
 "No books found.": "Walang nakitang aklat.",
 "No books yet. Tap “▶ Read” in the library.": "Wala pang aklat. I-tap ang “▶ Basahin” sa aklatan.",
 "Not a member yet?": "Hindi ka pa nakarehistro?",
+"On Android: open the menu (⋮), then tap “Add to Home screen”.": "Sa Android: buksan ang menu (⋮), tapos pindutin ang “Idagdag sa Home screen”.",
+"On iPhone: tap the Share button, then “Add to Home Screen”.": "Sa iPhone: pindutin ang Share button, tapos “Idagdag sa Home Screen”.",
 "Once the book opens in Reader App, tap the ▶ Play button. The voice will read aloud while the text highlights!": "Kapag nabuksan na ang aklat sa reader app, i-tap ang ▶ (play). Babasahin ito nang malakas ng boses habang naka-highlight ang teksto!",
 "Only registered members can use this library.": "Mga nakarehistrong miyembro lamang ang makagagamit ng aklatang ito.",
 "Open books downloaded from EFA OURDAISY directly in your reader app.": "Buksan nang direkta sa iyong reader app ang mga aklat na na-download mula sa EFA OURDAISY.",
@@ -133,6 +136,7 @@
 "Portuguese": "Portuguese",
 "Preschool": "Preschool",
 "Problem": "Problema",
+"Put this library on your home screen. Next time, you can open it with one tap.": "Ilagay ang library na ito sa home screen. Sa susunod, mabubuksan mo ito sa isang pindot.",
 "Read": "Basahin",
 "Read books in your heritage language to keep it alive.": "Magbasa ng mga aklat sa wika ng iyong pamilya upang manatili itong buhay.",
 "Read more": "Magbasa pa",

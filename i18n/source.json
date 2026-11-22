@@ -5,6 +5,7 @@
   "+ Japanese",
   "A narrator reads the book aloud for you.",
   "About you — tap all that apply",
+  "Add to home screen",
   "Age",
   "All",
   "All Ages",
@@ -107,6 +108,8 @@
   "No books found.",
   "No books yet. Tap “▶ Read” in the library.",
   "Not a member yet?",
+  "On Android: open the menu (⋮), then tap “Add to Home screen”.",
+  "On iPhone: tap the Share button, then “Add to Home Screen”.",
   "Once the book opens in Reader App, tap the ▶ Play button. The voice will read aloud while the text highlights!",
   "Only registered members can use this library.",
   "Open books downloaded from EFA OURDAISY directly in your reader app.",
@@ -129,6 +132,7 @@
   "Portuguese",
   "Preschool",
   "Problem",
+  "Put this library on your home screen. Next time, you can open it with one tap.",
   "Read",
   "Read books in your heritage language to keep it alive.",
   "Read more",
@@ -353,6 +357,7 @@
   "iOS 13.0",
   "iPad",
   "iPhone",
+  "iPhone：",
   "website"
  ]
 }

@@ -2,13 +2,14 @@
 "_meta": {
 "lang": "km",
 "reviewed": false,
-"strings": 286
+"strings": 290
 },
 "t": {
 "+ Easy Japanese": "+ ភាសាជប៉ុនងាយៗ",
 "+ Japanese": "+ ភាសាជប៉ុន",
 "A narrator reads the book aloud for you.": "អ្នកអានរឿងនឹងអានសៀវភៅឮៗឱ្យអ្នកស្តាប់។",
 "About you — tap all that apply": "អំពីអ្នក — សូមចុចលើចំណុចទាំងអស់ដែលត្រូវនឹងអ្នក",
+"Add to home screen": "បន្ថែមទៅអេក្រង់ដើម",
 "Age": "អាយុ",
 "All": "ទាំងអស់",
 "All Ages": "គ្រប់វ័យ",
@@ -111,6 +112,8 @@
 "No books found.": "រកមិនឃើញសៀវភៅទេ។",
 "No books yet. Tap “▶ Read” in the library.": "មិនទាន់មានសៀវភៅទេ។ សូមចុច “▶ អាន” ក្នុងបណ្ណាល័យ។",
 "Not a member yet?": "មិនទាន់ចុះឈ្មោះទេឬ?",
+"On Android: open the menu (⋮), then tap “Add to Home screen”.": "លើ Android៖ បើកម៉ឺនុយ (⋮) រួចចុច “បន្ថែមទៅអេក្រង់ដើម”។",
+"On iPhone: tap the Share button, then “Add to Home Screen”.": "លើ iPhone៖ ចុចប៊ូតុងចែករំលែក រួចចុច “បន្ថែមទៅអេក្រង់ដើម”។",
 "Once the book opens in Reader App, tap the ▶ Play button. The voice will read aloud while the text highlights!": "ពេលសៀវភៅបើកក្នុងកម្មវិធីអានសៀវភៅហើយ សូមចុចប៊ូតុង ▶ (ចាក់)។ សំឡេងនឹងអានឮៗ ហើយអក្សរនឹងត្រូវបានបន្លិច!",
 "Only registered members can use this library.": "មានតែសមាជិកដែលបានចុះឈ្មោះប៉ុណ្ណោះ ទើបអាចប្រើបណ្ណាល័យនេះបាន។",
 "Open books downloaded from EFA OURDAISY directly in your reader app.": "បើកសៀវភៅដែលទាញយកពី EFA OURDAISY ដោយផ្ទាល់ក្នុងកម្មវិធីអានសៀវភៅរបស់អ្នក។",
@@ -133,6 +136,7 @@
 "Portuguese": "ភាសាព័រទុយហ្គាល់",
 "Preschool": "មត្តេយ្យ",
 "Problem": "មានបញ្ហា",
+"Put this library on your home screen. Next time, you can open it with one tap.": "ដាក់បណ្ណាល័យនេះនៅលើអេក្រង់ដើម។ លើកក្រោយ អ្នកអាចបើកបានដោយចុចតែម្តង។",
 "Read": "អាន",
 "Read books in your heritage language to keep it alive.": "អានសៀវភៅជាភាសារបស់គ្រួសារអ្នក ដើម្បីរក្សាភាសានោះឱ្យនៅរស់។",
 "Read more": "អានបន្ថែម",

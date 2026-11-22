@@ -2,13 +2,14 @@
 "_meta": {
 "lang": "id",
 "reviewed": false,
-"strings": 286
+"strings": 290
 },
 "t": {
 "+ Easy Japanese": "+ Bahasa Jepang mudah",
 "+ Japanese": "+ Bahasa Jepang",
 "A narrator reads the book aloud for you.": "Narator membacakan buku dengan suara untukmu.",
 "About you — tap all that apply": "Tentang kamu — ketuk semua yang sesuai",
+"Add to home screen": "Tambahkan ke layar utama",
 "Age": "Usia",
 "All": "Semua",
 "All Ages": "Semua usia",
@@ -111,6 +112,8 @@
 "No books found.": "Buku tidak ditemukan.",
 "No books yet. Tap “▶ Read” in the library.": "Belum ada buku. Ketuk “▶ Baca” di perpustakaan.",
 "Not a member yet?": "Belum mendaftar?",
+"On Android: open the menu (⋮), then tap “Add to Home screen”.": "Di Android: buka menu (⋮), lalu ketuk “Tambahkan ke layar utama”.",
+"On iPhone: tap the Share button, then “Add to Home Screen”.": "Di iPhone: ketuk tombol Bagikan, lalu “Tambahkan ke Layar Utama”.",
 "Once the book opens in Reader App, tap the ▶ Play button. The voice will read aloud while the text highlights!": "Setelah buku terbuka di aplikasi pembaca, ketuk tombol ▶ (putar). Suara akan membacakan dan teksnya disorot!",
 "Only registered members can use this library.": "Hanya anggota terdaftar yang dapat menggunakan perpustakaan ini.",
 "Open books downloaded from EFA OURDAISY directly in your reader app.": "Buka buku yang diunduh dari EFA OURDAISY langsung di aplikasi pembacamu.",
@@ -133,6 +136,7 @@
 "Portuguese": "Bahasa Portugis",
 "Preschool": "Prasekolah",
 "Problem": "Masalah",
+"Put this library on your home screen. Next time, you can open it with one tap.": "Taruh perpustakaan ini di layar utama. Lain kali, Anda bisa membukanya dengan satu ketukan.",
 "Read": "Baca",
 "Read books in your heritage language to keep it alive.": "Baca buku dalam bahasa keluargamu agar bahasa itu tetap hidup.",
 "Read more": "Baca selengkapnya",

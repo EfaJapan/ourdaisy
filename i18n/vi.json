@@ -2,13 +2,14 @@
 "_meta": {
 "lang": "vi",
 "reviewed": false,
-"strings": 286
+"strings": 290
 },
 "t": {
 "+ Easy Japanese": "+ Tiếng Nhật dễ",
 "+ Japanese": "+ Tiếng Nhật",
 "A narrator reads the book aloud for you.": "Người dẫn truyện sẽ đọc to cuốn sách cho bạn nghe.",
 "About you — tap all that apply": "Về bạn — chạm vào tất cả các mục phù hợp",
+"Add to home screen": "Thêm vào màn hình chính",
 "Age": "Tuổi",
 "All": "Tất cả",
 "All Ages": "Mọi lứa tuổi",
@@ -111,6 +112,8 @@
 "No books found.": "Không tìm thấy sách nào.",
 "No books yet. Tap “▶ Read” in the library.": "Chưa có sách nào. Hãy chạm “▶ Đọc” trong thư viện.",
 "Not a member yet?": "Bạn chưa đăng ký?",
+"On Android: open the menu (⋮), then tap “Add to Home screen”.": "Trên Android: mở menu (⋮), rồi chạm “Thêm vào màn hình chính”.",
+"On iPhone: tap the Share button, then “Add to Home Screen”.": "Trên iPhone: chạm vào nút Chia sẻ, rồi chọn “Thêm vào Màn hình chính”.",
 "Once the book opens in Reader App, tap the ▶ Play button. The voice will read aloud while the text highlights!": "Khi sách mở ra trong ứng dụng đọc sách, hãy chạm nút ▶ (phát). Giọng đọc sẽ vang lên và chữ được tô sáng theo!",
 "Only registered members can use this library.": "Chỉ những người đã đăng ký mới được dùng thư viện này.",
 "Open books downloaded from EFA OURDAISY directly in your reader app.": "Mở sách tải về từ EFA OURDAISY ngay trong ứng dụng đọc sách của bạn.",
@@ -133,6 +136,7 @@
 "Portuguese": "Tiếng Bồ Đào Nha",
 "Preschool": "Mầm non",
 "Problem": "Gặp khó khăn",
+"Put this library on your home screen. Next time, you can open it with one tap.": "Hãy đặt thư viện này lên màn hình chính. Lần sau, bạn chỉ cần chạm một lần để mở.",
 "Read": "Đọc",
 "Read books in your heritage language to keep it alive.": "Đọc sách bằng ngôn ngữ của gia đình bạn để gìn giữ ngôn ngữ ấy.",
 "Read more": "Đọc thêm",

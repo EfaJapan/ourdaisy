@@ -2,13 +2,14 @@
 "_meta": {
 "lang": "lo",
 "reviewed": false,
-"strings": 286
+"strings": 290
 },
 "t": {
 "+ Easy Japanese": "+ ພາສາຍີ່ປຸ່ນແບບງ່າຍ",
 "+ Japanese": "+ ພາສາຍີ່ປຸ່ນ",
 "A narrator reads the book aloud for you.": "ຜູ້ບັນຍາຍຈະອ່ານປຶ້ມອອກສຽງໃຫ້ເຈົ້າຟັງ.",
 "About you — tap all that apply": "ກ່ຽວກັບເຈົ້າ — ແຕະທຸກຂໍ້ທີ່ກົງກັບເຈົ້າ",
+"Add to home screen": "ເພີ່ມໃສ່ໜ້າຈໍຫຼັກ",
 "Age": "ອາຍຸ",
 "All": "ທັງໝົດ",
 "All Ages": "ທຸກໄວ",
@@ -111,6 +112,8 @@
 "No books found.": "ບໍ່ພົບປຶ້ມ.",
 "No books yet. Tap “▶ Read” in the library.": "ຍັງບໍ່ມີປຶ້ມ. ແຕະ “▶ ອ່ານ” ໃນຫ້ອງສະໝຸດ.",
 "Not a member yet?": "ຍັງບໍ່ໄດ້ລົງທະບຽນບໍ?",
+"On Android: open the menu (⋮), then tap “Add to Home screen”.": "ໃນ Android: ເປີດເມນູ (⋮) ແລ້ວກົດ “ເພີ່ມໃສ່ໜ້າຈໍຫຼັກ”.",
+"On iPhone: tap the Share button, then “Add to Home Screen”.": "ໃນ iPhone: ກົດປຸ່ມແບ່ງປັນ ແລ້ວກົດ “ເພີ່ມໃສ່ໜ້າຈໍຫຼັກ”.",
 "Once the book opens in Reader App, tap the ▶ Play button. The voice will read aloud while the text highlights!": "ເມື່ອປຶ້ມເປີດໃນແອັບອ່ານປຶ້ມແລ້ວ, ແຕະປຸ່ມ ▶ (ຫຼິ້ນ). ສຽງຈະອ່ານອອກມາພ້ອມກັບຂໍ້ຄວາມທີ່ຖືກເນັ້ນ!",
 "Only registered members can use this library.": "ສະເພາະສະມາຊິກທີ່ລົງທະບຽນແລ້ວເທົ່ານັ້ນທີ່ໃຊ້ຫ້ອງສະໝຸດນີ້ໄດ້.",
 "Open books downloaded from EFA OURDAISY directly in your reader app.": "ເປີດປຶ້ມທີ່ດາວໂຫຼດຈາກ EFA OURDAISY ໃນແອັບອ່ານປຶ້ມຂອງເຈົ້າໄດ້ໂດຍກົງ.",
@@ -133,6 +136,7 @@
 "Portuguese": "ພາສາປອກຕຸຍການ",
 "Preschool": "ກ່ອນໄວຮຽນ",
 "Problem": "ມີບັນຫາ",
+"Put this library on your home screen. Next time, you can open it with one tap.": "ວາງຫໍສະໝຸດນີ້ໄວ້ໃນໜ້າຈໍຫຼັກ. ຄັ້ງຕໍ່ໄປ ທ່ານສາມາດເປີດໄດ້ດ້ວຍການກົດຄັ້ງດຽວ.",
 "Read": "ອ່ານ",
 "Read books in your heritage language to keep it alive.": "ອ່ານປຶ້ມໃນພາສາຂອງຄອບຄົວເຈົ້າ ເພື່ອຮັກສາພາສານັ້ນໄວ້.",
 "Read more": "ອ່ານເພີ່ມເຕີມ",
