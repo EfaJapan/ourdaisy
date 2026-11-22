@@ -2,7 +2,7 @@
 "_meta": {
 "lang": "tl",
 "reviewed": false,
-"strings": 280
+"strings": 287
 },
 "t": {
 "+ Easy Japanese": "+ Madaling Japanese",
@@ -28,6 +28,7 @@
 "Choose a book and download the DAISY file.": "Pumili ng aklat at i-download ang DAISY file.",
 "Choose or write at least one": "Pumili o sumulat ng kahit isa",
 "Colors": "Mga kulay",
+"Connection failed. Please wait a moment and try again.": "Hindi makakonekta. Maghintay sandali at subukan muli.",
 "Copyrights belong to the authors and publishers.": "Ang copyright ay pag-aari ng mga may-akda at tagapaglathala.",
 "Countries you or your family have ties to — tap all that apply": "Mga bansang may kaugnayan sa iyo o sa iyong pamilya — i-tap ang lahat ng naaangkop",
 "Don't show again": "Huwag nang ipakita muli",
@@ -284,6 +285,12 @@
 "本が開けない・声が出ない": "Hindi mabuksan ang aklat o walang tunog",
 "ダウンロードしたファイルがどこにあるかわからない": "Hindi ko makita ang na-download na file",
 "読む速さを変えたい": "Gusto kong baguhin ang bilis ng pagbasa",
-"たのしんで読んでね！🎉": "Mag-enjoy sa pagbabasa!"
+"たのしんで読んでね！🎉": "Mag-enjoy sa pagbabasa!",
+"本が見つかりませんでした。": "Walang nakitang libro.",
+"つづきから {0}ページ・{1}MB": "Ituloy mula sa pahina {0} · {1}MB",
+"はじめから・{0}MB": "Mula sa simula · {0}MB",
+"世界の言葉で読もう！": "Magbasa tayo sa mga wika ng mundo!",
+"図書館に入る": "Pumasok sa aklatan",
+"📖 電子ブックを読む方法": "Paano basahin ang mga digital na aklat"
 }
 }
