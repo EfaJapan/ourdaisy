@@ -8,7 +8,8 @@
  *   ・このファイルが、英語の文を「えらんだ言葉」に入れ替える。やさしい日本語は消さない。
  *   ・日本語だけの文（英語がない所）には、うしろに「 / えらんだ言葉」を足す。
  *   ・訳は i18n/<言語>.json（辞書）から読む。辞書にない文は、英語（または日本語）のまま出す。
- *   ・えらべる言語は i18n/index.json で決める。reviewed が true の言語だけが、ふつうの画面に出る。
+ *   ・えらべる言語は i18n/index.json で決める。public か reviewed が true の言語が、ふつうの画面に出る。
+ *     public＝公開している／reviewed＝その言葉が分かる人の確認がすんだ（控え。確認がすんだら true にする）。
  *     ためすとき：アドレスのうしろに ?odbeta=1 をつけると、確認前の言語もえらべる（?odbeta=0 でもどす）。
  *   ・?lang=pt のように言語を指定して開ける（チラシのQR用）。
  *
@@ -21,7 +22,7 @@
 'use strict';
 if (window.OD_I18N) return;
 
-var VERSION = '1.1.0';
+var VERSION = '1.2.0';
 var LS_LANG = 'od_ui_lang', LS_BETA = 'od_i18n_beta', LS_MAN = 'od_i18n_manifest_v1', LS_DICT = 'od_i18n_dict_v1_';
 var JA_RE = /[぀-ヿ㐀-鿿]/;
 var FONT_CDN = 'https://cdn.jsdelivr.net/npm/@fontsource/';
@@ -70,7 +71,7 @@ function beta() { return ls(LS_BETA) === '1'; }
 function available(c) {
   if (!manifest || !manifest.langs || !BY[c]) return false;
   var m = manifest.langs[c];
-  return !!m && (m.reviewed === true || beta());
+  return !!m && (m.public === true || m.reviewed === true || beta());
 }
 function availableList() { return LANGS.filter(function (l) { return available(l.c); }); }
 // 'pt'・'pt-BR'・'Portuguese' などを言語の記号にそろえる
@@ -90,6 +91,8 @@ function lookup(core) {
   if (!dict) return null;
   var k = norm(core); if (!k) return null;
   var v = dict[k];
+  if (typeof v === 'string' && v) return v;
+  v = xdict[k];                                   // おしらせの訳
   if (typeof v === 'string' && v) return v;
   var nums = [];
   var k2 = k.replace(/\d+(?:[.,]\d+)?/g, function (m) { nums.push(m); return '{' + (nums.length - 1) + '}'; });
@@ -138,6 +141,31 @@ function trString(src) {
   return null;
 }
 
+// ── おしらせ（NEWS）の訳 ────────────────────────────────────────
+//   GAS の news の返事（tr＝言葉ごとの訳）から、「英語の文 → 訳」の辞書をつくる。
+//   画面は今までどおり 日本語＋英語 で出し、英語の所を訳に入れ替える（日本語はそのまま）。
+var LS_NEWS = 'od_lr_news_v1';     // 図書館の画面が、おしらせを控えている所
+var xdict = {}, newsItems = null;
+function buildNewsDict() {
+  xdict = {};
+  var items = newsItems;
+  if (!items) { try { items = JSON.parse(ls(LS_NEWS) || 'null'); } catch (e) { items = null; } }
+  if (!lang || !Array.isArray(items)) return;
+  items.forEach(function (n) {
+    var t = n && n.tr && n.tr[lang];
+    if (!t) return;
+    if (n.en && t.t) xdict[norm(n.en)] = String(t.t);
+    else if (n.ja && t.t) xdict[norm(n.ja)] = String(t.t);            // 英語がないおしらせ：日本語のうしろに訳を足す
+    if (n.body_en && t.b) xdict[norm(n.body_en)] = String(t.b);
+    else if (n.body_ja && t.b) xdict[norm(n.body_ja)] = String(t.b);
+  });
+}
+function gotNews(items) {
+  newsItems = items;
+  if (!lang || !dict) return;
+  restoreAll(); buildNewsDict(); buildRev(); applyAll();
+}
+
 // 訳 → もとの文（画面が、訳したあとの部品を写して使うことがあるため。写しには、もとの文の控えがつかない）
 var rev = null;
 function buildRev() {
@@ -146,6 +174,10 @@ function buildRev() {
   for (var k in dict) if (Object.prototype.hasOwnProperty.call(dict, k) && !JA_RE.test(k)) {
     var v = norm(dict[k]);
     if (v && v !== k && !(v in rev)) rev[v] = k;
+  }
+  for (var x in xdict) if (Object.prototype.hasOwnProperty.call(xdict, x) && !JA_RE.test(x)) {
+    var xv = norm(xdict[x]);
+    if (xv && xv !== x && !(xv in rev)) rev[xv] = x;
   }
 }
 function unString(txt) {
@@ -378,14 +410,14 @@ function setLang(c, opt) {
   var my = ++seq;
   if (opt.save !== false) lsSet(LS_LANG, c || 'none');
   if (!c) {
-    restoreAll(); lang = ''; dict = null; rev = null; applyAll(); afterChange(opt);
+    restoreAll(); lang = ''; dict = null; rev = null; xdict = {}; applyAll(); afterChange(opt);
     return Promise.resolve('');
   }
   loadFont(BY[c]);
   return loadDict(c).then(function (t) {
     if (my !== seq) return lang;
     restoreAll();
-    lang = c; dict = t; misses = {}; buildRev();
+    lang = c; dict = t; misses = {}; buildNewsDict(); buildRev();
     applyAll(); afterChange(opt);
     return c;
   }).catch(function () {
@@ -464,7 +496,7 @@ var CSS =
 
 var ui = { btn: null, strip: null, modal: null };
 function tileHtml(l) {
-  var rev = manifest && manifest.langs[l.c] && manifest.langs[l.c].reviewed === true;
+  var mm = manifest && manifest.langs[l.c], rev = !!mm && (mm.public === true || mm.reviewed === true);
   return '<button type="button" class="od-tile" data-od-c="' + l.c + '" lang="' + l.c + '"><b>' + l.n + (rev ? '' : '<span class="od-beta-tag">β</span>') +
          '</b><small lang="ja">' + l.ja + '</small></button>';
 }
@@ -551,6 +583,17 @@ function start() {
     observer.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
     if (f.c) setLang(f.c, { save: f.save }); else { document.documentElement.setAttribute('data-od-lang', 'none'); }
   });
+  // おしらせ：画面が GAS から受け取った返事を、ここでも受け取る（訳の辞書をつくるため）
+  if (typeof window.fetchJsonWithRetry === 'function') {
+    var origFetch = window.fetchJsonWithRetry;
+    window.fetchJsonWithRetry = function (params) {
+      var pr = origFetch.apply(this, arguments);
+      if (params && params.action === 'news' && pr && pr.then) {
+        return pr.then(function (j) { try { if (j && Array.isArray(j.news)) gotNews(j.news); } catch (e) {} return j; });
+      }
+      return pr;
+    };
+  }
   // ログインして本の一覧が出たら、言語タブを合わせ、言語を記録する
   if (typeof window.applyFilters === 'function') {
     var orig = window.applyFilters;
