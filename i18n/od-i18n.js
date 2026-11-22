@@ -22,7 +22,7 @@
 'use strict';
 if (window.OD_I18N) return;
 
-var VERSION = '1.2.1';
+var VERSION = '1.2.2';
 var LS_LANG = 'od_ui_lang', LS_BETA = 'od_i18n_beta', LS_MAN = 'od_i18n_manifest_v1', LS_DICT = 'od_i18n_dict_v1_';
 var JA_RE = /[぀-ヿ㐀-鿿]/;
 var FONT_CDN = 'https://cdn.jsdelivr.net/npm/@fontsource/';

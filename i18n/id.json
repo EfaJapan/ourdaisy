@@ -2,7 +2,7 @@
 "_meta": {
 "lang": "id",
 "reviewed": false,
-"strings": 287
+"strings": 286
 },
 "t": {
 "+ Easy Japanese": "+ Bahasa Jepang mudah",
@@ -290,7 +290,6 @@
 "つづきから {0}ページ・{1}MB": "Lanjutkan dari halaman {0} · {1}MB",
 "はじめから・{0}MB": "Dari awal · {0}MB",
 "世界の言葉で読もう！": "Ayo membaca dalam bahasa-bahasa dunia!",
-"図書館に入る": "Masuk ke perpustakaan",
 "📖 電子ブックを読む方法": "Cara membaca buku digital"
 }
 }
