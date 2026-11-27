@@ -285,7 +285,15 @@
   "iOS 13.0 or later",
   "iPhone/iPad users of EasyReader need to create a free Dolphin account (an email address is enough). Colibrio Reader and Thorium Reader can be used right away without any account.",
   "iPhone: Check the \"Files\" app → \"Downloads\". Android: Check the \"Downloads\" folder.",
-  "iPhone: Tap the file → Share → EasyReader. Android: Tap the file → Open with → Colibrio Reader. Windows: Double-click the file, or open Thorium Reader and add the file."
+  "iPhone: Tap the file → Share → EasyReader. Android: Tap the file → Open with → Colibrio Reader. Windows: Double-click the file, or open Thorium Reader and add the file.",
+  "Read with a class ID",
+  "Enter the class ID from your teacher.",
+  "Enter",
+  "Only books that can be used in class are shown.",
+  "This class ID is not correct. Please check it with your teacher.",
+  "This class ID has expired. Please ask your teacher.",
+  "Class IDs are not available right now.",
+  "Could not connect. Please try again."
  ],
  "j": {
   "⏮まえの ページ": "Previous page",

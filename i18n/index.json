@@ -1,1 +1,53 @@
-{"v": "20261127-49e2d25c", "langs": {"es": {"public": true, "reviewed": false}, "hi": {"public": true, "reviewed": false}, "id": {"public": true, "reviewed": false}, "km": {"public": true, "reviewed": false}, "lo": {"public": true, "reviewed": false}, "my": {"public": true, "reviewed": false}, "ne": {"public": true, "reviewed": false}, "pt": {"public": true, "reviewed": false}, "si": {"public": true, "reviewed": false}, "th": {"public": true, "reviewed": false}, "tl": {"public": true, "reviewed": false}, "vi": {"public": true, "reviewed": false}}}
+{
+ "v": "20261127-0ced3158",
+ "langs": {
+  "es": {
+   "public": true,
+   "reviewed": false
+  },
+  "hi": {
+   "public": true,
+   "reviewed": false
+  },
+  "id": {
+   "public": true,
+   "reviewed": false
+  },
+  "km": {
+   "public": true,
+   "reviewed": false
+  },
+  "lo": {
+   "public": true,
+   "reviewed": false
+  },
+  "my": {
+   "public": true,
+   "reviewed": false
+  },
+  "ne": {
+   "public": true,
+   "reviewed": false
+  },
+  "pt": {
+   "public": true,
+   "reviewed": false
+  },
+  "si": {
+   "public": true,
+   "reviewed": false
+  },
+  "th": {
+   "public": true,
+   "reviewed": false
+  },
+  "tl": {
+   "public": true,
+   "reviewed": false
+  },
+  "vi": {
+   "public": true,
+   "reviewed": false
+  }
+ }
+}
