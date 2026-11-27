@@ -2536,6 +2536,18 @@ details.od-dl .lr-btn-dl .od-v-en { font-size: 10px; opacity: .8; }
             <small class="en">Register here</small>
           </a>
         </div>
+        <!-- 2026-11-27：クラスID（学校などの団体利用） -->
+        <div class="odc-entry" id="odc-entry" hidden>
+          <button type="button" class="odc-open" id="odc-open">🏫 クラスIDで よむ<span class="en">Read with a class ID</span></button>
+          <div class="odc-box" id="odc-box" hidden>
+            <p><ruby>先生<rt>せんせい</rt></ruby>から もらった クラスIDを いれてね。<span class="en">Enter the class ID from your teacher.</span></p>
+            <div class="odc-row">
+              <input id="odc-id" data-od-skip maxlength="9" placeholder="ABCD-EFGH" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="クラスID / Class ID">
+              <button type="button" id="odc-go">▶ はいる<span class="en">Enter</span></button>
+            </div>
+            <p class="odc-msg" id="odc-msg" role="alert"></p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -2793,7 +2805,9 @@ details.od-dl .lr-btn-dl .od-v-en { font-size: 10px; opacity: .8; }
     <p style="color:rgba(255,255,255,.65);font-size:clamp(10px,2.2vw,12px)">
       マルチメディアデイジー<ruby>図書館<rt>としょかん</rt></ruby>
     </p>
+    <div class="odc-badge" id="odc-badge">🏫 <span id="odc-badge-site"></span></div>
   </div>
+  <p class="odc-note">クラスで よめる <ruby>本<rt>ほん</rt></ruby>が でています。<span class="en">Only books that can be used in class are shown.</span></p>
 
   <!-- ⑤ イラスト（ランディングページと同じ画像） -->
   <div style="background:var(--efa-blue);padding:0;overflow:hidden;max-height:220px">
@@ -5779,19 +5793,63 @@ function odGoLogin() {
         li('こまった ことは「かんそう」の「😕 こまった」から おしえて ください。', 'Tell us about problems with “Feedback” → “Problem”.') +
         '</ul></div>' + btn('orange', 'data-odm-act="fb"', '💬 かんそうを おくる', 'Send feedback');
     },
-    org: function () {   // 団体向け（日本語と英語だけ）
+    org: function () {   // 団体向け（日本語と英語だけ）。2026-11-27：料金・無料体験・見積りの申込み（GAS の library_org.gs）
+      var opt = function (v, t) { return '<option value="' + v + '">' + t + '</option>'; };
+      var months = '', d = new Date(), m0 = d.getMonth() + 1;
+      for (var i = 0; i < 13; i++) {
+        var y = d.getFullYear() + Math.floor((m0 + i - 1) / 12), mo = ((m0 + i - 1) % 12) + 1;
+        if (i === 0) continue;
+        months += opt(y + '-' + ('0' + mo).slice(-2) + '-01', y + '年' + mo + '月から' + (mo === 4 ? '（新しい年度）' : ''));
+      }
       return '<div data-od-skip>' +
-        '<div class="odm-card"><p>OurDAISY は、外国にルーツをもつ子どもと家族、支援者などの<b>個人が無料で使う</b>図書館です。先生や支援者が、個人として会員登録をし、子どもといっしょに読むことはできます。</p>' +
-        '<p class="en">OurDAISY is free for individual use by children with roots abroad, their families and supporters. Teachers and supporters may register as individuals and read with children.</p></div>' +
-        '<h4>団体として導入・利用するとき<span class="en">Using OurDAISY as an organization</span></h4>' +
-        '<div class="odm-card"><p>次のような使い方には、<b>団体向けの利用契約（有償・年間契約）</b>が必要です。</p><p class="en">The following uses require an organizational agreement (paid, annual):</p><ul>' +
-        '<li>学校・教育委員会・自治体の事業として、児童生徒や住民に提供する<span class="en">Providing it to students or residents as a program of a school, board of education or local government</span></li>' +
-        '<li>図書館のサービスとして、利用者に提供する<span class="en">Offering it to users as a library service</span></li>' +
-        '<li>企業・団体の事業やサービスの中で使う<span class="en">Using it in the work or services of a company or organization</span></li>' +
-        '</ul><p>契約の内容（利用できる範囲・料金・サポート）は、いま準備しています。導入をお考えの方は、まずご相談ください。</p>' +
-        '<p class="en">We are now preparing the terms (scope, fees and support). Please contact us first.</p></div>' +
-        '<a class="odm-btn" href="mailto:' + MAIL + '?subject=' + encodeURIComponent('OurDAISY 団体利用のご相談') + '">✉️ 団体利用について相談する<span class="en">Contact us about organizational use</span></a>' +
-        '<p class="odm-note">' + MAIL + '（件名：OurDAISY 団体利用のご相談）</p></div>';
+        '<div class="odm-card"><p>OurDAISY は、外国にルーツをもつ子どもと家族、支援者などの<b>個人が無料で使う</b>図書館です。先生や支援者が、個人として会員登録をし、子どもといっしょに読むことは、これまでどおり無料です。</p>' +
+        '<p class="en">OurDAISY is free for individuals: children with roots abroad, their families and supporters. Teachers may register as individuals and read with children at no cost.</p></div>' +
+        '<h4>団体として使うとき<span class="en">Using OurDAISY as an organization</span></h4>' +
+        '<div class="odm-card"><p>学校・教育委員会・自治体・図書館・日本語教室などが、<b>授業や事業として子どもたちに使ってもらう</b>ときは、団体利用（年間契約）をお申し込みください。</p>' +
+        '<p class="en">Schools, boards of education, local governments, libraries and language classes that offer OurDAISY to children as part of their programs need an annual organizational plan.</p><ul>' +
+        '<li>拠点（学校・教室・図書館）ごとに「クラスID」をお送りします。子どもは<b>名前もメールアドレスも入れずに</b>、クラスIDだけで読めます<span class="en">A class ID for each site. Children read without entering a name or email.</span></li>' +
+        '<li>授業・教室・館内での一斉利用、大きな画面への投影ができます<span class="en">Group reading in class and on a projector</span></li>' +
+        '<li>利用レポート（年2回）・オンライン研修（年1回）・新しい本のリクエスト<span class="en">Usage reports twice a year, online training once a year, and book requests</span></li>' +
+        '</ul><p class="odm-note">本そのものは無料です。料金は、団体としての利用とそのためのサービスの対価です。著作権の許諾の条件により、クラスIDで読めるのは団体での利用が認められている本です（ダウンロードはできません）。</p></div>' +
+        '<h4>料金（年額）<span class="en">Fees (per year)</span></h4>' +
+        '<div class="odm-card"><table class="odo-tbl"><tr><td>1拠点目</td><td id="odo-p1"></td></tr><tr><td>2〜10拠点目（1拠点あたり）</td><td id="odo-p2"></td></tr><tr><td>11拠点目から（1拠点あたり）</td><td id="odo-p3"></td></tr></table>' +
+        '<div class="odo-calc"><label>使う拠点の数 <input type="number" id="odo-n" min="1" max="999" value="1" inputmode="numeric"></label><b id="odo-sum"></b></div>' +
+        '<p class="odm-note">数えるのは、実際に使う拠点だけです（市内の全校ではありません）。年度は4月〜翌年3月。途中から始めるときは月割りです。<span id="odo-tax"></span></p>' +
+        '<p class="en odm-note">Only the sites that actually use it are counted. The fiscal year runs April to March; mid-year starts are prorated by month.</p></div>' +
+        '<h4>申し込む<span class="en">Apply</span></h4>' +
+        '<div id="odo-off" class="odm-card" hidden><p>団体利用の受付は、いま準備中です。ご相談はメールでお寄せください。</p><p class="en">Applications will open soon. Please contact us by email.</p>' +
+        '<a class="odm-btn" href="mailto:' + MAIL + '?subject=' + encodeURIComponent('OurDAISY 団体利用のご相談') + '">✉️ 団体利用について相談する<span class="en">Contact us</span></a></div>' +
+        '<form id="odo-form" class="odm-card odo-form" novalidate>' +
+        '<div class="odo-mode" role="radiogroup">' +
+          '<label><input type="radio" name="mode" value="trial" checked><span><b>まず無料で試す</b><small id="odo-trial-t"></small><span class="en">Free trial</span></span></label>' +
+          '<label><input type="radio" name="mode" value="quote"><span><b>見積りがほしい</b><small>見積書（PDF）がすぐメールで届きます</small><span class="en">Get a quote</span></span></label></div>' +
+        '<label>団体名<span class="en">Organization</span><input name="org" maxlength="100" autocomplete="organization" required></label>' +
+        '<label>種別<span class="en">Type</span><select name="type">' + ['学校', '教育委員会', '自治体', '図書館', '日本語教室・NPO', 'その他'].map(function (x) { return opt(x, x); }).join('') + '</select></label>' +
+        '<label>ご担当者のお名前<span class="en">Contact person</span><input name="person" maxlength="60" autocomplete="name" required></label>' +
+        '<label>メールアドレス<span class="en">Email</span><input name="email" type="email" maxlength="120" autocomplete="email" inputmode="email" required></label>' +
+        '<label>電話（任意）<span class="en">Phone (optional)</span><input name="tel" type="tel" maxlength="30" autocomplete="tel"></label>' +
+        '<label>使う拠点の名前（1行に1つ）<span class="en">Sites, one per line</span><textarea name="sites" rows="4" placeholder="例：〇〇市立第一小学校&#10;〇〇市立第二小学校"></textarea></label>' +
+        '<label class="odo-q">利用を始める月<span class="en">Start month</span><select name="start">' + months + '</select></label>' +
+        '<label>連絡事項（任意）<span class="en">Notes (optional)</span><textarea name="note" rows="2" maxlength="500"></textarea></label>' +
+        '<input name="website" tabindex="-1" autocomplete="off" class="odo-hp" aria-hidden="true">' +
+        '<label class="odo-agree"><input type="checkbox" name="agree" value="1"> <span>「図書館のルール」と、下の「団体利用の条件」に同意します<span class="en">I agree to the library rules and the terms below.</span></span></label>' +
+        '<p class="odo-err" id="odo-err"></p>' +
+        '<button type="submit" class="odm-btn orange" id="odo-go">申し込む<span class="en">Submit</span></button></form>' +
+        '<div id="odo-done" class="odm-card" hidden></div>' +
+        '<details class="odo-more"><summary>団体利用の条件<span class="en">Terms for organizations</span></summary><ul>' +
+          '<li>契約は年度ごと（4月1日〜翌年3月31日）です。年度の途中から始めるときは、月割りの金額です。年度の途中で終えるときの返金はありません。</li>' +
+          '<li>クラスIDは、申し込んだ拠点の中だけで使います。ほかの拠点・団体に渡したり、インターネットに公開したりしないでください。</li>' +
+          '<li>本の画面・音声・ファイルを複製・再配布・改変しないでください。クラスIDで読めるのは、著作権の許諾の条件により団体での利用が認められている本です。許諾の条件が変わると、読める本が変わることがあります。</li>' +
+          '<li>無料体験は、1つの団体につき1回です（' + '<span class="odo-td"></span>日間・<span class="odo-ts"></span>拠点まで）。体験と同じメールアドレスでお申し込みいただくと、体験のクラスIDをそのまま使えます。</li>' +
+          '<li>お支払いは、請求書による振込、またはクレジットカードです。入金（または発注）を確かめたあと、クラスIDをお送りします。</li>' +
+          '<li>サービスの内容は、よりよくするために変わることがあります。大きく変わるときは、前もってお知らせします。</li></ul></details>' +
+        '<details class="odo-more"><summary>導入の前に確かめること（学校・教育委員会の方へ）<span class="en">Before you start (for schools)</span></summary><ul>' +
+          '<li><b>個人の情報</b>：クラスIDでは、子どもの名前・メールアドレスなどの個人の情報を集めません。記録するのは、クラスID・開いた本・ページ・読んだ時間・端末の種類だけです。</li>' +
+          '<li><b>データの置き場</b>：記録は、エファジャパンが管理する Google のサービス（Google スプレッドシート）に保管します。法律にもとづく場合を除き、第三者に渡しません。</li>' +
+          '<li><b>使える端末</b>：Chromebook・iPad・Windows・Android のブラウザで読めます。アプリのインストールはいりません。</li>' +
+          '<li><b>フィルタリングで許可するアドレス</b>：ourdaisy.efa-japan.org ／ script.google.com ／ script.googleusercontent.com ／ cdnjs.cloudflare.com</li>' +
+          '<li><b>手続きの書類</b>：見積書・請求書は、自動で届くもののほか、貴団体の書式にも合わせます。このメールアドレスにご連絡ください：' + MAIL + '</li></ul></details>' +
+        '</div>';
     },
     vol: function () {
       return '<div data-od-skip><div class="odm-card"><p>OurDAISY の本は、ボランティアの翻訳や音声の確認でできています。自宅からオンラインで参加でき、作業は1つずつ、自分のペースで進められます。</p>' +
@@ -5888,6 +5946,7 @@ function odGoLogin() {
     $('odm-body').innerHTML = '<div class="odm-page">' + PAGES[p]() + '</div>';
     $('odm-body').scrollTop = 0;
     if (p === 'leave') wireLeave();
+    if (p === 'org') wireOrg();   // 2026-11-27：団体利用
   }
   function open(page) {
     lastFocus = document.activeElement;
@@ -5908,6 +5967,73 @@ function odGoLogin() {
     if (pushed && !fromPop) { pushed = false; try { history.back(); } catch (e) {} } else pushed = false;
     if (cur === 'left') afterLeave();
     if (lastFocus && lastFocus.focus) try { lastFocus.focus(); } catch (e) {}
+  }
+
+  // ── 団体利用（2026-11-27）：料金は GAS の CONFIG（ORG_～）の値を出す。申込みは library_org.gs の org_apply ──
+  var ORG_DEF = { ORG_ENABLED: 'FALSE', ORG_PRICE_FIRST: 30000, ORG_PRICE_2_10: 10000, ORG_PRICE_11: 5000, ORG_TRIAL_DAYS: 60, ORG_TRIAL_SITES: 3, ORG_TAX_NOTE: '' };
+  var orgCfg = null;
+  function oc(k) { var v = orgCfg && orgCfg[k]; return (v === undefined || v === null || String(v) === '') ? ORG_DEF[k] : v; }
+  function yen(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '円'; }
+  function orgPrice(n) {
+    n = Math.max(0, Math.floor(Number(n) || 0)); if (!n) return 0;
+    return Number(oc('ORG_PRICE_FIRST')) + Math.max(0, Math.min(n, 10) - 1) * Number(oc('ORG_PRICE_2_10')) + Math.max(0, n - 10) * Number(oc('ORG_PRICE_11'));
+  }
+  function paintCalc() {
+    var n = $('odo-n'); if (!n) return;
+    var k = Math.max(1, Math.floor(Number(n.value) || 1));
+    $('odo-sum').textContent = '年 ' + yen(orgPrice(k));
+  }
+  function paintOrg() {
+    if (cur !== 'org' || !$('odo-p1')) return;
+    $('odo-p1').textContent = yen(oc('ORG_PRICE_FIRST'));
+    $('odo-p2').textContent = yen(oc('ORG_PRICE_2_10'));
+    $('odo-p3').textContent = yen(oc('ORG_PRICE_11'));
+    $('odo-trial-t').textContent = oc('ORG_TRIAL_DAYS') + '日間・' + oc('ORG_TRIAL_SITES') + '拠点まで。クラスIDがすぐメールで届きます';
+    document.querySelectorAll('.odo-td').forEach(function (x) { x.textContent = oc('ORG_TRIAL_DAYS'); });
+    document.querySelectorAll('.odo-ts').forEach(function (x) { x.textContent = oc('ORG_TRIAL_SITES'); });
+    $('odo-tax').textContent = oc('ORG_TAX_NOTE') ? '　' + oc('ORG_TAX_NOTE') : '';
+    var on = String(oc('ORG_ENABLED')).toUpperCase() === 'TRUE';
+    $('odo-off').hidden = on; $('odo-form').hidden = !on;
+    paintCalc();
+  }
+  function wireOrg() {
+    paintOrg();
+    fetchJsonWithRetry({ action: 'config' }, 2).then(function (c) { orgCfg = c || {}; paintOrg(); }).catch(function () { if (!orgCfg) { orgCfg = {}; paintOrg(); } });
+    $('odo-n').addEventListener('input', paintCalc);
+    var f = $('odo-form');
+    f.addEventListener('change', function () { f.classList.toggle('quote', f.querySelector('input[name=mode]:checked').value === 'quote'); });
+    f.addEventListener('submit', submitOrg);
+  }
+  var ORG_ERR = {
+    org: '団体名を入れてください。', person: 'ご担当者のお名前を入れてください。', email: 'メールアドレスを確かめてください。',
+    sites: '使う拠点の名前を、1つ以上入れてください。', agree: '条件への同意にチェックを入れてください。', type: '種別を選んでください。',
+    trial_used: 'この団体（またはメールアドレス）は、すでにお申し込みがあります。続けて使うときは「見積りがほしい」を選んでください。',
+    off: '団体利用の受付は、いま準備中です。', busy: 'いま混みあっています。少し待ってから、もう一度お試しください。'
+  };
+  async function submitOrg(e) {
+    e.preventDefault();
+    var f = $('odo-form'), val = function (n) { return String(f.elements[n].value || '').trim(); };
+    var mode = f.querySelector('input[name=mode]:checked').value, err = $('odo-err');
+    var bad = !val('org') ? 'org' : !val('person') ? 'person' : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('email')) ? 'email' :
+              !val('sites') ? 'sites' : !f.elements.agree.checked ? 'agree' : '';
+    if (bad) { err.textContent = ORG_ERR[bad]; return; }
+    err.textContent = '';
+    var body = new URLSearchParams({ action: 'org_apply', mode: mode, org: val('org'), type: val('type'), person: val('person'), email: val('email'),
+      tel: val('tel'), sites: val('sites'), start: mode === 'quote' ? val('start') : '', note: val('note'), website: val('website'), agree: '1' });
+    var go = $('odo-go'); go.disabled = true;
+    var res = null;
+    try { var r = await fetch(SITE_CONFIG.GAS_URL, { method: 'POST', body: body }); res = await r.json(); } catch (e2) { res = null; }
+    go.disabled = false;
+    if (!res) { err.textContent = 'いま送れませんでした。インターネットを確かめて、もう一度お試しください。'; return; }
+    if (res.error) { err.textContent = ORG_ERR[res.error] || 'いま受け付けられませんでした。少し待ってから、もう一度お試しください。'; return; }
+    var to = val('email'), done = $('odo-done');
+    done.innerHTML = res.mode === 'trial'
+      ? '<p>✅ お申し込みありがとうございます。クラスIDを <b>' + to.replace(/</g, '&lt;') + '</b> にお送りしました（受付番号 ' + res.no + '）。</p><p class="en">Thank you. We have emailed your class IDs.</p>'
+      : (res.big ? '<p>✅ お見積りのご依頼を受け付けました（受付番号 ' + res.no + '）。拠点の数が多いため、担当者から個別にお送りします。</p>'
+                 : '<p>✅ お見積り（' + yen(res.amount) + (res.months < 12 ? '・' + res.months + 'か月の月割り' : '') + '）を、PDF で <b>' + to.replace(/</g, '&lt;') + '</b> にお送りしました（受付番号 ' + res.no + '）。</p>') +
+        '<p class="en">Thank you. We have emailed you a quote.</p>';
+    done.innerHTML += '<p class="odm-note">メールが届かないときは、迷惑メールのフォルダもご確認ください。</p>';
+    f.hidden = true; done.hidden = false; done.scrollIntoView({ block: 'nearest' });
   }
 
   // ── 退会 ──
@@ -5999,6 +6125,141 @@ function odGoLogin() {
 })();
 </script>
 
+<!-- ===== 2026-11-27 クラスID（団体利用）：子どもがクラスIDで読む。処理の本体は GAS の library_org.gs ===== -->
+<style>
+.odc-entry{margin-top:16px;border-top:1px dashed #C9D6E2;padding-top:14px;text-align:center}
+.odc-open{background:#fff;border:2px solid #2E9D5B;color:#1D6B3D;border-radius:14px;padding:10px 18px;font:inherit;font-size:15px;font-weight:700;cursor:pointer;min-height:48px}
+.odc-open .en{display:block;font-size:12px;font-weight:400;opacity:.85}
+.odc-box{margin-top:12px;text-align:left}
+.odc-box p{font-size:14px;line-height:1.6;margin:0 0 8px}
+.odc-row{display:flex;gap:8px}
+.odc-row input{flex:1;min-width:0;font-size:22px;letter-spacing:.12em;text-transform:uppercase;padding:10px 12px;border:2px solid #9FB4C7;border-radius:12px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.odc-row button{background:#2E9D5B;color:#fff;border:0;border-radius:12px;padding:0 16px;font:inherit;font-size:16px;font-weight:700;cursor:pointer;min-height:52px;white-space:nowrap}
+.odc-row button:disabled{opacity:.6}
+.odc-row button .en{display:block;font-size:11px;font-weight:400;color:#fff!important;opacity:.95}
+.odc-msg{margin-top:8px;font-size:14px;color:#A3361B;line-height:1.55}
+.odc-msg:empty{display:none}
+.odc-badge{display:none;align-items:center;gap:6px;background:#E8F6EE;color:#1D6B3D;border:1px solid #BFE3CD;border-radius:999px;padding:4px 12px;font-size:13px;font-weight:700;margin:8px auto 0;max-width:100%}
+.odc-badge span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html.od-class .odc-badge{display:inline-flex}
+.odc-note{display:none;font-size:13px;color:#4A5A6A;text-align:center;margin:6px 12px 0}
+html.od-class .odc-note{display:block}
+/* クラスIDのときは、ダウンロード・登録・退会を出さない */
+html.od-class details.od-dl, html.od-class .lr-btn-dl, html.od-class .btn-dl, html.od-class .odm-dl-line,
+html.od-class .odm-item[data-odm-go="leave"], html.od-class .odm-item[data-odm-go="dl"], html.od-class #lr-attr{display:none!important}
+</style>
+<script>
+(function () {
+  'use strict';
+  var CK = 'od_class_v1', TSV = 'od_lib_tsv_v2', TOKEN = 'od_lr_token_v1';
+  var $ = function (id) { return document.getElementById(id); };
+  var get = function () { try { return JSON.parse(localStorage.getItem(CK) || 'null'); } catch (e) { return null; } };
+  var set = function (o) { try { if (o) localStorage.setItem(CK, JSON.stringify(o)); else localStorage.removeItem(CK); } catch (e) {} };
+  var dropTsv = function () { try { localStorage.removeItem(TSV); } catch (e) {} };
+  var norm = function (s) { s = String(s || '').toUpperCase().replace(/[^A-Z0-9]/g, ''); return s.length === 8 ? s : ''; };
+  var tokenIsClass = function () { try { var o = JSON.parse(localStorage.getItem(TOKEN) || 'null'); return !!(o && /^c/.test(o.token)); } catch (e) { return false; } };
+  var MSG = {
+    class: 'クラスIDが ちがいます。<ruby>先生<rt>せんせい</rt></ruby>に たしかめてね。<span class="en">This class ID is not correct. Please check it with your teacher.</span>',
+    expired: 'このクラスIDは もう つかえません。<ruby>先生<rt>せんせい</rt></ruby>に きいてね。<span class="en">This class ID has expired. Please ask your teacher.</span>',
+    off: 'いまは クラスIDを つかえません。<span class="en">Class IDs are not available right now.</span>',
+    net: 'いま つながりません。もういちど おしてね。<span class="en">Could not connect. Please try again.</span>'
+  };
+  function mark(on) { document.documentElement.classList.toggle('od-class', !!on); }
+  function badge(o) {
+    var b = $('odc-badge-site'); if (b) b.textContent = o ? (o.site + (o.org && o.org !== o.site ? '（' + o.org + '）' : '')) : '';
+  }
+  async function post(id) {
+    var r = await fetch(SITE_CONFIG.GAS_URL, { method: 'POST', body: new URLSearchParams({ action: 'class', id: id }) });
+    return r.json();
+  }
+  // クラスIDで入る。silent＝画面に何も出さずに取り直す（通行証の期限が切れたとき）
+  async function login(raw, silent) {
+    var id = norm(raw), m = $('odc-msg');
+    if (!id) { if (!silent && m) m.innerHTML = MSG['class']; return false; }
+    var go = $('odc-go'); if (go) go.disabled = true;
+    if (m) m.innerHTML = '';
+    var res = null;
+    try { res = await post(id); } catch (e) { res = null; }
+    if (go) go.disabled = false;
+    if (!res || !res.ok) {
+      if (!silent && m) m.innerHTML = MSG[(res && res.error) in MSG ? res.error : 'net'];
+      if (res && (res.error === 'class' || res.error === 'expired')) { set(null); mark(false); }
+      return false;
+    }
+    if (window.LR) LR.onAuth(res);
+    var o = { id: id, site: (res.cls && res.cls.site) || '', org: (res.cls && res.cls.org) || '', end: (res.cls && res.cls.end) || '' };
+    set(o); mark(true); badge(o); dropTsv();
+    try { sessionStorage.setItem('efa_email', 'class'); } catch (e) {}
+    try { _email = 'class'; } catch (e) {}
+    if (typeof showCatalog === 'function') showCatalog();
+    return true;
+  }
+  window.ODC = { login: login, get: get, active: function () { return !!get() && tokenIsClass(); } };
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var o = get();
+    if (o && tokenIsClass()) { mark(true); badge(o); }
+    var open = $('odc-open'), box = $('odc-box'), inp = $('odc-id');
+    // クラスIDの入口は、団体利用の受付を始めてから出す（GAS の CONFIG の ORG_ENABLED）
+    var showEntry = function (c) { var e = $('odc-entry'); if (e) e.hidden = !(c && String(c.ORG_ENABLED).toUpperCase() === 'TRUE'); };
+    try { showEntry(JSON.parse(localStorage.getItem('od_odc_cfg') || 'null')); } catch (e) {}
+    if (typeof fetchJsonWithRetry === 'function') fetchJsonWithRetry({ action: 'config' }, 2).then(function (c) {
+      showEntry(c); try { localStorage.setItem('od_odc_cfg', JSON.stringify({ ORG_ENABLED: c && c.ORG_ENABLED })); } catch (e) {}
+    }).catch(function () {});
+    if (open) open.addEventListener('click', function () { box.hidden = !box.hidden; if (!box.hidden) setTimeout(function () { inp.focus(); }, 50); });
+    if ($('odc-go')) $('odc-go').addEventListener('click', function () { login(inp.value); });
+    if (inp) inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') login(inp.value); });
+    // ?class=K7QM4TXA で開いたとき：入力しなくても入る（アドレスからは消す）
+    var q = (location.search.match(/[?&]class=([A-Za-z0-9\-]+)/) || [])[1];
+    if (q) {
+      try { history.replaceState(null, '', location.pathname + location.search.replace(/([?&])class=[^&]*&?/, '$1').replace(/[?&]$/, '') + location.hash); } catch (e) {}
+      setTimeout(function () { login(q); }, 0);
+    } else if (o && !(window.LR && LR.token())) {
+      setTimeout(function () { login(o.id, true); }, 0);       // 通行証の期限が切れていたら、覚えているクラスIDで取り直す
+    }
+    // 通行証が使えなくなったとき：クラスIDのときは、まず自動で取り直す
+    if (window.LR && LR.authLost) {
+      var lost = LR.authLost;
+      LR.authLost = function () {
+        var c = get();
+        if (!c) return lost.apply(this, arguments);
+        login(c.id, true).then(function (ok) { if (!ok) { set(null); mark(false); lost(); } });
+      };
+    }
+    // ログアウト：クラスIDも忘れる（先生が端末を切りかえるとき）
+    if (typeof window.doLogout === 'function') {
+      var out = window.doLogout;
+      window.doLogout = function () { if (get()) { set(null); mark(false); badge(null); dropTsv(); } return out.apply(this, arguments); };
+    }
+  });
+})();
+</script>
+<!-- ===== クラスID ここまで ===== -->
+
+<style>
+/* 2026-11-27：団体利用のページ */
+.odo-tbl{width:100%;border-collapse:collapse;font-size:14px}.odo-tbl td{padding:6px 4px;border-bottom:1px solid #E3E9EF}.odo-tbl td:last-child{text-align:right;font-weight:700;white-space:nowrap}
+.odo-calc{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;background:#F4F8FB;border-radius:10px;padding:8px 10px;font-size:14px}
+.odo-calc input{width:5em;font-size:16px;padding:4px 6px;margin-left:6px;border:1px solid #9FB4C7;border-radius:8px}
+.odo-calc b{font-size:17px;color:#C0560B;white-space:nowrap}
+.odo-form label{display:block;font-size:14px;margin:10px 0 0}
+.odo-form label>.en{display:inline;margin-left:6px;font-size:11px;opacity:.75}
+.odo-form input:not([type=radio]):not([type=checkbox]),.odo-form select,.odo-form textarea{display:block;width:100%;box-sizing:border-box;margin-top:4px;font:inherit;font-size:16px;padding:8px 10px;border:1px solid #9FB4C7;border-radius:10px;background:#fff}
+.odo-mode{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.odo-mode label{margin:0;border:2px solid #D5DEE6;border-radius:12px;padding:8px;cursor:pointer;display:flex;gap:6px;align-items:flex-start}
+.odo-mode label:has(input:checked){border-color:#E8730C;background:#FFF6EC}
+.odo-mode small{display:block;font-size:11.5px;color:#55626E;line-height:1.4;margin-top:2px}
+.odo-mode .en{display:block;font-size:11px;opacity:.75}
+.odo-q{display:none!important}.odo-form.quote .odo-q{display:block!important}
+.odo-hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0}
+.odo-agree{display:flex!important;gap:8px;align-items:flex-start;font-size:13.5px!important}
+.odo-agree input{margin-top:3px;width:20px;height:20px;flex:none}
+.odo-err{color:#A3361B;font-size:14px;margin:8px 0 0;min-height:1em}
+.odo-more{margin-top:12px;background:#fff;border:1px solid #DCE4EB;border-radius:12px;padding:8px 12px}
+.odo-more summary{cursor:pointer;font-weight:700;font-size:14px}.odo-more summary .en{display:block;font-weight:400;font-size:11px;opacity:.75}
+.odo-more li{font-size:13px;line-height:1.65;margin:6px 0}
+@media (max-width:420px){.odo-mode{grid-template-columns:1fr}}
+</style>
 <!-- 画面の言葉の切り替え（2026-11-22 追加）。しくみは i18n/od-i18n.js、訳は i18n/<言語>.json -->
 <script src="i18n/od-i18n.js?v=1_2_3" defer></script>
 
