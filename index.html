@@ -2826,19 +2826,13 @@ details.od-dl .lr-btn-dl .od-v-en { font-size: 10px; opacity: .8; }
     <div class="od-new-row" id="od-new-row"></div>
   </section>
 
-<!-- リーダーアプリ バナー -->
-  <div class="reader-banner">
-    <div class="reader-banner-text">
-      <div class="rbt">📖 <ruby>電子<rt>でんし</rt></ruby>ブックを<ruby>読<rt>よ</rt></ruby>む</div>
-      <div class="rbs">
-        <ruby>音<rt>おと</rt></ruby>つきの<ruby>本<rt>ほん</rt></ruby>を<ruby>楽<rt>たの</rt></ruby>しもう<br>
-        <span style="font-size:11px;opacity:.85">Read with highlighted text and audio</span>
-      </div>
-    </div>
-    <a href="#" id="link-reader-guide-cat" class="btn-reader-sm">
-      <span class="btn-text"><ruby>使<rt>つか</rt></ruby>い<ruby>方<rt>かた</rt></ruby></span> <span class="btn-arrow">▶</span>
-    </a>
-  </div>
+<!-- 電子ブックの案内（2026-11-27：図書館で読むのが ふつう。ダウンロードは1行で案内し、くわしくはメニューへ） -->
+  <button type="button" class="odm-dl-line" onclick="window.odm && odm.open('dl')">
+    <span class="ic" aria-hidden="true">📥</span>
+    <span class="t">アプリで よみたい <ruby>人<rt>ひと</rt></ruby>は、ダウンロードも できます<span class="en">You can also download books to read in an app</span></span>
+    <span class="go" aria-hidden="true">▶</span>
+  </button>
+  <a href="#" id="link-reader-guide-cat" hidden></a>
 
   <!-- Toolbar -->
   <div class="catalog-toolbar">
@@ -5454,6 +5448,9 @@ if (LR.forceReader) { const b = document.createElement('div'); b.className = 'lr
   }
   function close() { try { localStorage.setItem(HIDE, '1'); } catch (e) {} var b = $i('od-a2hs'); if (b) b.hidden = true; }
   window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; show(); });
+  // 2026-11-27：メニューの「ホーム画面に おく」から使う
+  window.odA2hs = { standalone: standalone, canPrompt: function () { return !!deferred; },
+    prompt: function () { var g = $i('od-a2hs-go'); if (deferred && g && g.onclick) g.onclick(); } };
   window.addEventListener('appinstalled', close);
   function start() {
     var x = $i('od-a2hs-x'), go = $i('od-a2hs-go'); if (!x || !go) return;
@@ -5523,6 +5520,457 @@ function odGoLogin() {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
 </script>
+<!-- =====================================================  MENU（2026-11-27：ドロワーメニュー・退会） -->
+<style id="odm-css">
+.odm-open{display:inline-flex;align-items:center;gap:6px;border:2px solid rgba(255,255,255,.55);background:rgba(255,255,255,.12);color:#fff;border-radius:999px;padding:6px 14px 6px 10px;min-height:44px;font:inherit;font-weight:800;font-size:15px;cursor:pointer;line-height:1.1}
+.odm-open:hover,.odm-open:focus-visible{background:rgba(255,255,255,.24);outline:none}
+.odm-open .odm-burger{font-size:22px;line-height:1}
+.odm-open .odm-open-t{display:flex;flex-direction:column;align-items:flex-start}
+.odm-open .odm-open-t .en{font-size:11px;font-weight:700;opacity:.9;color:#fff!important}
+#btn-logout{display:none!important}
+.odm-bg{position:fixed;inset:0;z-index:100010;background:rgba(0,40,80,.45);opacity:0;pointer-events:none;transition:opacity .2s}
+.odm-bg.open{opacity:1;pointer-events:auto}
+.odm{position:fixed;top:0;right:0;bottom:0;z-index:100011;width:min(94vw,440px);background:#F7FBFF;box-shadow:-8px 0 30px rgba(0,40,80,.25);transform:translateX(105%);transition:transform .25s ease;display:flex;flex-direction:column;font-size:16px;color:#1A2E45}
+.odm.open{transform:none}
+.odm-top{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#004070;color:#fff}
+.odm-top h2{flex:1;min-width:0;margin:0;font-size:clamp(16px,4.6vw,20px);font-weight:800;line-height:1.25}
+.odm-top h2 .en{display:block;font-size:12px;font-weight:700;opacity:.85}
+.odm-x,.odm-back{flex:0 0 auto;white-space:nowrap;border:0;border-radius:14px;min-width:60px;min-height:48px;padding:4px 10px;background:rgba(255,255,255,.16);color:#fff;font:inherit;font-weight:800;font-size:15px;cursor:pointer;line-height:1.15}
+.odm-x .en,.odm-back .en,.odm-top h2 .en{display:block;font-size:11px;opacity:.85;color:#fff!important}
+.odm-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 14px 40px}
+.odm-sec{border-radius:20px;padding:12px 12px 6px;margin:0 0 14px}
+.odm-sec.s1{background:#E6F2FA}.odm-sec.s2{background:#EAF6EC}.odm-sec.s3{background:#FFF3E0}.odm-sec.s4{background:#EEF1F4}
+.odm-sec h3{margin:2px 6px 10px;font-size:15px;font-weight:800;color:#004070;line-height:1.3}
+.odm-sec h3 .en{display:block;font-size:12px;font-weight:700;color:#546E7A}
+.odm-item{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;background:#fff;border-radius:16px;padding:10px 12px;margin:0 0 8px;min-height:60px;box-shadow:0 2px 8px rgba(0,64,112,.08);font:inherit;color:inherit;cursor:pointer;text-decoration:none}
+.odm-item:hover,.odm-item:focus-visible{outline:3px solid #F39800;outline-offset:1px}
+.odm-ic{flex:0 0 44px;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:23px;background:#E6F2FA}
+.s2 .odm-ic{background:#D7EFDB}.s3 .odm-ic{background:#FFE2B8}.s4 .odm-ic{background:#DDE3E9}
+.odm-lb{flex:1;min-width:0;font-size:17px;font-weight:800;line-height:1.35}
+.odm-lb .en{display:block;font-size:13px;font-weight:600;color:#546E7A;line-height:1.3}
+.odm-go{color:#0065A4;font-size:16px}
+.odm-item.danger .odm-lb{color:#B3261E}
+.odm-page h4{font-size:17px;font-weight:800;color:#004070;margin:18px 0 6px;line-height:1.4}
+.odm-page h4 .en{display:block;font-size:13px;font-weight:700;color:#546E7A}
+.odm-page p,.odm-page li{font-size:16px;line-height:1.75;margin:0 0 4px}
+.odm-page .en,.odm-page p.en,.odm-page li .en{font-size:14px;color:#546E7A;line-height:1.55}
+.odm-page p.en{margin:0 0 12px}
+.odm-page ul{padding-left:1.2em;margin:4px 0 12px}
+.odm-page li{margin-bottom:8px}
+.odm-page li .en{display:block}
+.odm-card{background:#fff;border-radius:16px;padding:12px 14px;margin:0 0 12px;box-shadow:0 2px 8px rgba(0,64,112,.07)}
+.odm-btn{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;width:100%;min-height:56px;border:0;border-radius:16px;background:#0065A4;color:#fff!important;font:inherit;font-size:17px;font-weight:800;text-decoration:none;cursor:pointer;margin:8px 0 6px;padding:8px 12px;line-height:1.25;text-align:center}
+.odm-btn .en{color:rgba(255,255,255,.9)!important;font-size:13px;font-weight:700}
+.odm-btn.orange{background:#F39800}.odm-btn.red{background:#C62828}.odm-btn.gray{background:#E3E8ED;color:#1A2E45!important}.odm-btn.gray .en{color:#546E7A!important}
+.odm-btn[disabled]{opacity:.5;cursor:default}
+.odm-note{font-size:14px;color:#546E7A}
+.odm-chips{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:6px 0 12px}
+.odm-chip{border:2px solid #B8D9F0;background:#fff;border-radius:14px;min-height:52px;padding:6px 8px;font:inherit;font-size:15px;font-weight:700;cursor:pointer;line-height:1.25}
+.odm-chip .en{display:block;font-size:12px;color:#546E7A;font-weight:600}
+.odm-chip[aria-pressed="true"]{border-color:#0065A4;background:#E6F2FA}
+.odm-in{width:100%;box-sizing:border-box;font:inherit;font-size:17px;padding:12px 14px;border:2px solid #B8D9F0;border-radius:14px;margin:6px 0 4px}
+.odm-msg{display:none;color:#B3261E;font-weight:700;font-size:15px;margin:6px 0}
+.odm-msg.on{display:block}
+.odm-done{text-align:center;padding:24px 8px}
+.odm-done .big{font-size:54px}
+/* 本の一覧の「ダウンロードも できます」（電子ブックの案内を1行に） */
+.odm-dl-line{display:flex;align-items:center;gap:10px;width:calc(100% - 28px);max-width:1200px;margin:14px auto 0;padding:12px 16px;border:2px solid #FFD59A;background:#FFF8EC;border-radius:16px;font:inherit;color:#1A2E45;text-align:left;cursor:pointer;box-sizing:border-box}
+.odm-dl-line:hover,.odm-dl-line:focus-visible{border-color:#F39800;outline:none}
+.odm-dl-line .ic{font-size:24px}
+.odm-dl-line .t{flex:1;font-size:15px;font-weight:700;line-height:1.45}
+.odm-dl-line .t .en{display:block;font-size:13px;font-weight:600;color:#546E7A}
+.odm-dl-line .go{color:#E07C00;font-weight:800}
+@media (min-width:769px){.odm-dl-line{width:auto;margin:16px 32px 0}}
+@media (min-width:1265px){.odm-dl-line{margin:16px auto 0}}
+/* スマホで「PC版サイト」になっているとき */
+.odm-pc{display:flex;gap:10px;align-items:flex-start;margin:10px 14px 0;padding:12px 14px;border-radius:14px;background:#FFF4D6;border:2px solid #F3C14B;font-size:18px;line-height:1.6}
+.odm-pc[hidden]{display:none}
+.odm-pc .t{flex:1}.odm-pc .en{display:block;font-size:15px;color:#546E7A}
+.odm-pc button{border:0;background:#fff;border-radius:12px;min-width:48px;min-height:48px;font-size:20px;cursor:pointer}
+/* スマホの文字の大きさ（2026-11-27：小さすぎる所を上げる） */
+@media (max-width:768px){
+  .hero-badge{font-size:13px}
+  #screen-catalog .catalog-banner p{font-size:13px!important}
+  .od-new-en,.od-new-hint{font-size:13px}
+  .badge-new{font-size:12px}
+  .lang-badge{font-size:12px}
+  .book-title{font-size:16px}
+  .book-title-jp{font-size:14px}
+  .book-meta{font-size:13px}
+  .book-desc{font-size:14px}
+  .book-desc-toggle{font-size:13px}
+  .od-v-en{font-size:12px!important}
+  .od-read-h{font-size:13px}
+  .books-count{font-size:14px}
+  .en-title{font-size:13px!important}
+  #search-input{font-size:16px}
+  .od-a2hs .en,.lr-news-cat small{font-size:14px}
+  .odm-open{padding:5px 10px 5px 8px}
+}
+</style>
+
+<div class="odm-bg" id="odm-bg"></div>
+<aside class="odm" id="odm" role="dialog" aria-modal="true" aria-labelledby="odm-title" aria-hidden="true" inert>
+  <div class="odm-top">
+    <button type="button" class="odm-back" id="odm-back" hidden>← もどる<span class="en">Back</span></button>
+    <h2 id="odm-title">メニュー<span class="en">Menu</span></h2>
+    <button type="button" class="odm-x" id="odm-x">✕ とじる<span class="en">Close</span></button>
+  </div>
+  <div class="odm-body" id="odm-body"></div>
+</aside>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var R = function (k, y) { return '<ruby>' + k + '<rt>' + y + '</rt></ruby>'; };
+  var EFA = 'https://www.efa-japan.org';
+  var MAIL = 'info@efa-japan.org';
+  var GUIDE = function () { return (window.SITE_CONFIG && SITE_CONFIG.GITHUB_README_URL) || (location.href.split('?')[0] + '?page=guide'); };
+  var loggedIn = function () { try { return !!(window.LR && LR.token && LR.token()); } catch (e) { return false; } };
+  var ja = function (s, en) { return '<p>' + s + '</p>' + (en ? '<p class="en">' + en + '</p>' : ''); };
+  var h4 = function (s, en) { return '<h4>' + s + '<span class="en">' + en + '</span></h4>'; };
+  var li = function (s, en) { return '<li>' + s + '<span class="en">' + en + '</span></li>'; };
+  var btn = function (cls, attrs, s, en) { return '<button type="button" class="odm-btn ' + cls + '" ' + attrs + '>' + s + '<span class="en">' + en + '</span></button>'; };
+  var link = function (cls, href, s, en) { return '<a class="odm-btn ' + cls + '" href="' + href + '" target="_blank" rel="noopener">' + s + '<span class="en">' + en + '</span></a>'; };
+
+  // ── メニューの項目（順番もここで決める） ──
+  var SECTIONS = [
+    { c: 's1', t: '📚 よむ', en: 'Reading', items: [
+      ['read', '📖', R('本', 'ほん') + 'の よみかた', 'How to read'],
+      ['dl', '📥', 'ダウンロードして アプリで よむ', 'Download and read in an app'],
+      ['home', '📱', 'ホーム' + R('画面', 'がめん') + 'に おく', 'Add to home screen'],
+      ['fb', '💌', 'かんそう・' + R('本', 'ほん') + 'の リクエスト', 'Feedback and book requests']
+    ] },
+    { c: 's2', t: '👪 おうちの ' + R('方', 'かた') + '・' + R('先生', 'せんせい') + '・' + R('支援者', 'しえんしゃ') + 'の ' + R('方', 'かた') + 'へ', en: 'For parents, teachers and supporters', items: [
+      ['about', '🏠', 'OurDAISY とは', 'About OurDAISY'],
+      ['rules', '📜', R('図書館', 'としょかん') + 'の ルール', 'Library rules'],
+      ['privacy', '🔒', R('個人情報', 'こじんじょうほう') + 'の ' + R('取', 'と') + 'り' + R('扱', 'あつか') + 'い', 'Privacy'],
+      ['help', '❓', 'こまったとき・お' + R('問', 'と') + 'い' + R('合', 'あ') + 'わせ', 'Help and contact']
+    ] },
+    { c: 's3', skip: true, t: '🤝 ' + R('団体', 'だんたい') + '・エファジャパン', en: 'Organizations and EFA Japan', items: [
+      ['org', '🏫', '学校・自治体・図書館・企業などの方へ', 'For schools, local governments, libraries and companies'],
+      ['vol', '✋', '本をつくるボランティア', 'Volunteer to make books'],
+      ['efa', '🌏', 'エファジャパンについて・メールマガジン', 'About EFA Japan and our newsletter']
+    ] },
+    { c: 's4', login: true, t: '🔑 ' + R('会員', 'かいいん'), en: 'Account', items: [
+      ['logout', '🚪', 'ログアウト', 'Log out'],
+      ['leave', '👋', R('退会', 'たいかい') + 'する', 'Leave the library', 'danger']
+    ] }
+  ];
+
+  // ── それぞれのページ ──
+  var PAGES = {
+    read: function () {
+      return '<div class="odm-card">' +
+        ja(R('本', 'ほん') + 'の ボタンを おすと、この ' + R('図書館', 'としょかん') + 'で すぐ よめます。アプリは いりません。', 'Tap a book\'s button to read it right here. No app needed.') +
+        ja(R('声', 'こえ') + 'に あわせて ' + R('文', 'ぶん') + 'が ひかります。' + R('文', 'ぶん') + 'を おすと、そこから よみます。', 'The text lights up as it is read. Tap a sentence to start from there.') +
+        ja('「🎨 みやすく」で、よむ ' + R('速', 'はや') + 'さ・' + R('文字', 'もじ') + 'の ' + R('大', 'おお') + 'きさ・' + R('色', 'いろ') + 'を かえられます。', 'Use “🎨 Display settings” to change the speed, text size and colors.') +
+        ja('ひらいた ' + R('本', 'ほん') + 'は「📚 ' + R('本', 'ほん') + 'だな」に ' + R('入', 'はい') + 'ります。つぎからは インターネットが なくても よめます。', 'Books are saved on this device. Once opened, you can read them offline.') +
+        '</div>' + btn('orange', 'data-odm-act="fb"', '💌 かんそうを おくる', 'Send feedback');
+    },
+    dl: function () {
+      return '<div class="odm-card">' +
+        ja(R('本', 'ほん') + 'は、この ' + R('図書館', 'としょかん') + 'で そのまま よめます。リーダーアプリで よみたい ' + R('人', 'ひと') + 'は、' + R('本', 'ほん') + 'を ダウンロードして よむことも できます。', 'You can also download a book and read it in a reader app.') +
+        ja(R('本', 'ほん') + 'の「📥 ' + R('受', 'う') + 'け' + R('取', 'と') + 'る」を おすと、ファイルを ' + R('保存', 'ほぞん') + 'できます。', 'Tap “📥 Download” on a book to save the file.') +
+        ja('おすすめの アプリ（' + R('無料', 'むりょう') + '）', 'Free reader apps we recommend') +
+        '<ul data-od-skip><li>Android：Colibrio Reader</li><li>iPhone・iPad：EasyReader</li><li>Windows：Thorium Reader</li></ul>' +
+        '</div>' + '<a class="odm-btn" href="' + GUIDE() + '" target="_blank" rel="noopener">くわしい使い方を見る</a>';
+    },
+    home: function () {
+      var w = window.odA2hs || {};
+      if (w.standalone && w.standalone()) return '<div class="odm-card">' + ja('この ' + R('図書館', 'としょかん') + 'は、もう ホーム' + R('画面', 'がめん') + 'に おいて あります。', 'This library is already on your home screen.') + '</div>';
+      return '<div class="odm-card">' +
+        ja('この ' + R('図書館', 'としょかん') + 'を ホーム' + R('画面', 'がめん') + 'に おきましょう。つぎから、すぐに ひらけます。', 'Put this library on your home screen. Next time, you can open it with one tap.') +
+        (w.canPrompt && w.canPrompt() ? btn('', 'data-odm-act="a2hs"', '📱 ホーム' + R('画面', 'がめん') + 'に おく', 'Add to home screen') : '') +
+        ja('Android：メニュー（⋮）を ひらいて、「ホーム' + R('画面', 'がめん') + 'に' + R('追加', 'ついか') + '」を おします。', 'On Android: open the menu (⋮), then tap “Add to Home screen”.') +
+        ja('iPhone：' + R('下', 'した') + 'の ' + R('共有', 'きょうゆう') + 'ボタン（□に↑）を おして、「ホーム' + R('画面', 'がめん') + 'に' + R('追加', 'ついか') + '」を おします。', 'On iPhone: tap the Share button, then “Add to Home Screen”.') +
+        '</div>';
+    },
+    about: function () {
+      return '<div class="odm-card">' +
+        ja('OurDAISY（アワデイジー）は、' + R('外国', 'がいこく') + 'に ルーツを もつ ' + R('子', 'こ') + 'どもたちの ための、' + R('無料', 'むりょう') + 'の ' + R('電子', 'でんし') + R('図書館', 'としょかん') + 'です。', 'OurDAISY is a free digital library for children with roots abroad.') +
+        ja('1さつの ' + R('本', 'ほん') + 'に、3つの よみかたが あります。「' + R('母語', 'ぼご') + 'だけ」「' + R('母語', 'ぼご') + '＋やさしい ' + R('日本語', 'にほんご') + '」「' + R('母語', 'ぼご') + '＋' + R('日本語', 'にほんご') + '」です。', 'Each book comes in three versions: mother tongue only, mother tongue + easy Japanese, and mother tongue + Japanese.') +
+        ja(R('母語', 'ぼご') + 'と ' + R('日本語', 'にほんご') + 'の ' + R('両方', 'りょうほう') + 'で よむと、' + R('家族', 'かぞく') + 'の ことばを たいせつに しながら、' + R('日本語', 'にほんご') + 'も ' + R('学', 'まな') + 'べます。', 'Reading in both languages helps children keep their family language while learning Japanese.') +
+        '</div><div class="odm-card">' +
+        ja('🏠 おうちで：おうちの ' + R('人', 'ひと') + 'と いっしょに ' + R('母語', 'ぼご') + 'で きいて、そのあと ' + R('日本語', 'にほんご') + 'で よんで みましょう。', 'At home: listen together in your family language, then try reading in Japanese.') +
+        ja('🏫 ' + R('学校', 'がっこう') + 'や ことばの ' + R('教室', 'きょうしつ') + 'で：' + R('先生', 'せんせい') + 'や ' + R('支援者', 'しえんしゃ') + 'が、' + R('子', 'こ') + 'どもと いっしょに よめます。', 'At school or in a language class: teachers and supporters can read together with children.') +
+        ja('✋ ' + R('本', 'ほん') + 'は、ボランティアの みなさんが ' + R('翻訳', 'ほんやく') + 'と ' + R('音声', 'おんせい') + 'の ' + R('確認', 'かくにん') + 'を して つくっています。', 'Volunteers translate the books and check the audio.') +
+        '</div>';
+    },
+    rules: function () {
+      return h4('1. ' + R('個人', 'こじん') + 'が ' + R('無料', 'むりょう') + 'で ' + R('使', 'つか') + 'う ' + R('図書館', 'としょかん') + 'です', 'For individuals, free of charge') +
+        '<div class="odm-card">' +
+        ja('この ' + R('図書館', 'としょかん') + 'は、' + R('外国', 'がいこく') + 'に ルーツを もつ ' + R('子', 'こ') + 'どもと その ' + R('家族', 'かぞく') + '、' + R('支援', 'しえん') + 'する ' + R('人', 'ひと') + 'などの ' + R('個人', 'こじん') + 'が、' + R('無料', 'むりょう') + 'で ' + R('使', 'つか') + 'うための ものです。', 'This library is for individuals — children with roots abroad, their families and supporters — to use free of charge.') +
+        ja(R('使', 'つか') + 'う ' + R('人', 'ひと') + 'は、1' + R('人', 'り') + 'ずつ ' + R('会員', 'かいいん') + R('登録', 'とうろく') + 'を して ください。メールアドレスを ほかの ' + R('人', 'ひと') + 'に ' + R('教', 'おし') + 'えないで ください。', 'Each user must register individually.') +
+        ja(R('学校', 'がっこう') + '・' + R('自治体', 'じちたい') + '・' + R('図書館', 'としょかん') + '・' + R('会社', 'かいしゃ') + 'などが ' + R('団体', 'だんたい') + 'として ' + R('使', 'つか') + 'うときは、' + R('別', 'べつ') + 'の ' + R('契約', 'けいやく') + 'が ' + R('必要', 'ひつよう') + 'です。', 'Schools, local governments, libraries and companies need a separate agreement to use it as an organization.') +
+        '</div>' +
+        h4('2. ' + R('著作権', 'ちょさくけん'), 'Copyright') +
+        '<div class="odm-card">' +
+        ja('📕 ' + R('本', 'ほん') + '（お' + R('話', 'はなし') + 'と ' + R('絵', 'え') + '）の ' + R('著作権', 'ちょさくけん') + 'は、' + R('作者', 'さくしゃ') + '・' + R('画家', 'がか') + '・' + R('出版社', 'しゅっぱんしゃ') + 'に あります。', 'The stories and pictures belong to their authors, illustrators and publishers.') +
+        ja('💾 ' + R('電子', 'でんし') + R('図書', 'としょ') + '（EPUB ファイル）は、エファジャパンが ' + R('許可', 'きょか') + 'を えて つくりました。' + R('日本語', 'にほんご') + 'の ' + R('訳', 'やく') + 'や ' + R('音声', 'おんせい') + 'など、' + R('電子', 'でんし') + R('図書', 'としょ') + 'としての ' + R('権利', 'けんり') + 'は、エファジャパンに あります。', 'EFA Japan made the e-books (EPUB files) with permission and holds the rights to the e-book editions, including the Japanese translations and audio.') +
+        ja('それぞれの ' + R('本', 'ほん') + 'の ' + R('権利', 'けんり') + 'と ライセンスは、' + R('本', 'ほん') + 'の さいごの「' + R('本', 'ほん') + 'の じょうほう」の ページに のっています。', 'You can find the rights and license of each book on its book information page.') +
+        '</div>' +
+        h4('3. かたく ' + R('禁止', 'きんし') + 'します', 'Strictly prohibited') +
+        '<div class="odm-card"><ul>' +
+        li(R('本', 'ほん') + 'や ファイルを、ほかの ' + R('人', 'ひと') + 'に わたす・' + R('送', 'おく') + 'る・インターネットに のせる', 'Giving, sending or uploading books or files to others') +
+        li(R('売', 'う') + 'る・お' + R('金', 'かね') + 'を もうけるために ' + R('使', 'つか') + 'う', 'Selling them or using them to make money') +
+        li(R('書', 'か') + 'きかえる・ほかの ' + R('作品', 'さくひん') + 'に ' + R('使', 'つか') + 'う', 'Changing them or using them in other works') +
+        '</ul>' +
+        ja('これらを ' + R('許可', 'きょか') + 'なく ' + R('行', 'おこな') + 'うことは、' + R('法律', 'ほうりつ') + 'で ' + R('禁止', 'きんし') + 'されています。' + R('見', 'み') + 'つけた ときは、' + R('図書館', 'としょかん') + 'の ' + R('利用', 'りよう') + 'を とめることが あります。', 'These acts are prohibited by law without permission. We may stop your use of the library if we find them.') +
+        '<p class="odm-note">' + R('原作', 'げんさく') + 'の ライセンス（CC BY など）で みとめられた ' + R('使', 'つか') + 'い' + R('方', 'かた') + 'は、その ライセンスに したがいます。</p><p class="en odm-note">Uses allowed by an original work’s license (such as CC BY) follow that license.</p>' +
+        '</div>' +
+        h4('4. よんだ ' + R('本', 'ほん') + 'の きろく', 'Reading records') +
+        '<div class="odm-card">' +
+        ja('よりよい ' + R('図書館', 'としょかん') + 'に するため、よんだ ' + R('本', 'ほん') + 'の きろくを とります（' + R('名前', 'なまえ') + 'や メールアドレスは きろくしません）。', 'To improve the library, we record which books are read — never your name or email address.') +
+        '</div>';
+    },
+    privacy: function () {
+      return '<p class="odm-note">' + R('認定', 'にんてい') + 'NPO' + R('法人', 'ほうじん') + 'エファジャパンは、この ' + R('図書館', 'としょかん') + 'で あずかる ' + R('個人情報', 'こじんじょうほう') + 'を、つぎのように あつかいます。</p><p class="en odm-note">EFA Japan handles the personal information in this library as follows.</p>' +
+        h4('あつめる ' + R('情報', 'じょうほう'), 'Information we collect') +
+        '<div class="odm-card"><ul>' +
+        li(R('登録', 'とうろく') + 'の とき：' + R('名前', 'なまえ') + '・メールアドレス・あなたについて・つながりの ある ' + R('国', 'くに') + '・' + R('住', 'す') + 'んでいる ' + R('県', 'けん') + '・' + R('性別', 'せいべつ') + '・' + R('生', 'う') + 'まれた ' + R('年', 'とし') + '・えらんだ ことば', 'When you register: your name, email address, about you, countries, prefecture, gender, year of birth and chosen language.') +
+        li('よむ とき：よんだ ' + R('本', 'ほん') + '・ページ・' + R('機種', 'きしゅ') + '（' + R('会員', 'かいいん') + 'の ' + R('記号', 'きごう') + 'で きろくし、' + R('名前', 'なまえ') + 'と メールアドレスは きろくしません）', 'When you read: which books and pages you read, and your device type, with a member code (never your name or email).') +
+        li('かんそうを ' + R('送', 'おく') + 'る とき：' + R('書', 'か') + 'いた ' + R('内容', 'ないよう') + '（メールアドレスは、' + R('返事', 'へんじ') + 'を ' + R('希望', 'きぼう') + 'した ときだけ）', 'When you send feedback: what you write, and your email only if you ask for a reply.') +
+        '</ul></div>' +
+        h4(R('使', 'つか') + 'いみち', 'How we use it') +
+        '<div class="odm-card">' +
+        ja('ログイン、' + R('図書館', 'としょかん') + 'の おしらせメール（' + R('新', 'あたら') + 'しい ' + R('本', 'ほん') + 'など）、' + R('図書館', 'としょかん') + 'を よくすること、' + R('活動', 'かつどう') + 'の ' + R('報告', 'ほうこく') + 'に ' + R('使', 'つか') + 'います。', 'To let you log in, to send library news by email, to improve the library, and to report our work.') +
+        ja(R('報告', 'ほうこく') + 'では ' + R('数', 'かず') + 'だけを ' + R('使', 'つか') + 'い、だれか わからない ' + R('形', 'かたち') + 'に します。', 'In reports, we use only numbers, so no one can be identified.') +
+        '</div>' +
+        h4(R('管理', 'かんり'), 'How we keep it') +
+        '<div class="odm-card">' +
+        ja('Google の サービスに ' + R('保管', 'ほかん') + 'し、エファジャパンの ' + R('担当者', 'たんとうしゃ') + 'だけが ' + R('見', 'み') + 'られます。', 'Your information is stored on Google services. Only EFA Japan staff in charge can see it.') +
+        ja(R('事務', 'じむ') + 'の ' + R('作業', 'さぎょう') + 'で、AI などの ' + R('外部', 'がいぶ') + 'の ' + R('道具', 'どうぐ') + 'を ' + R('使', 'つか') + 'うことが あります。その ときも、この ' + R('使', 'つか') + 'いみちの ほかには ' + R('使', 'つか') + 'いません。', 'We may use outside tools, such as AI, for office work. Even then, we use your information only for these purposes.') +
+        ja(R('法律', 'ほうりつ') + 'で ' + R('求', 'もと') + 'められた ときの ほかは、ほかの ' + R('人', 'ひと') + 'や ' + R('団体', 'だんたい') + 'に わたしません。', 'We never give your information to others, except when the law requires it.') +
+        '</div>' +
+        h4('この ' + R('端末', 'たんまつ') + 'に のこる もの', 'On this device') +
+        '<div class="odm-card">' +
+        ja('ログインの ' + R('記録', 'きろく') + '・' + R('本', 'ほん') + 'だなの ' + R('本', 'ほん') + '・' + R('設定', 'せってい') + 'は、この ' + R('端末', 'たんまつ') + 'に のこります。' + R('退会', 'たいかい') + 'すると ' + R('消', 'き') + 'えます。', 'Your login pass, the books on your bookshelf and your settings are kept on this device. They are deleted when you leave the library.') +
+        '</div>' +
+        h4(R('退会', 'たいかい') + '・お' + R('問', 'と') + 'い' + R('合', 'あ') + 'わせ', 'Leaving and requests') +
+        '<div class="odm-card">' +
+        ja('この メニューの「' + R('退会', 'たいかい') + 'する」から、いつでも ' + R('退会', 'たいかい') + 'できます。' + R('会員', 'かいいん') + 'の ' + R('情報', 'じょうほう') + 'は ' + R('消', 'け') + 'します。', 'You can leave the library at any time from this menu. Your member information will then be deleted.') +
+        ja(R('自分', 'じぶん') + 'の ' + R('情報', 'じょうほう') + 'を ' + R('見', 'み') + 'たい・なおしたい・' + R('消', 'け') + 'したい ときは、メールで ' + R('連絡', 'れんらく') + 'して ください。', 'To see, correct or delete your information, please email us.') +
+        '<p data-od-skip><a href="mailto:' + MAIL + '">' + MAIL + '</a></p>' +
+        '</div>' +
+        link('gray', EFA + '/policy/', 'エファジャパンの ' + R('個人情報', 'こじんじょうほう') + R('保護', 'ほご') + R('方針', 'ほうしん'), 'EFA Japan Privacy Policy');
+    },
+    help: function () {
+      return '<div class="odm-card"><ul>' +
+        li(R('本', 'ほん') + 'が ひらかない：インターネットに つないで、もう' + R('一度', 'いちど') + ' おして ください。', 'If a book won’t open, connect to the internet and tap it again.') +
+        li('ログイン できない：' + R('登録', 'とうろく') + 'した メールアドレスを たしかめて ください。', 'If you cannot log in, check the email address you registered.') +
+        li(R('画面', 'がめん') + 'が とても ' + R('小', 'ちい') + 'さく ' + R('見', 'み') + 'える：Chrome の メニュー（⋮）で「PC' + R('版', 'ばん') + 'サイト」の チェックを はずして ください。', 'If the screen looks very small, like a computer screen: in Chrome, open the menu (⋮) and turn off “Desktop site”.') +
+        li('こまった ことは「かんそう」の「😕 こまった」から おしえて ください。', 'Tell us about problems with “Feedback” → “Problem”.') +
+        '</ul></div>' + btn('orange', 'data-odm-act="fb"', '💬 かんそうを おくる', 'Send feedback') +
+        '<div class="odm-card">' + ja('メールでの お' + R('問', 'と') + 'い' + R('合', 'あ') + 'わせ', 'Contact us by email') +
+        '<p data-od-skip><a href="mailto:' + MAIL + '">' + MAIL + '</a></p></div>';
+    },
+    org: function () {   // 団体向け（日本語と英語だけ）
+      return '<div data-od-skip>' +
+        '<div class="odm-card"><p>OurDAISY は、外国にルーツをもつ子どもと家族、支援者などの<b>個人が無料で使う</b>図書館です。先生や支援者が、個人として会員登録をし、子どもといっしょに読むことはできます。</p>' +
+        '<p class="en">OurDAISY is free for individual use by children with roots abroad, their families and supporters. Teachers and supporters may register as individuals and read with children.</p></div>' +
+        '<h4>団体として導入・利用するとき<span class="en">Using OurDAISY as an organization</span></h4>' +
+        '<div class="odm-card"><p>次のような使い方には、<b>団体向けの利用契約（有償・年間契約）</b>が必要です。</p><p class="en">The following uses require an organizational agreement (paid, annual):</p><ul>' +
+        '<li>学校・教育委員会・自治体の事業として、児童生徒や住民に提供する<span class="en">Providing it to students or residents as a program of a school, board of education or local government</span></li>' +
+        '<li>図書館のサービスとして、利用者に提供する<span class="en">Offering it to users as a library service</span></li>' +
+        '<li>企業・団体の事業やサービスの中で使う<span class="en">Using it in the work or services of a company or organization</span></li>' +
+        '</ul><p>契約の内容（利用できる範囲・料金・サポート）は、いま準備しています。導入をお考えの方は、まずご相談ください。</p>' +
+        '<p class="en">We are now preparing the terms (scope, fees and support). Please contact us first.</p></div>' +
+        '<a class="odm-btn" href="mailto:' + MAIL + '?subject=' + encodeURIComponent('OurDAISY 団体利用のご相談') + '">✉️ 団体利用について相談する<span class="en">Contact us about organizational use</span></a>' +
+        '<p class="odm-note">' + MAIL + '（件名：OurDAISY 団体利用のご相談）</p></div>';
+    },
+    vol: function () {
+      return '<div data-od-skip><div class="odm-card"><p>OurDAISY の本は、ボランティアの翻訳や音声の確認でできています。自宅からオンラインで参加でき、作業は1つずつ、自分のペースで進められます。</p>' +
+        '<p class="en">OurDAISY books are made by volunteers who translate and check the audio. You can join online from home and work at your own pace.</p></div>' +
+        '<a class="odm-btn orange" href="https://efajapan.github.io/ourdaisy-studio/" target="_blank" rel="noopener">✋ ボランティアについて見る<span class="en">Learn about volunteering</span></a></div>';
+    },
+    efa: function () {
+      return '<div data-od-skip><div class="odm-card"><p>認定NPO法人エファジャパンは、アジアの子どもたちと、日本の被災地や外国にルーツをもつ子どもたちの学びを支えています。OurDAISY は、その活動のひとつです。</p>' +
+        '<p class="en">EFA Japan is a certified NPO that supports learning for children in Asia, in disaster-affected areas of Japan, and children with roots abroad. OurDAISY is one of our projects.</p></div>' +
+        '<a class="odm-btn" href="' + EFA + '/about/" target="_blank" rel="noopener">🌏 エファジャパンのホームページ<span class="en">EFA Japan website</span></a>' +
+        '<div class="odm-card" style="margin-top:12px"><p>📮 メールマガジン「エファ通信」で、子どもたちの様子や活動のお知らせをお届けしています（月2回・無料）。ぜひご登録ください。</p>' +
+        '<p class="en">Our newsletter “EFA Tsushin” shares news about the children and our work (twice a month, free). Please sign up!</p></div>' +
+        '<a class="odm-btn orange" href="' + EFA + '/newsletter/" target="_blank" rel="noopener">📮 メールマガジンに登録する<span class="en">Sign up for the newsletter</span></a></div>';
+    },
+    leave: function () {
+      if (!loggedIn()) return '<div class="odm-card">' + ja('ログインしてから、' + R('退会', 'たいかい') + 'できます。', 'Please log in first.') + '</div>';
+      return h4(R('退会', 'たいかい') + 'すると', 'If you leave the library') +
+        '<div class="odm-card"><ul>' +
+        li(R('会員', 'かいいん') + 'の ' + R('情報', 'じょうほう') + '（' + R('名前', 'なまえ') + '・メールアドレスなど）を ' + R('消', 'け') + 'します。', 'Your member information (name, email address, etc.) will be deleted.') +
+        li('この ' + R('端末', 'たんまつ') + 'の ' + R('本', 'ほん') + 'だなの ' + R('本', 'ほん') + 'と ' + R('設定', 'せってい') + 'も ' + R('消', 'き') + 'えます。', 'The books and settings on this device will also be deleted.') +
+        li('よんだ ' + R('本', 'ほん') + 'の きろくは、だれか わからない ' + R('数', 'かず') + 'として のこります。', 'Reading records remain only as numbers that cannot identify you.') +
+        li('エファジャパンの メールマガジンは ' + R('別', 'べつ') + 'の しくみです。とめる ときは、メールマガジンの 中の「' + R('配信', 'はいしん') + R('停止', 'ていし') + '」から ' + R('手続', 'てつづ') + 'きして ください。', 'EFA Japan’s newsletter is separate. To stop it, use the unsubscribe link in the newsletter.') +
+        li('また ' + R('使', 'つか') + 'いたく なったら、いつでも もう' + R('一度', 'いちど') + ' ' + R('登録', 'とうろく') + 'できます。', 'You can register again at any time.') +
+        '</ul></div>' +
+        h4('やめる りゆう（えらばなくても よい）', 'Why are you leaving? (optional)') +
+        '<div class="odm-chips" id="odm-why">' +
+        '<button type="button" class="odm-chip" data-v="もう つかわない" aria-pressed="false">もう つかわない<span class="en">I no longer use it</span></button>' +
+        '<button type="button" class="odm-chip" data-v="つかいにくい" aria-pressed="false">つかいにくい<span class="en">It is hard to use</span></button>' +
+        '<button type="button" class="odm-chip" data-v="よみたい 本が ない" aria-pressed="false">よみたい ' + R('本', 'ほん') + 'が ない<span class="en">No books I want</span></button>' +
+        '<button type="button" class="odm-chip" data-v="その他" aria-pressed="false">その' + R('他', 'た') + '<span class="en">Other</span></button>' +
+        '</div>' +
+        h4(R('登録', 'とうろく') + 'した メールアドレス', 'Enter your registered email address.') +
+        '<input type="email" class="odm-in" id="odm-mail" autocomplete="email" inputmode="email" placeholder="example@mail.com">' +
+        '<p class="odm-msg" id="odm-err-mail">メールアドレスが ちがいます。たしかめて ください。<span class="en">This email address does not match. Please check it.</span></p>' +
+        '<p class="odm-msg" id="odm-err-auth">もう' + R('一度', 'いちど') + ' ログインしてから、おして ください。<span class="en">Please log in again, then try once more.</span></p>' +
+        '<p class="odm-msg" id="odm-err-net">' + R('通信', 'つうしん') + 'が うまく いきませんでした。すこし まってから、もう' + R('一度', 'いちど') + ' おして ください。<span class="en">Connection failed. Please wait a moment and try again.</span></p>' +
+        btn('red', 'id="odm-leave-go"', '👋 ' + R('退会', 'たいかい') + 'する', 'Leave the library') +
+        btn('gray', 'data-odm-act="close"', 'やめる', 'Cancel');
+    },
+    left: function () {
+      return '<div class="odm-done"><div class="big">👋</div>' +
+        ja(R('退会', 'たいかい') + 'しました。これまで ' + R('使', 'つか') + 'って くださって、ありがとう ございました。', 'You have left the library. Thank you for using OurDAISY.') +
+        '</div>' + btn('', 'data-odm-act="close"', '✕ とじる', 'Close');
+    }
+  };
+  var TITLES = {};
+  SECTIONS.forEach(function (s) { s.items.forEach(function (it) { TITLES[it[0]] = { t: it[2], en: it[3], skip: !!s.skip }; }); });
+  TITLES.left = TITLES.leave;
+  TITLES.org = { t: '団体で使いたい方へ', en: 'For organizations', skip: true };
+
+  var cur = null, lastFocus = null, pushed = false;
+  function setTitle(t, en, skip) {
+    var h = $('odm-title');
+    h.innerHTML = t + '<span class="en">' + en + '</span>';
+    if (skip) h.setAttribute('data-od-skip', ''); else h.removeAttribute('data-od-skip');
+  }
+  function renderHome() {
+    cur = null; $('odm-back').hidden = true;
+    setTitle('メニュー', 'Menu', false);
+    var html = '';
+    SECTIONS.forEach(function (s) {
+      if (s.login && !loggedIn()) return;
+      html += '<section class="odm-sec ' + s.c + '"' + (s.skip ? ' data-od-skip' : '') + '><h3>' + s.t + '<span class="en">' + s.en + '</span></h3>';
+      s.items.forEach(function (it) {
+        html += '<button type="button" class="odm-item ' + (it[4] || '') + '" data-odm-go="' + it[0] + '"><span class="odm-ic" aria-hidden="true">' + it[1] + '</span>' +
+          '<span class="odm-lb">' + it[2] + '<span class="en">' + it[3] + '</span></span><span class="odm-go" aria-hidden="true">▶</span></button>';
+      });
+      html += '</section>';
+    });
+    $('odm-body').innerHTML = html;
+    $('odm-body').scrollTop = 0;
+  }
+  function renderPage(p) {
+    if (p === 'fb') { close(); if (window.LR && LR.openFeedback) LR.openFeedback(); return; }
+    if (p === 'logout') { close(); if (typeof doLogout === 'function') doLogout(); return; }
+    if (!PAGES[p]) return renderHome();
+    cur = p; $('odm-back').hidden = (p === 'left');
+    var t = TITLES[p] || { t: '', en: '' };
+    setTitle(t.t, t.en, t.skip);
+    $('odm-body').innerHTML = '<div class="odm-page">' + PAGES[p]() + '</div>';
+    $('odm-body').scrollTop = 0;
+    if (p === 'leave') wireLeave();
+  }
+  function open(page) {
+    lastFocus = document.activeElement;
+    renderHome(); if (page) renderPage(page);
+    $('odm').classList.add('open'); $('odm-bg').classList.add('open');
+    $('odm').removeAttribute('aria-hidden'); $('odm').removeAttribute('inert');
+    var ob = $('odm-open'); if (ob) ob.setAttribute('aria-expanded', 'true');
+    document.documentElement.style.overflow = 'hidden';
+    try { if (!pushed) { history.pushState({ odm: 1 }, ''); pushed = true; } } catch (e) {}
+    setTimeout(function () { var f = $('odm-x'); if (f) f.focus(); }, 60);
+  }
+  function close(fromPop) {
+    if (!$('odm').classList.contains('open')) return;
+    $('odm').classList.remove('open'); $('odm-bg').classList.remove('open');
+    $('odm').setAttribute('aria-hidden', 'true'); $('odm').setAttribute('inert', '');
+    var ob = $('odm-open'); if (ob) ob.setAttribute('aria-expanded', 'false');
+    document.documentElement.style.overflow = '';
+    if (pushed && !fromPop) { pushed = false; try { history.back(); } catch (e) {} } else pushed = false;
+    if (cur === 'left') afterLeave();
+    if (lastFocus && lastFocus.focus) try { lastFocus.focus(); } catch (e) {}
+  }
+
+  // ── 退会 ──
+  function wireLeave() {
+    var why = $('odm-why');
+    why.addEventListener('click', function (e) {
+      var b = e.target.closest('.odm-chip'); if (!b) return;
+      var on = b.getAttribute('aria-pressed') !== 'true';
+      why.querySelectorAll('.odm-chip').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      if (on) b.setAttribute('aria-pressed', 'true');
+    });
+    $('odm-leave-go').addEventListener('click', doLeave);
+    $('odm-mail').addEventListener('input', function () { $('odm-err-mail').classList.remove('on'); });
+  }
+  function msg(id) { ['odm-err-mail', 'odm-err-auth', 'odm-err-net'].forEach(function (x) { $(x).classList.toggle('on', x === id); }); }
+  async function doLeave() {
+    var email = ($('odm-mail').value || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg('odm-err-mail'); $('odm-mail').focus(); return; }
+    var pick = $('odm-why').querySelector('[aria-pressed="true"]');
+    var body = new URLSearchParams({ action: 'withdraw', token: LR.token(), email: email, reason: pick ? pick.getAttribute('data-v') : '',
+                                     lang: ((window.OD_I18N && OD_I18N.lang) || '') });
+    var go = $('odm-leave-go'); go.disabled = true; msg('');
+    var res = null;
+    try {
+      var r = await fetch(SITE_CONFIG.GAS_URL, { method: 'POST', body: body });
+      res = await r.json();
+    } catch (e) {
+      // 返事が読めなかったとき：会員として残っているかを、ログインで確かめる
+      try { var a = await fetchJsonWithRetry({ action: 'auth', email: email }, 2); res = (a && a.ok === false) ? { ok: true } : null; } catch (e2) { res = null; }
+    }
+    go.disabled = false;
+    if (res && res.ok) { renderPage('left'); return; }
+    var er = res && res.error;
+    if (er === 'email' || er === 'not_found') msg('odm-err-mail');
+    else if (er === 'auth') msg('odm-err-auth');
+    else msg('odm-err-net');
+  }
+  function afterLeave() {
+    try { indexedDB.deleteDatabase('od-lr-shelf'); } catch (e) {}
+    try { localStorage.clear(); } catch (e) {}
+    try { sessionStorage.clear(); } catch (e) {}
+    if (window.LR && LR.clearToken) LR.clearToken();
+    if (typeof doLogout === 'function') doLogout();
+    var input = $('login-email'); if (input) input.value = '';
+  }
+
+  // ── つなぐ ──
+  function start() {
+    var hc = document.querySelector('.header-controls');
+    if (hc && !$('odm-open')) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'odm-open'; b.id = 'odm-open';
+      b.setAttribute('aria-haspopup', 'dialog'); b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-controls', 'odm');
+      b.innerHTML = '<span class="odm-burger" aria-hidden="true">☰</span><span class="odm-open-t">メニュー<span class="en">Menu</span></span>';
+      b.addEventListener('click', function () { open(); });
+      hc.appendChild(b);
+    }
+    $('odm-x').addEventListener('click', function () { close(); });
+    $('odm-bg').addEventListener('click', function () { close(); });
+    $('odm-back').addEventListener('click', renderHome);
+    $('odm-body').addEventListener('click', function (e) {
+      var g = e.target.closest('[data-odm-go]'); if (g) { renderPage(g.getAttribute('data-odm-go')); return; }
+      var a = e.target.closest('[data-odm-act]'); if (!a) return;
+      var act = a.getAttribute('data-odm-act');
+      if (act === 'close') close();
+      else if (act === 'fb') renderPage('fb');
+      else if (act === 'a2hs' && window.odA2hs) { close(); window.odA2hs.prompt(); }
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('odm').classList.contains('open')) close(); });
+    window.addEventListener('popstate', function () { if ($('odm').classList.contains('open')) close(true); });
+    // スマホで「PC版サイト」になっていそうなとき、1行で知らせる
+    try {
+      var coarse = window.matchMedia && matchMedia('(pointer: coarse)').matches;
+      var small = Math.min(screen.width, screen.height) <= 600;
+      if (coarse && small && window.innerWidth >= 800 && localStorage.getItem('odm_pc_hide') !== '1') {
+        var n = document.createElement('div');
+        n.className = 'odm-pc'; n.id = 'odm-pc';
+        n.innerHTML = '<span aria-hidden="true">🔍</span><span class="t">' + R('画面', 'がめん') + 'が ' + R('小', 'ちい') + 'さい ときは、Chrome の メニュー（⋮）で「PC' + R('版', 'ばん') + 'サイト」の チェックを はずして ください。' +
+          '<span class="en">If the screen looks very small, like a computer screen: in Chrome, open the menu (⋮) and turn off “Desktop site”.</span></span>' +
+          '<button type="button" aria-label="とじる">✕</button>';
+        n.querySelector('button').onclick = function () { n.hidden = true; try { localStorage.setItem('odm_pc_hide', '1'); } catch (e) {} };
+        var h = document.querySelector('.site-header'); if (h && h.parentNode) h.parentNode.insertBefore(n, h.nextSibling);
+      }
+    } catch (e) {}
+  }
+  window.odm = { open: open, close: close, page: renderPage };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+
 <!-- 画面の言葉の切り替え（2026-11-22 追加）。しくみは i18n/od-i18n.js、訳は i18n/<言語>.json -->
 <script src="i18n/od-i18n.js?v=1_2_3" defer></script>
 
