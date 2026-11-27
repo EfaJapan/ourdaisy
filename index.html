@@ -5550,7 +5550,7 @@ function odGoLogin() {
 .odm-lb .en{display:block;font-size:13px;font-weight:600;color:#546E7A;line-height:1.3}
 .odm-go{color:#0065A4;font-size:16px}
 .odm-item.danger .odm-lb{color:#B3261E}
-.odm-donate{display:flex;align-items:center;gap:12px;margin:0 0 14px;padding:14px 14px;border-radius:20px;background:linear-gradient(135deg,#F39800,#E8590C);color:#fff!important;text-decoration:none;box-shadow:0 4px 14px rgba(224,124,0,.35);min-height:72px}
+.odm-donate{display:flex;width:100%;border:0;text-align:left;font:inherit;cursor:pointer;align-items:center;gap:12px;margin:0 0 14px;padding:14px 14px;border-radius:20px;background:linear-gradient(135deg,#F39800,#E8590C);color:#fff!important;text-decoration:none;box-shadow:0 4px 14px rgba(224,124,0,.35);min-height:72px}
 .odm-donate:hover,.odm-donate:focus-visible{outline:3px solid #004070;outline-offset:2px}
 .odm-donate-ic{flex:0 0 48px;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:26px}
 .odm-donate-t{flex:1;min-width:0;font-size:18px;font-weight:800;line-height:1.35}
@@ -5667,12 +5667,13 @@ function odGoLogin() {
   ];
 
   // ── 寄付（日本語と英語だけ。目立つように、メニューの一覧の中ほどに置く） ──
-  var DONATE = 'https://www.efa-japan.org/partner/join/#once:~:text=%E7%99%BB%E9%8C%B2%E3%81%99%E3%82%8B-,%E4%BB%8A%E5%9B%9E%E3%81%AE%E3%81%BF%E3%81%AE%E3%81%94%E5%AF%84%E4%BB%98,-%E3%82%A8%E3%83%95%E3%82%A1%E3%81%AE%E6%B4%BB%E5%8B%95';
+  var DONATE = 'https://www.efa-japan.org/partner/join/#once';   // 「今回のみのご寄付」の見出しのすぐ上の印（id="once"）。見出しが画面のいちばん上に来る
+  var TAX = 'https://www.efa-japan.org/support/kojin/';           // 個人の支援者への税制優遇の説明（ページの先頭から読める）
   var DONATE_CARD = function () {
-    return '<a class="odm-donate" data-od-skip href="' + DONATE + '" target="_blank" rel="noopener">' +
+    return '<button type="button" class="odm-donate" data-od-skip data-odm-go="donate">' +
       '<span class="odm-donate-ic" aria-hidden="true">💝</span><span class="odm-donate-t">寄付で応援する<span class="en">Donate to support OurDAISY</span>' +
       '<small>OurDAISY の本づくりと、子どもたちの学びを支えてください<span class="en">Help us make more books for children</span></small></span>' +
-      '<span class="odm-go" aria-hidden="true">▶</span></a>';
+      '<span class="odm-go" aria-hidden="true">▶</span></button>';
   };
 
   // ── それぞれのページ ──
@@ -5804,7 +5805,18 @@ function odGoLogin() {
         '<div class="odm-card" style="margin-top:12px"><p>📮 メールマガジン「エファ通信」で、子どもたちの様子や活動のお知らせをお届けしています（月2回・無料）。ぜひご登録ください。</p>' +
         '<p class="en">Our newsletter “EFA Tsushin” shares news about the children and our work (twice a month, free). Please sign up!</p></div>' +
         '<a class="odm-btn orange" href="' + EFA + '/newsletter/" target="_blank" rel="noopener">📮 メールマガジンに登録する<span class="en">Sign up for the newsletter</span></a>' +
-        '<a class="odm-btn red" href="' + DONATE + '" target="_blank" rel="noopener">💝 寄付で応援する<span class="en">Donate to support OurDAISY</span></a></div>';
+        '<button type="button" class="odm-btn red" data-odm-go="donate">💝 寄付で応援する<span class="en">Donate to support OurDAISY</span></button></div>';
+    },
+    donate: function () {   // 寄付のサイトへ行く前の説明（日本語と英語だけ）
+      return '<div data-od-skip><div class="odm-card">' +
+        '<p>OurDAISY の本を増やし、図書館の運営を続けていくために、みなさまからのご支援が必要です。</p><p class="en">To add more books and keep the library running, we need your support.</p>' +
+        '<p>ご寄付は、いくらからでもできます（金額は自由に選べます）。</p><p class="en">You can donate any amount you choose.</p>' +
+        '<p>500円以上のご寄付には、領収書をお送りします。</p><p class="en">We send a receipt for donations of 500 yen or more.</p>' +
+        '<p>エファジャパンは認定NPO法人です。ご寄付は、税制上の優遇措置（寄付金控除）の対象になります。</p><p class="en">EFA Japan is a certified NPO, so your donation is eligible for tax benefits (donation deduction).</p>' +
+        '</div>' +
+        '<a class="odm-btn red" href="' + DONATE + '" target="_blank" rel="noopener">💝 寄付する（今回のみのご寄付）<span class="en">Donate now (one-time)</span></a>' +
+        '<a class="odm-btn gray" href="' + TAX + '" target="_blank" rel="noopener">📄 税制上の優遇措置について<span class="en">About tax benefits</span></a>' +
+        '<p class="odm-note">寄付のページは、エファジャパンのホームページ（別の画面）で開きます。</p><p class="en odm-note">The donation page opens on the EFA Japan website.</p></div>';
     },
     leave: function () {
       if (!loggedIn()) return '<div class="odm-card">' + ja('ログインしてから、' + R('退会', 'たいかい') + 'できます。', 'Please log in first.') + '</div>';
@@ -5841,6 +5853,7 @@ function odGoLogin() {
   SECTIONS.forEach(function (s) { s.items.forEach(function (it) { TITLES[it[0]] = { t: it[2], en: it[3], skip: !!s.skip }; }); });
   TITLES.left = TITLES.leave;
   TITLES.org = { t: '団体で使いたい方へ', en: 'For organizations', skip: true };
+  TITLES.donate = { t: '寄付で応援する', en: 'Donate to support OurDAISY', skip: true };
 
   var cur = null, lastFocus = null, pushed = false;
   function setTitle(t, en, skip) {
