@@ -2,7 +2,7 @@
 "_meta": {
 "lang": "si",
 "reviewed": false,
-"strings": 371
+"strings": 368
 },
 "t": {
 "+ Easy Japanese": "+ පහසු ජපන් භාෂාව",
@@ -304,7 +304,6 @@
 "Download and read in an app": "බාගත කර යෙදුමකින් කියවන්න",
 "Feedback and book requests": "අදහස් සහ පොත් ඉල්ලීම්",
 "For parents, teachers and supporters": "දෙමාපියන්, ගුරුවරුන් සහ සහායකයින් සඳහා",
-"Help and contact": "උදව් සහ සම්බන්ධ වීම",
 "How to read": "කියවන ආකාරය",
 "Leave the library": "පුස්තකාලයෙන් ඉවත් වන්න",
 "Library rules": "පුස්තකාල නීති",
@@ -343,10 +342,8 @@
 "How we use it": "අප එය භාවිත කරන ආකාරය",
 "In reports, we use only numbers, so no one can be identified.": "වාර්තාවල අප භාවිත කරන්නේ සංඛ්‍යා පමණි, එබැවින් කිසිවෙකු හඳුනාගත නොහැක.",
 "Information we collect": "අප එකතු කරන තොරතුරු",
-"Leaving and requests": "ඉවත් වීම සහ ඉල්ලීම්",
 "On this device": "මෙම උපාංගයේ",
 "To let you log in, to send library news by email, to improve the library, and to report our work.": "ඔබට ඇතුළු වීමට, පුස්තකාල පුවත් විද්‍යුත් තැපෑලෙන් යැවීමට, පුස්තකාලය වැඩිදියුණු කිරීමට සහ අපගේ කටයුතු වාර්තා කිරීමට.",
-"To see, correct or delete your information, please email us.": "ඔබගේ තොරතුරු බැලීමට, නිවැරදි කිරීමට හෝ මකා දැමීමට අපට විද්‍යුත් තැපෑලක් එවන්න.",
 "We may use outside tools, such as AI, for office work. Even then, we use your information only for these purposes.": "කාර්යාල වැඩ සඳහා AI වැනි බාහිර මෙවලම් භාවිත කළ හැකිය. එවිටද ඔබගේ තොරතුරු මෙම අරමුණු සඳහා පමණක් භාවිත කරමු.",
 "We never give your information to others, except when the law requires it.": "නීතියෙන් ඉල්ලා සිටින විට හැර, අප කිසි විටෙකත් ඔබගේ තොරතුරු අන් අයට නොදෙමු.",
 "When you read: which books and pages you read, and your device type, with a member code (never your name or email).": "කියවන විට: ඔබ කියවූ පොත් සහ පිටු, සහ උපාංග වර්ගය, සාමාජික කේතයක් සමඟ (නම හෝ විද්‍යුත් තැපෑල කිසිදා නොවේ).",
@@ -355,7 +352,6 @@
 "You can leave the library at any time from this menu. Your member information will then be deleted.": "මෙම මෙනුවෙන් ඕනෑම වේලාවක පුස්තකාලයෙන් ඉවත් විය හැකිය. එවිට ඔබගේ සාමාජික තොරතුරු මකා දමනු ලැබේ.",
 "Your information is stored on Google services. Only EFA Japan staff in charge can see it.": "ඔබගේ තොරතුරු Google සේවාවල ගබඩා කෙරේ. එය බැලිය හැක්කේ වගකිව යුතු EFA Japan කාර්ය මණ්ඩලයට පමණි.",
 "Your login pass, the books on your bookshelf and your settings are kept on this device. They are deleted when you leave the library.": "ඔබගේ පිවිසුම් තොරතුරු, පොත් රාක්කයේ පොත් සහ සැකසුම් මෙම උපාංගයේ තබා ඇත. ඔබ පුස්තකාලයෙන් ඉවත් වූ විට ඒවා මැකේ.",
-"Contact us by email": "විද්‍යුත් තැපෑලෙන් අප අමතන්න",
 "If a book won’t open, connect to the internet and tap it again.": "පොත විවෘත නොවන්නේ නම්, අන්තර්ජාලයට සම්බන්ධ වී නැවත තට්ටු කරන්න.",
 "If the screen looks very small, like a computer screen: in Chrome, open the menu (⋮) and turn off “Desktop site”.": "තිරය පරිගණක තිරයක් මෙන් ඉතා කුඩාව පෙනේ නම්: Chrome හි මෙනුව (⋮) විවෘත කර “ඩෙස්ක්ටොප් අඩවිය” අක්‍රිය කරන්න.",
 "If you cannot log in, check the email address you registered.": "ඇතුළු විය නොහැකි නම්, ඔබ ලියාපදිංචි කළ විද්‍යුත් තැපැල් ලිපිනය පරීක්ෂා කරන්න.",
@@ -375,6 +371,7 @@
 "Your member information (name, email address, etc.) will be deleted.": "ඔබගේ සාමාජික තොරතුරු (නම, විද්‍යුත් තැපැල් ලිපිනය ආදිය) මකා දැමේ.",
 "You have left the library. Thank you for using OurDAISY.": "ඔබ පුස්තකාලයෙන් ඉවත් විය. OurDAISY භාවිත කළාට ස්තූතියි.",
 "Please log in first.": "කරුණාකර පළමුව ඇතුළු වන්න.",
-"This library is already on your home screen.": "මෙම පුස්තකාලය දැනටමත් ඔබගේ මුල් තිරයේ ඇත."
+"This library is already on your home screen.": "මෙම පුස්තකාලය දැනටමත් ඔබගේ මුල් තිරයේ ඇත.",
+"Help": "උදව්"
 }
 }

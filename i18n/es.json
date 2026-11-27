@@ -2,7 +2,7 @@
 "_meta": {
 "lang": "es",
 "reviewed": false,
-"strings": 371
+"strings": 368
 },
 "t": {
 "+ Easy Japanese": "+ Japonés fácil",
@@ -304,7 +304,6 @@
 "Download and read in an app": "Descargar y leer en una aplicación",
 "Feedback and book requests": "Opiniones y pedidos de libros",
 "For parents, teachers and supporters": "Para padres, maestros y personas de apoyo",
-"Help and contact": "Ayuda y contacto",
 "How to read": "Cómo leer",
 "Leave the library": "Darse de baja de la biblioteca",
 "Library rules": "Reglas de la biblioteca",
@@ -343,10 +342,8 @@
 "How we use it": "Cómo la usamos",
 "In reports, we use only numbers, so no one can be identified.": "En los informes usamos solo números, para que nadie pueda ser identificado.",
 "Information we collect": "Información que recopilamos",
-"Leaving and requests": "Baja y solicitudes",
 "On this device": "En este dispositivo",
 "To let you log in, to send library news by email, to improve the library, and to report our work.": "Para que puedas iniciar sesión, enviarte noticias de la biblioteca por correo, mejorar la biblioteca e informar sobre nuestro trabajo.",
-"To see, correct or delete your information, please email us.": "Para ver, corregir o borrar tu información, escríbenos por correo electrónico.",
 "We may use outside tools, such as AI, for office work. Even then, we use your information only for these purposes.": "Podemos usar herramientas externas, como la IA, para el trabajo de oficina. Aun así, usamos tu información solo para estos fines.",
 "We never give your information to others, except when the law requires it.": "Nunca damos tu información a otros, salvo cuando la ley lo exige.",
 "When you read: which books and pages you read, and your device type, with a member code (never your name or email).": "Cuando lees: qué libros y páginas lees y el tipo de dispositivo, con un código de socio (nunca tu nombre ni tu correo).",
@@ -355,7 +352,6 @@
 "You can leave the library at any time from this menu. Your member information will then be deleted.": "Puedes darte de baja cuando quieras desde este menú. Entonces se borrará tu información de socio.",
 "Your information is stored on Google services. Only EFA Japan staff in charge can see it.": "Tu información se guarda en servicios de Google. Solo el personal encargado de EFA Japan puede verla.",
 "Your login pass, the books on your bookshelf and your settings are kept on this device. They are deleted when you leave the library.": "Tu acceso, los libros de tu estante y tus ajustes se guardan en este dispositivo. Se borran cuando te das de baja de la biblioteca.",
-"Contact us by email": "Escríbenos por correo electrónico",
 "If a book won’t open, connect to the internet and tap it again.": "Si un libro no se abre, conéctate a internet y tócalo otra vez.",
 "If the screen looks very small, like a computer screen: in Chrome, open the menu (⋮) and turn off “Desktop site”.": "Si la pantalla se ve muy pequeña, como la de una computadora: en Chrome, abre el menú (⋮) y desactiva “Sitio de escritorio”.",
 "If you cannot log in, check the email address you registered.": "Si no puedes iniciar sesión, revisa el correo con el que te registraste.",
@@ -375,6 +371,7 @@
 "Your member information (name, email address, etc.) will be deleted.": "Se borrará tu información de socio (nombre, correo electrónico, etc.).",
 "You have left the library. Thank you for using OurDAISY.": "Te has dado de baja de la biblioteca. Gracias por usar OurDAISY.",
 "Please log in first.": "Primero inicia sesión.",
-"This library is already on your home screen.": "Esta biblioteca ya está en tu pantalla de inicio."
+"This library is already on your home screen.": "Esta biblioteca ya está en tu pantalla de inicio.",
+"Help": "Ayuda"
 }
 }

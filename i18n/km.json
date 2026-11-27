@@ -2,7 +2,7 @@
 "_meta": {
 "lang": "km",
 "reviewed": false,
-"strings": 371
+"strings": 368
 },
 "t": {
 "+ Easy Japanese": "+ ភាសាជប៉ុនងាយៗ",
@@ -304,7 +304,6 @@
 "Download and read in an app": "ទាញយក ហើយអានក្នុងកម្មវិធី",
 "Feedback and book requests": "មតិយោបល់ និងការស្នើសុំសៀវភៅ",
 "For parents, teachers and supporters": "សម្រាប់ឪពុកម្ដាយ គ្រូ និងអ្នកគាំទ្រ",
-"Help and contact": "ជំនួយ និងទំនាក់ទំនង",
 "How to read": "របៀបអាន",
 "Leave the library": "ចាកចេញពីបណ្ណាល័យ",
 "Library rules": "ច្បាប់បណ្ណាល័យ",
@@ -343,10 +342,8 @@
 "How we use it": "របៀបប្រើប្រាស់",
 "In reports, we use only numbers, so no one can be identified.": "ក្នុងរបាយការណ៍ យើងប្រើតែលេខប៉ុណ្ណោះ ដូច្នេះគ្មាននរណាត្រូវបានស្គាល់អត្តសញ្ញាណទេ។",
 "Information we collect": "ព័ត៌មានដែលយើងប្រមូល",
-"Leaving and requests": "ការចាកចេញ និងការស្នើសុំ",
 "On this device": "នៅលើឧបករណ៍នេះ",
 "To let you log in, to send library news by email, to improve the library, and to report our work.": "ដើម្បីឱ្យអ្នកចូលប្រើ ផ្ញើព័ត៌មានបណ្ណាល័យតាមអ៊ីមែល កែលម្អបណ្ណាល័យ និងរាយការណ៍ពីការងាររបស់យើង។",
-"To see, correct or delete your information, please email us.": "ដើម្បីមើល កែតម្រូវ ឬលុបព័ត៌មានរបស់អ្នក សូមផ្ញើអ៊ីមែលមកយើង។",
 "We may use outside tools, such as AI, for office work. Even then, we use your information only for these purposes.": "យើងអាចប្រើឧបករណ៍ខាងក្រៅ ដូចជា AI សម្រាប់ការងារការិយាល័យ។ ទោះយ៉ាងណា យើងប្រើព័ត៌មានរបស់អ្នកសម្រាប់គោលបំណងទាំងនេះតែប៉ុណ្ណោះ។",
 "We never give your information to others, except when the law requires it.": "យើងមិនដែលផ្ដល់ព័ត៌មានរបស់អ្នកទៅអ្នកដទៃទេ លើកលែងតែច្បាប់តម្រូវ។",
 "When you read: which books and pages you read, and your device type, with a member code (never your name or email).": "ពេលអាន៖ សៀវភៅ និងទំព័រដែលអ្នកបានអាន និងប្រភេទឧបករណ៍ ជាមួយលេខកូដសមាជិក (មិនកត់ឈ្មោះ ឬអ៊ីមែលទេ)។",
@@ -355,7 +352,6 @@
 "You can leave the library at any time from this menu. Your member information will then be deleted.": "អ្នកអាចចាកចេញពីបណ្ណាល័យបានគ្រប់ពេល ពីម៉ឺនុយនេះ។ បន្ទាប់មក ព័ត៌មានសមាជិករបស់អ្នកនឹងត្រូវលុប។",
 "Your information is stored on Google services. Only EFA Japan staff in charge can see it.": "ព័ត៌មានរបស់អ្នកត្រូវបានរក្សាទុកក្នុងសេវាកម្ម Google។ មានតែបុគ្គលិកទទួលបន្ទុករបស់ EFA Japan ប៉ុណ្ណោះដែលអាចមើលបាន។",
 "Your login pass, the books on your bookshelf and your settings are kept on this device. They are deleted when you leave the library.": "ព័ត៌មានចូលប្រើ សៀវភៅនៅលើធ្នើ និងការកំណត់ ត្រូវបានរក្សាទុកនៅលើឧបករណ៍នេះ។ វានឹងត្រូវលុបនៅពេលអ្នកចាកចេញពីបណ្ណាល័យ។",
-"Contact us by email": "ទាក់ទងយើងតាមអ៊ីមែល",
 "If a book won’t open, connect to the internet and tap it again.": "បើសៀវភៅមិនបើក សូមភ្ជាប់អ៊ីនធឺណិត ហើយចុចម្ដងទៀត។",
 "If the screen looks very small, like a computer screen: in Chrome, open the menu (⋮) and turn off “Desktop site”.": "បើអេក្រង់មើលទៅតូចពេក ដូចអេក្រង់កុំព្យូទ័រ៖ នៅក្នុង Chrome សូមបើកម៉ឺនុយ (⋮) ហើយបិទ “គេហទំព័រកុំព្យូទ័រ”។",
 "If you cannot log in, check the email address you registered.": "បើចូលមិនបាន សូមពិនិត្យអ៊ីមែលដែលអ្នកបានចុះឈ្មោះ។",
@@ -375,6 +371,7 @@
 "Your member information (name, email address, etc.) will be deleted.": "ព័ត៌មានសមាជិករបស់អ្នក (ឈ្មោះ អ៊ីមែល ។ល។) នឹងត្រូវលុប។",
 "You have left the library. Thank you for using OurDAISY.": "អ្នកបានចាកចេញពីបណ្ណាល័យហើយ។ សូមអរគុណដែលបានប្រើ OurDAISY។",
 "Please log in first.": "សូមចូលជាមុនសិន។",
-"This library is already on your home screen.": "បណ្ណាល័យនេះមាននៅលើអេក្រង់ដើមរួចហើយ។"
+"This library is already on your home screen.": "បណ្ណាល័យនេះមាននៅលើអេក្រង់ដើមរួចហើយ។",
+"Help": "ជំនួយ"
 }
 }

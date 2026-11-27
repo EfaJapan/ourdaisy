@@ -2,7 +2,7 @@
 "_meta": {
 "lang": "my",
 "reviewed": false,
-"strings": 371
+"strings": 368
 },
 "t": {
 "+ Easy Japanese": "+ လွယ်ကူသော ဂျပန်ဘာသာ",
@@ -304,7 +304,6 @@
 "Download and read in an app": "ဒေါင်းလုဒ်လုပ်ပြီး အက်ပ်ဖြင့် ဖတ်ရန်",
 "Feedback and book requests": "အကြံပြုချက်နှင့် စာအုပ်တောင်းဆိုမှု",
 "For parents, teachers and supporters": "မိဘများ၊ ဆရာများနှင့် ကူညီပံ့ပိုးသူများအတွက်",
-"Help and contact": "အကူအညီနှင့် ဆက်သွယ်ရန်",
 "How to read": "ဖတ်နည်း",
 "Leave the library": "စာကြည့်တိုက်မှ နုတ်ထွက်ရန်",
 "Library rules": "စာကြည့်တိုက် စည်းကမ်းများ",
@@ -343,10 +342,8 @@
 "How we use it": "အသုံးပြုပုံ",
 "In reports, we use only numbers, so no one can be identified.": "အစီရင်ခံစာများတွင် ကိန်းဂဏန်းများကိုသာ သုံးသဖြင့် မည်သူမည်ဝါဖြစ်ကြောင်း မသိနိုင်ပါ။",
 "Information we collect": "ကျွန်ုပ်တို့ စုဆောင်းသော အချက်အလက်",
-"Leaving and requests": "နုတ်ထွက်ခြင်းနှင့် တောင်းဆိုမှုများ",
 "On this device": "ဤစက်ပစ္စည်းပေါ်တွင်",
 "To let you log in, to send library news by email, to improve the library, and to report our work.": "အကောင့်ဝင်ရန်၊ စာကြည့်တိုက် သတင်းများကို အီးမေးလ်ဖြင့် ပို့ရန်၊ စာကြည့်တိုက်ကို တိုးတက်စေရန်နှင့် ကျွန်ုပ်တို့၏ လုပ်ငန်းကို အစီရင်ခံရန်။",
-"To see, correct or delete your information, please email us.": "သင့်အချက်အလက်ကို ကြည့်ရန်၊ ပြင်ရန် သို့မဟုတ် ဖျက်ရန် ကျွန်ုပ်တို့ထံ အီးမေးလ် ပို့ပါ။",
 "We may use outside tools, such as AI, for office work. Even then, we use your information only for these purposes.": "ရုံးလုပ်ငန်းများအတွက် AI ကဲ့သို့ ပြင်ပကိရိယာများကို သုံးနိုင်သည်။ ထိုအခါတွင်လည်း သင့်အချက်အလက်ကို ဤရည်ရွယ်ချက်များအတွက်သာ သုံးသည်။",
 "We never give your information to others, except when the law requires it.": "ဥပဒေအရ တောင်းဆိုသည့်အခါမှလွဲ၍ သင့်အချက်အလက်ကို အခြားသူများထံ ဘယ်တော့မှ မပေးပါ။",
 "When you read: which books and pages you read, and your device type, with a member code (never your name or email).": "ဖတ်သည့်အခါ- ဖတ်ခဲ့သော စာအုပ်နှင့် စာမျက်နှာများ၊ စက်ပစ္စည်း အမျိုးအစားကို အသင်းဝင်ကုဒ်ဖြင့် မှတ်သည် (အမည် သို့မဟုတ် အီးမေးလ် မမှတ်ပါ)။",
@@ -355,7 +352,6 @@
 "You can leave the library at any time from this menu. Your member information will then be deleted.": "ဤမီနူးမှ စာကြည့်တိုက်မှ အချိန်မရွေး နုတ်ထွက်နိုင်သည်။ ထို့နောက် သင့်အသင်းဝင် အချက်အလက်ကို ဖျက်ပါမည်။",
 "Your information is stored on Google services. Only EFA Japan staff in charge can see it.": "သင့်အချက်အလက်ကို Google ဝန်ဆောင်မှုတွင် သိမ်းထားသည်။ တာဝန်ရှိသော EFA Japan ဝန်ထမ်းများသာ ကြည့်နိုင်သည်။",
 "Your login pass, the books on your bookshelf and your settings are kept on this device. They are deleted when you leave the library.": "အကောင့်ဝင်မှု မှတ်တမ်း၊ စာအုပ်စင်ရှိ စာအုပ်များနှင့် ဆက်တင်များကို ဤစက်တွင် သိမ်းထားသည်။ စာကြည့်တိုက်မှ နုတ်ထွက်သည့်အခါ ဖျက်ပစ်မည်။",
-"Contact us by email": "အီးမေးလ်ဖြင့် ဆက်သွယ်ရန်",
 "If a book won’t open, connect to the internet and tap it again.": "စာအုပ် မဖွင့်နိုင်ပါက အင်တာနက်နှင့် ချိတ်ဆက်ပြီး ထပ်နှိပ်ပါ။",
 "If the screen looks very small, like a computer screen: in Chrome, open the menu (⋮) and turn off “Desktop site”.": "မျက်နှာပြင်က ကွန်ပျူတာ မျက်နှာပြင်ကဲ့သို့ အလွန်သေးနေပါက- Chrome တွင် မီနူး (⋮) ကိုဖွင့်ပြီး “Desktop site” ကို ပိတ်ပါ။",
 "If you cannot log in, check the email address you registered.": "အကောင့်ဝင်၍ မရပါက မှတ်ပုံတင်ခဲ့သော အီးမေးလ်လိပ်စာကို စစ်ဆေးပါ။",
@@ -375,6 +371,7 @@
 "Your member information (name, email address, etc.) will be deleted.": "သင့်အသင်းဝင် အချက်အလက် (အမည်၊ အီးမေးလ်လိပ်စာ စသည်) ကို ဖျက်ပါမည်။",
 "You have left the library. Thank you for using OurDAISY.": "စာကြည့်တိုက်မှ နုတ်ထွက်ပြီးပါပြီ။ OurDAISY ကို အသုံးပြုခဲ့သည့်အတွက် ကျေးဇူးတင်ပါသည်။",
 "Please log in first.": "ကျေးဇူးပြု၍ အရင် အကောင့်ဝင်ပါ။",
-"This library is already on your home screen.": "ဤစာကြည့်တိုက်သည် ပင်မမျက်နှာပြင်တွင် ရှိပြီးဖြစ်သည်။"
+"This library is already on your home screen.": "ဤစာကြည့်တိုက်သည် ပင်မမျက်နှာပြင်တွင် ရှိပြီးဖြစ်သည်။",
+"Help": "အကူအညီ"
 }
 }

@@ -2,7 +2,7 @@
 "_meta": {
 "lang": "id",
 "reviewed": false,
-"strings": 371
+"strings": 368
 },
 "t": {
 "+ Easy Japanese": "+ Bahasa Jepang mudah",
@@ -304,7 +304,6 @@
 "Download and read in an app": "Unduh dan baca di aplikasi",
 "Feedback and book requests": "Masukan dan permintaan buku",
 "For parents, teachers and supporters": "Untuk orang tua, guru, dan pendamping",
-"Help and contact": "Bantuan dan kontak",
 "How to read": "Cara membaca",
 "Leave the library": "Keluar dari perpustakaan",
 "Library rules": "Aturan perpustakaan",
@@ -343,10 +342,8 @@
 "How we use it": "Cara kami menggunakannya",
 "In reports, we use only numbers, so no one can be identified.": "Dalam laporan, kami hanya memakai angka sehingga tidak ada yang dapat dikenali.",
 "Information we collect": "Informasi yang kami kumpulkan",
-"Leaving and requests": "Keluar dan permintaan",
 "On this device": "Di perangkat ini",
 "To let you log in, to send library news by email, to improve the library, and to report our work.": "Agar Anda dapat masuk, untuk mengirim kabar perpustakaan lewat email, memperbaiki perpustakaan, dan melaporkan kegiatan kami.",
-"To see, correct or delete your information, please email us.": "Untuk melihat, memperbaiki, atau menghapus informasi Anda, silakan kirim email kepada kami.",
 "We may use outside tools, such as AI, for office work. Even then, we use your information only for these purposes.": "Kami dapat memakai alat dari luar, seperti AI, untuk pekerjaan kantor. Meski begitu, informasi Anda hanya dipakai untuk tujuan ini.",
 "We never give your information to others, except when the law requires it.": "Kami tidak pernah memberikan informasi Anda kepada pihak lain, kecuali jika diwajibkan oleh hukum.",
 "When you read: which books and pages you read, and your device type, with a member code (never your name or email).": "Saat membaca: buku dan halaman yang Anda baca serta jenis perangkat, dengan kode anggota (tidak pernah nama atau email Anda).",
@@ -355,7 +352,6 @@
 "You can leave the library at any time from this menu. Your member information will then be deleted.": "Anda dapat keluar dari perpustakaan kapan saja dari menu ini. Informasi keanggotaan Anda lalu akan dihapus.",
 "Your information is stored on Google services. Only EFA Japan staff in charge can see it.": "Informasi Anda disimpan di layanan Google. Hanya staf EFA Japan yang bertugas yang dapat melihatnya.",
 "Your login pass, the books on your bookshelf and your settings are kept on this device. They are deleted when you leave the library.": "Data masuk, buku di rak buku, dan pengaturan Anda disimpan di perangkat ini. Semua itu dihapus saat Anda keluar dari perpustakaan.",
-"Contact us by email": "Hubungi kami lewat email",
 "If a book won’t open, connect to the internet and tap it again.": "Jika buku tidak terbuka, sambungkan ke internet lalu ketuk lagi.",
 "If the screen looks very small, like a computer screen: in Chrome, open the menu (⋮) and turn off “Desktop site”.": "Jika layar terlihat sangat kecil seperti layar komputer: di Chrome, buka menu (⋮) dan matikan “Situs desktop”.",
 "If you cannot log in, check the email address you registered.": "Jika tidak bisa masuk, periksa alamat email yang Anda daftarkan.",
@@ -375,6 +371,7 @@
 "Your member information (name, email address, etc.) will be deleted.": "Informasi keanggotaan Anda (nama, alamat email, dll.) akan dihapus.",
 "You have left the library. Thank you for using OurDAISY.": "Anda telah keluar dari perpustakaan. Terima kasih telah menggunakan OurDAISY.",
 "Please log in first.": "Silakan masuk terlebih dahulu.",
-"This library is already on your home screen.": "Perpustakaan ini sudah ada di layar utama Anda."
+"This library is already on your home screen.": "Perpustakaan ini sudah ada di layar utama Anda.",
+"Help": "Bantuan"
 }
 }

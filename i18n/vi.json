@@ -2,7 +2,7 @@
 "_meta": {
 "lang": "vi",
 "reviewed": false,
-"strings": 371
+"strings": 368
 },
 "t": {
 "+ Easy Japanese": "+ Tiếng Nhật dễ",
@@ -304,7 +304,6 @@
 "Download and read in an app": "Tải về và đọc bằng ứng dụng",
 "Feedback and book requests": "Góp ý và yêu cầu sách",
 "For parents, teachers and supporters": "Dành cho phụ huynh, giáo viên và người hỗ trợ",
-"Help and contact": "Trợ giúp và liên hệ",
 "How to read": "Cách đọc",
 "Leave the library": "Rời khỏi thư viện",
 "Library rules": "Quy định của thư viện",
@@ -343,10 +342,8 @@
 "How we use it": "Cách chúng tôi sử dụng",
 "In reports, we use only numbers, so no one can be identified.": "Trong báo cáo, chúng tôi chỉ dùng con số nên không ai bị nhận diện.",
 "Information we collect": "Thông tin chúng tôi thu thập",
-"Leaving and requests": "Rời khỏi và yêu cầu",
 "On this device": "Trên thiết bị này",
 "To let you log in, to send library news by email, to improve the library, and to report our work.": "Để bạn đăng nhập, gửi tin của thư viện qua email, cải thiện thư viện và báo cáo hoạt động của chúng tôi.",
-"To see, correct or delete your information, please email us.": "Để xem, sửa hoặc xóa thông tin của bạn, vui lòng gửi email cho chúng tôi.",
 "We may use outside tools, such as AI, for office work. Even then, we use your information only for these purposes.": "Chúng tôi có thể dùng công cụ bên ngoài như AI cho công việc văn phòng. Kể cả khi đó, thông tin của bạn chỉ được dùng cho các mục đích này.",
 "We never give your information to others, except when the law requires it.": "Chúng tôi không bao giờ đưa thông tin của bạn cho người khác, trừ khi pháp luật yêu cầu.",
 "When you read: which books and pages you read, and your device type, with a member code (never your name or email).": "Khi đọc: sách và trang bạn đã đọc, loại thiết bị, kèm mã thành viên (không bao giờ ghi tên hay email).",
@@ -355,7 +352,6 @@
 "You can leave the library at any time from this menu. Your member information will then be deleted.": "Bạn có thể rời thư viện bất cứ lúc nào từ menu này. Khi đó, thông tin thành viên của bạn sẽ bị xóa.",
 "Your information is stored on Google services. Only EFA Japan staff in charge can see it.": "Thông tin của bạn được lưu trên dịch vụ của Google. Chỉ nhân viên phụ trách của EFA Japan mới xem được.",
 "Your login pass, the books on your bookshelf and your settings are kept on this device. They are deleted when you leave the library.": "Thông tin đăng nhập, sách trên giá sách và các cài đặt được lưu trên thiết bị này. Chúng sẽ bị xóa khi bạn rời thư viện.",
-"Contact us by email": "Liên hệ với chúng tôi qua email",
 "If a book won’t open, connect to the internet and tap it again.": "Nếu sách không mở được, hãy kết nối internet rồi nhấn lại.",
 "If the screen looks very small, like a computer screen: in Chrome, open the menu (⋮) and turn off “Desktop site”.": "Nếu màn hình trông rất nhỏ như màn hình máy tính: trong Chrome, mở menu (⋮) và tắt “Trang web cho máy tính”.",
 "If you cannot log in, check the email address you registered.": "Nếu không đăng nhập được, hãy kiểm tra địa chỉ email bạn đã đăng ký.",
@@ -375,6 +371,7 @@
 "Your member information (name, email address, etc.) will be deleted.": "Thông tin thành viên của bạn (họ tên, email, v.v.) sẽ bị xóa.",
 "You have left the library. Thank you for using OurDAISY.": "Bạn đã rời thư viện. Cảm ơn bạn đã sử dụng OurDAISY.",
 "Please log in first.": "Vui lòng đăng nhập trước.",
-"This library is already on your home screen.": "Thư viện này đã có trên màn hình chính."
+"This library is already on your home screen.": "Thư viện này đã có trên màn hình chính.",
+"Help": "Trợ giúp"
 }
 }

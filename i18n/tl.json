@@ -2,7 +2,7 @@
 "_meta": {
 "lang": "tl",
 "reviewed": false,
-"strings": 371
+"strings": 368
 },
 "t": {
 "+ Easy Japanese": "+ Madaling Japanese",
@@ -304,7 +304,6 @@
 "Download and read in an app": "I-download at basahin sa app",
 "Feedback and book requests": "Puna at hiling na aklat",
 "For parents, teachers and supporters": "Para sa mga magulang, guro at tagasuporta",
-"Help and contact": "Tulong at pakikipag-ugnayan",
 "How to read": "Paano magbasa",
 "Leave the library": "Umalis sa aklatan",
 "Library rules": "Mga patakaran ng aklatan",
@@ -343,10 +342,8 @@
 "How we use it": "Paano namin ito ginagamit",
 "In reports, we use only numbers, so no one can be identified.": "Sa mga ulat, mga numero lamang ang ginagamit namin, kaya walang makikilala.",
 "Information we collect": "Impormasyong kinokolekta namin",
-"Leaving and requests": "Pag-alis at mga kahilingan",
 "On this device": "Sa device na ito",
 "To let you log in, to send library news by email, to improve the library, and to report our work.": "Para makapag-log in ka, makapagpadala ng balita ng aklatan sa email, mapabuti ang aklatan, at maiulat ang aming gawain.",
-"To see, correct or delete your information, please email us.": "Para makita, maitama o mabura ang iyong impormasyon, mag-email sa amin.",
 "We may use outside tools, such as AI, for office work. Even then, we use your information only for these purposes.": "Maaari kaming gumamit ng mga panlabas na tool, gaya ng AI, sa gawaing pang-opisina. Kahit noon, ginagamit lang namin ang iyong impormasyon para sa mga layuning ito.",
 "We never give your information to others, except when the law requires it.": "Hindi namin ibinibigay kailanman ang iyong impormasyon sa iba, maliban kung hinihingi ng batas.",
 "When you read: which books and pages you read, and your device type, with a member code (never your name or email).": "Kapag nagbabasa: kung aling mga aklat at pahina ang binasa mo, at ang uri ng device, gamit ang member code (hindi kailanman ang pangalan o email mo).",
@@ -355,7 +352,6 @@
 "You can leave the library at any time from this menu. Your member information will then be deleted.": "Puwede kang umalis sa aklatan anumang oras mula sa menu na ito. Pagkatapos, buburahin ang impormasyon mo bilang miyembro.",
 "Your information is stored on Google services. Only EFA Japan staff in charge can see it.": "Nakaimbak ang iyong impormasyon sa mga serbisyo ng Google. Ang mga nakatalagang kawani lamang ng EFA Japan ang makakakita nito.",
 "Your login pass, the books on your bookshelf and your settings are kept on this device. They are deleted when you leave the library.": "Nasa device na ito ang iyong login pass, ang mga aklat sa iyong bookshelf at ang iyong mga setting. Mabubura ang mga ito kapag umalis ka sa aklatan.",
-"Contact us by email": "Makipag-ugnayan sa amin sa email",
 "If a book won’t open, connect to the internet and tap it again.": "Kung hindi bumukas ang aklat, kumonekta sa internet at pindutin ulit.",
 "If the screen looks very small, like a computer screen: in Chrome, open the menu (⋮) and turn off “Desktop site”.": "Kung napakaliit ng screen, parang screen ng computer: sa Chrome, buksan ang menu (⋮) at i-off ang “Desktop site”.",
 "If you cannot log in, check the email address you registered.": "Kung hindi ka makapag-log in, tingnan ang email address na ipinarehistro mo.",
@@ -375,6 +371,7 @@
 "Your member information (name, email address, etc.) will be deleted.": "Buburahin ang iyong impormasyon bilang miyembro (pangalan, email address, atbp.).",
 "You have left the library. Thank you for using OurDAISY.": "Umalis ka na sa aklatan. Salamat sa paggamit ng OurDAISY.",
 "Please log in first.": "Mag-log in muna.",
-"This library is already on your home screen.": "Nasa home screen mo na ang aklatang ito."
+"This library is already on your home screen.": "Nasa home screen mo na ang aklatang ito.",
+"Help": "Tulong"
 }
 }

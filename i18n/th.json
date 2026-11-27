@@ -2,7 +2,7 @@
 "_meta": {
 "lang": "th",
 "reviewed": false,
-"strings": 371
+"strings": 368
 },
 "t": {
 "+ Easy Japanese": "+ ภาษาญี่ปุ่นแบบง่าย",
@@ -304,7 +304,6 @@
 "Download and read in an app": "ดาวน์โหลดและอ่านในแอป",
 "Feedback and book requests": "ความคิดเห็นและขอหนังสือ",
 "For parents, teachers and supporters": "สำหรับผู้ปกครอง ครู และผู้สนับสนุน",
-"Help and contact": "ความช่วยเหลือและติดต่อ",
 "How to read": "วิธีอ่าน",
 "Leave the library": "ออกจากห้องสมุด",
 "Library rules": "กฎของห้องสมุด",
@@ -343,10 +342,8 @@
 "How we use it": "วิธีใช้งาน",
 "In reports, we use only numbers, so no one can be identified.": "ในรายงาน เราใช้เพียงตัวเลข จึงไม่สามารถระบุตัวบุคคลได้",
 "Information we collect": "ข้อมูลที่เราเก็บ",
-"Leaving and requests": "การออกและคำขอ",
 "On this device": "บนอุปกรณ์นี้",
 "To let you log in, to send library news by email, to improve the library, and to report our work.": "เพื่อให้คุณเข้าสู่ระบบ ส่งข่าวห้องสมุดทางอีเมล ปรับปรุงห้องสมุด และรายงานการทำงานของเรา",
-"To see, correct or delete your information, please email us.": "หากต้องการดู แก้ไข หรือลบข้อมูลของคุณ โปรดส่งอีเมลถึงเรา",
 "We may use outside tools, such as AI, for office work. Even then, we use your information only for these purposes.": "เราอาจใช้เครื่องมือภายนอก เช่น AI ในงานสำนักงาน แต่ถึงอย่างนั้น เราก็ใช้ข้อมูลของคุณเพื่อวัตถุประสงค์เหล่านี้เท่านั้น",
 "We never give your information to others, except when the law requires it.": "เราจะไม่ให้ข้อมูลของคุณแก่ผู้อื่น เว้นแต่กฎหมายกำหนด",
 "When you read: which books and pages you read, and your device type, with a member code (never your name or email).": "เมื่ออ่าน: หนังสือและหน้าที่อ่าน และประเภทอุปกรณ์ โดยใช้รหัสสมาชิก (ไม่บันทึกชื่อหรืออีเมล)",
@@ -355,7 +352,6 @@
 "You can leave the library at any time from this menu. Your member information will then be deleted.": "คุณออกจากห้องสมุดได้ทุกเมื่อจากเมนูนี้ แล้วข้อมูลสมาชิกของคุณจะถูกลบ",
 "Your information is stored on Google services. Only EFA Japan staff in charge can see it.": "ข้อมูลของคุณเก็บไว้ในบริการของ Google มีเพียงเจ้าหน้าที่ผู้รับผิดชอบของ EFA Japan เท่านั้นที่ดูได้",
 "Your login pass, the books on your bookshelf and your settings are kept on this device. They are deleted when you leave the library.": "ข้อมูลเข้าสู่ระบบ หนังสือในชั้นหนังสือ และการตั้งค่า เก็บไว้บนอุปกรณ์นี้ และจะถูกลบเมื่อคุณออกจากห้องสมุด",
-"Contact us by email": "ติดต่อเราทางอีเมล",
 "If a book won’t open, connect to the internet and tap it again.": "หากหนังสือเปิดไม่ได้ ให้เชื่อมต่ออินเทอร์เน็ตแล้วแตะอีกครั้ง",
 "If the screen looks very small, like a computer screen: in Chrome, open the menu (⋮) and turn off “Desktop site”.": "หากหน้าจอดูเล็กมากเหมือนหน้าจอคอมพิวเตอร์: ใน Chrome ให้เปิดเมนู (⋮) แล้วปิด “เว็บไซต์เวอร์ชันเดสก์ท็อป”",
 "If you cannot log in, check the email address you registered.": "หากเข้าสู่ระบบไม่ได้ ให้ตรวจสอบอีเมลที่ลงทะเบียนไว้",
@@ -375,6 +371,7 @@
 "Your member information (name, email address, etc.) will be deleted.": "ข้อมูลสมาชิกของคุณ (ชื่อ อีเมล ฯลฯ) จะถูกลบ",
 "You have left the library. Thank you for using OurDAISY.": "คุณออกจากห้องสมุดแล้ว ขอบคุณที่ใช้ OurDAISY",
 "Please log in first.": "โปรดเข้าสู่ระบบก่อน",
-"This library is already on your home screen.": "ห้องสมุดนี้อยู่บนหน้าจอหลักแล้ว"
+"This library is already on your home screen.": "ห้องสมุดนี้อยู่บนหน้าจอหลักแล้ว",
+"Help": "ความช่วยเหลือ"
 }
 }
