@@ -5550,6 +5550,13 @@ function odGoLogin() {
 .odm-lb .en{display:block;font-size:13px;font-weight:600;color:#546E7A;line-height:1.3}
 .odm-go{color:#0065A4;font-size:16px}
 .odm-item.danger .odm-lb{color:#B3261E}
+.odm-donate{display:flex;align-items:center;gap:12px;margin:0 0 14px;padding:14px 14px;border-radius:20px;background:linear-gradient(135deg,#F39800,#E8590C);color:#fff!important;text-decoration:none;box-shadow:0 4px 14px rgba(224,124,0,.35);min-height:72px}
+.odm-donate:hover,.odm-donate:focus-visible{outline:3px solid #004070;outline-offset:2px}
+.odm-donate-ic{flex:0 0 48px;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:26px}
+.odm-donate-t{flex:1;min-width:0;font-size:18px;font-weight:800;line-height:1.35}
+.odm-donate-t .en{display:block;font-size:13px;font-weight:700;color:#fff!important;opacity:.95}
+.odm-donate-t small{display:block;margin-top:4px;font-size:13px;font-weight:600;line-height:1.45}
+.odm-donate .odm-go{color:#fff}
 .odm-page h4{font-size:17px;font-weight:800;color:#004070;margin:18px 0 6px;line-height:1.4}
 .odm-page h4 .en{display:block;font-size:13px;font-weight:700;color:#546E7A}
 .odm-page p,.odm-page li{font-size:16px;line-height:1.75;margin:0 0 4px}
@@ -5646,7 +5653,7 @@ function odGoLogin() {
       ['about', '🏠', 'OurDAISY とは', 'About OurDAISY'],
       ['rules', '📜', R('図書館', 'としょかん') + 'の ルール', 'Library rules'],
       ['privacy', '🔒', R('個人情報', 'こじんじょうほう') + 'の ' + R('取', 'と') + 'り' + R('扱', 'あつか') + 'い', 'Privacy'],
-      ['help', '❓', 'こまったとき・お' + R('問', 'と') + 'い' + R('合', 'あ') + 'わせ', 'Help and contact']
+      ['help', '❓', 'こまったとき', 'Help']
     ] },
     { c: 's3', skip: true, t: '🤝 ' + R('団体', 'だんたい') + '・エファジャパン', en: 'Organizations and EFA Japan', items: [
       ['org', '🏫', '学校・自治体・図書館・企業などの方へ', 'For schools, local governments, libraries and companies'],
@@ -5658,6 +5665,15 @@ function odGoLogin() {
       ['leave', '👋', R('退会', 'たいかい') + 'する', 'Leave the library', 'danger']
     ] }
   ];
+
+  // ── 寄付（日本語と英語だけ。目立つように、メニューの一覧の中ほどに置く） ──
+  var DONATE = 'https://www.efa-japan.org/partner/join/#once:~:text=%E7%99%BB%E9%8C%B2%E3%81%99%E3%82%8B-,%E4%BB%8A%E5%9B%9E%E3%81%AE%E3%81%BF%E3%81%AE%E3%81%94%E5%AF%84%E4%BB%98,-%E3%82%A8%E3%83%95%E3%82%A1%E3%81%AE%E6%B4%BB%E5%8B%95';
+  var DONATE_CARD = function () {
+    return '<a class="odm-donate" data-od-skip href="' + DONATE + '" target="_blank" rel="noopener">' +
+      '<span class="odm-donate-ic" aria-hidden="true">💝</span><span class="odm-donate-t">寄付で応援する<span class="en">Donate to support OurDAISY</span>' +
+      '<small>OurDAISY の本づくりと、子どもたちの学びを支えてください<span class="en">Help us make more books for children</span></small></span>' +
+      '<span class="odm-go" aria-hidden="true">▶</span></a>';
+  };
 
   // ── それぞれのページ ──
   var PAGES = {
@@ -5675,7 +5691,7 @@ function odGoLogin() {
         ja(R('本', 'ほん') + 'の「📥 ' + R('受', 'う') + 'け' + R('取', 'と') + 'る」を おすと、ファイルを ' + R('保存', 'ほぞん') + 'できます。', 'Tap “📥 Download” on a book to save the file.') +
         ja('おすすめの アプリ（' + R('無料', 'むりょう') + '）', 'Free reader apps we recommend') +
         '<ul data-od-skip><li>Android：Colibrio Reader</li><li>iPhone・iPad：EasyReader</li><li>Windows：Thorium Reader</li></ul>' +
-        '</div>' + '<a class="odm-btn" href="' + GUIDE() + '" target="_blank" rel="noopener">くわしい使い方を見る</a>';
+        '</div>' + '<button type="button" class="odm-btn" data-odm-act="guide">くわしい使い方を見る</button>';
     },
     home: function () {
       var w = window.odA2hs || {};
@@ -5748,11 +5764,9 @@ function odGoLogin() {
         '<div class="odm-card">' +
         ja('ログインの ' + R('記録', 'きろく') + '・' + R('本', 'ほん') + 'だなの ' + R('本', 'ほん') + '・' + R('設定', 'せってい') + 'は、この ' + R('端末', 'たんまつ') + 'に のこります。' + R('退会', 'たいかい') + 'すると ' + R('消', 'き') + 'えます。', 'Your login pass, the books on your bookshelf and your settings are kept on this device. They are deleted when you leave the library.') +
         '</div>' +
-        h4(R('退会', 'たいかい') + '・お' + R('問', 'と') + 'い' + R('合', 'あ') + 'わせ', 'Leaving and requests') +
+        h4(R('退会', 'たいかい') + 'する とき', 'If you leave the library') +
         '<div class="odm-card">' +
         ja('この メニューの「' + R('退会', 'たいかい') + 'する」から、いつでも ' + R('退会', 'たいかい') + 'できます。' + R('会員', 'かいいん') + 'の ' + R('情報', 'じょうほう') + 'は ' + R('消', 'け') + 'します。', 'You can leave the library at any time from this menu. Your member information will then be deleted.') +
-        ja(R('自分', 'じぶん') + 'の ' + R('情報', 'じょうほう') + 'を ' + R('見', 'み') + 'たい・なおしたい・' + R('消', 'け') + 'したい ときは、メールで ' + R('連絡', 'れんらく') + 'して ください。', 'To see, correct or delete your information, please email us.') +
-        '<p data-od-skip><a href="mailto:' + MAIL + '">' + MAIL + '</a></p>' +
         '</div>' +
         link('gray', EFA + '/policy/', 'エファジャパンの ' + R('個人情報', 'こじんじょうほう') + R('保護', 'ほご') + R('方針', 'ほうしん'), 'EFA Japan Privacy Policy');
     },
@@ -5762,9 +5776,7 @@ function odGoLogin() {
         li('ログイン できない：' + R('登録', 'とうろく') + 'した メールアドレスを たしかめて ください。', 'If you cannot log in, check the email address you registered.') +
         li(R('画面', 'がめん') + 'が とても ' + R('小', 'ちい') + 'さく ' + R('見', 'み') + 'える：Chrome の メニュー（⋮）で「PC' + R('版', 'ばん') + 'サイト」の チェックを はずして ください。', 'If the screen looks very small, like a computer screen: in Chrome, open the menu (⋮) and turn off “Desktop site”.') +
         li('こまった ことは「かんそう」の「😕 こまった」から おしえて ください。', 'Tell us about problems with “Feedback” → “Problem”.') +
-        '</ul></div>' + btn('orange', 'data-odm-act="fb"', '💬 かんそうを おくる', 'Send feedback') +
-        '<div class="odm-card">' + ja('メールでの お' + R('問', 'と') + 'い' + R('合', 'あ') + 'わせ', 'Contact us by email') +
-        '<p data-od-skip><a href="mailto:' + MAIL + '">' + MAIL + '</a></p></div>';
+        '</ul></div>' + btn('orange', 'data-odm-act="fb"', '💬 かんそうを おくる', 'Send feedback');
     },
     org: function () {   // 団体向け（日本語と英語だけ）
       return '<div data-od-skip>' +
@@ -5791,7 +5803,8 @@ function odGoLogin() {
         '<a class="odm-btn" href="' + EFA + '/about/" target="_blank" rel="noopener">🌏 エファジャパンのホームページ<span class="en">EFA Japan website</span></a>' +
         '<div class="odm-card" style="margin-top:12px"><p>📮 メールマガジン「エファ通信」で、子どもたちの様子や活動のお知らせをお届けしています（月2回・無料）。ぜひご登録ください。</p>' +
         '<p class="en">Our newsletter “EFA Tsushin” shares news about the children and our work (twice a month, free). Please sign up!</p></div>' +
-        '<a class="odm-btn orange" href="' + EFA + '/newsletter/" target="_blank" rel="noopener">📮 メールマガジンに登録する<span class="en">Sign up for the newsletter</span></a></div>';
+        '<a class="odm-btn orange" href="' + EFA + '/newsletter/" target="_blank" rel="noopener">📮 メールマガジンに登録する<span class="en">Sign up for the newsletter</span></a>' +
+        '<a class="odm-btn red" href="' + DONATE + '" target="_blank" rel="noopener">💝 寄付で応援する<span class="en">Donate to support OurDAISY</span></a></div>';
     },
     leave: function () {
       if (!loggedIn()) return '<div class="odm-card">' + ja('ログインしてから、' + R('退会', 'たいかい') + 'できます。', 'Please log in first.') + '</div>';
@@ -5847,6 +5860,7 @@ function odGoLogin() {
           '<span class="odm-lb">' + it[2] + '<span class="en">' + it[3] + '</span></span><span class="odm-go" aria-hidden="true">▶</span></button>';
       });
       html += '</section>';
+      if (s.c === 's2') html += DONATE_CARD();
     });
     $('odm-body').innerHTML = html;
     $('odm-body').scrollTop = 0;
@@ -5946,6 +5960,7 @@ function odGoLogin() {
       var a = e.target.closest('[data-odm-act]'); if (!a) return;
       var act = a.getAttribute('data-odm-act');
       if (act === 'close') close();
+      else if (act === 'guide') { close(); if (typeof openGuide === 'function') openGuide({ preventDefault: function () {} }); else location.href = GUIDE(); }
       else if (act === 'fb') renderPage('fb');
       else if (act === 'a2hs' && window.odA2hs) { close(); window.odA2hs.prompt(); }
     });
